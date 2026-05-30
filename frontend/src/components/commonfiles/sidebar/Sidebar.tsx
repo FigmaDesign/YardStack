@@ -1,6 +1,4 @@
-import ChevronRightIcon from '@mui/icons-material/ChevronRight'
-import ChevronLeftIcon from '@mui/icons-material/ChevronLeft'
-import WorkspacePremiumIcon from '@mui/icons-material/WorkspacePremium'
+import { ChevronRight, ChevronLeft, Award } from 'lucide-react'
 import { NAV_ITEMS, type NavKey } from './data'
 
 interface SidebarProps {
@@ -40,9 +38,9 @@ export default function Sidebar({ active = 'dashboard', onNavigate }: SidebarPro
                       : 'text-white/70 hover:bg-white/5 hover:text-white'
                   }`}
                 >
-                  <Icon sx={{ fontSize: 16 }} />
+                  <Icon size={15} style={{ strokeWidth: 1.6 }} />
                   <span className="flex-1 text-left">{label}</span>
-                  {hasArrow && <ChevronRightIcon sx={{ fontSize: 14 }} className="opacity-50" />}
+                  {hasArrow && <ChevronRight size={13} className="opacity-50" />}
                 </button>
               </li>
             )
@@ -52,7 +50,7 @@ export default function Sidebar({ active = 'dashboard', onNavigate }: SidebarPro
 
       <div className="mx-3 mb-3 border border-[#22c55e]/50 rounded-xl p-3 text-center">
         <div className="flex justify-center mb-1">
-          <WorkspacePremiumIcon sx={{ fontSize: 20, color: '#f59e0b' }} />
+          <Award size={18} style={{ color: '#f59e0b', strokeWidth: 1.6 }} />
         </div>
         <p className="text-[0.6rem] font-extrabold tracking-[0.16em] text-[#f59e0b] uppercase">
           Premium Platform
@@ -63,7 +61,7 @@ export default function Sidebar({ active = 'dashboard', onNavigate }: SidebarPro
       </div>
 
       <button className="flex items-center gap-1 px-5 py-3 text-[0.72rem] text-white/50 hover:text-white/80 transition-colors border-t border-white/10">
-        <ChevronLeftIcon sx={{ fontSize: 14 }} />
+        <ChevronLeft size={13} style={{ strokeWidth: 1.6 }} />
         <span>Collapse</span>
       </button>
     </aside>

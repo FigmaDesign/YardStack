@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { Monitor, Smartphone, ChevronDown } from 'lucide-react'
-import './header.css'
+import Dropdown from '../commonfiles/Dropdown'
 
 export type Page = 'dashboard' | 'forms' | 'login' | 'createAccount'
 export type ViewMode = 'desktop' | 'mobile'
@@ -19,11 +19,12 @@ const PAGE_LABELS: Record<Page, string> = {
   createAccount: 'Create Account',
 }
 
+const PAGE_OPTIONS = (Object.keys(PAGE_LABELS) as Page[]).map(p => ({ value: p, label: PAGE_LABELS[p] }))
+
 export default function Header({ activePage, onNavigate, viewMode, onViewModeChange }: HeaderProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const mobileMenuRef = useRef<HTMLDivElement>(null)
 
-  // close mobile dropdown on outside click
   useEffect(() => {
     function handler(e: MouseEvent) {
       if (mobileMenuRef.current && !mobileMenuRef.current.contains(e.target as Node)) {
@@ -35,11 +36,10 @@ export default function Header({ activePage, onNavigate, viewMode, onViewModeCha
   }, [mobileMenuOpen])
 
   return (
-    <header className="ys-header sticky top-0 z-50 bg-white/90 backdrop-blur-xl border-b border-[#e4e7ec] shadow-[0px_1px_8px_rgba(15,31,61,0.06)]">
+    <header className="sticky top-0 z-50 bg-white/90 backdrop-blur-xl border-b border-[#e4e7ec] shadow-[0px_1px_8px_rgba(15,31,61,0.06)]">
       <div className="max-w-300 mx-auto px-4 sm:px-6">
         <div className="flex items-center justify-between h-16 gap-3">
 
-          {/* ── Left: Branding ── */}
           <div className="flex items-center gap-2 shrink-0">
             <div className="w-8 h-8 rounded-md flex items-center justify-center bg-linear-to-br from-[#15803d] to-[#166534] text-white font-bold text-[1.1rem] leading-none shadow-sm select-none">
               Y
@@ -52,7 +52,6 @@ export default function Header({ activePage, onNavigate, viewMode, onViewModeCha
             </div>
           </div>
 
-          {/* ── Center: Desktop / Mobile view toggle (hidden on small screens) ── */}
           <div className="hidden md:flex flex-1 justify-center">
             <div className="flex items-center bg-[#f0fdf4] border border-[#bbf7d0] rounded-xl p-1 gap-0.5">
               <button
@@ -80,9 +79,7 @@ export default function Header({ activePage, onNavigate, viewMode, onViewModeCha
             </div>
           </div>
 
-          {/* ── Right: Current View selector ── */}
           <div className="flex items-center gap-2 shrink-0">
-            {/* mobile: compact icon-only view toggle */}
             <div className="flex md:hidden items-center gap-1">
               {(['desktop', 'mobile'] as const).map((v) => (
                 <button
@@ -100,27 +97,19 @@ export default function Header({ activePage, onNavigate, viewMode, onViewModeCha
               ))}
             </div>
 
-            {/* Desktop: "Current View" label + select */}
             <div className="hidden sm:flex items-center gap-2">
               <span className="text-[0.68rem] font-semibold text-[#9199a8] tracking-[0.08em] uppercase select-none whitespace-nowrap">
                 Current View
               </span>
-              <div className="relative flex items-center">
-                <select
-                  title="Current View"
-                  value={activePage}
-                  onChange={(e) => onNavigate(e.target.value as Page)}
-                  className="ys-select appearance-none pl-3 pr-8 py-1.75 text-[0.78rem] font-semibold text-[#14532d] bg-white border border-[#e4e7ec] rounded-md cursor-pointer outline-none hover:border-[#16a34a] transition-colors"
-                >
-                  {(Object.keys(PAGE_LABELS) as Page[]).map((p) => (
-                    <option key={p} value={p}>{PAGE_LABELS[p]}</option>
-                  ))}
-                </select>
-                <ChevronDown size={13} className="absolute right-2 pointer-events-none text-[#9199a8]" />
-              </div>
+              <Dropdown
+                options={PAGE_OPTIONS}
+                value={activePage}
+                onChange={(v) => onNavigate(v as Page)}
+                size="sm"
+                className="w-36"
+              />
             </div>
 
-            {/* Mobile: dropdown for page switching */}
             <div className="relative sm:hidden" ref={mobileMenuRef}>
               <button
                 onClick={() => setMobileMenuOpen(v => !v)}

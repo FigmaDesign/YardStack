@@ -10,6 +10,7 @@ interface HeaderProps {
   onNavigate: (page: Page) => void
   viewMode: ViewMode
   onViewModeChange: (v: ViewMode) => void
+  showViewControls?: boolean
 }
 
 const PAGE_LABELS: Record<Page, string> = {
@@ -21,7 +22,7 @@ const PAGE_LABELS: Record<Page, string> = {
 
 const PAGE_OPTIONS = (Object.keys(PAGE_LABELS) as Page[]).map(p => ({ value: p, label: PAGE_LABELS[p] }))
 
-export default function Header({ activePage, onNavigate, viewMode, onViewModeChange }: HeaderProps) {
+export default function Header({ activePage, onNavigate, viewMode, onViewModeChange, showViewControls = true }: HeaderProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const mobileMenuRef = useRef<HTMLDivElement>(null)
 
@@ -53,7 +54,7 @@ export default function Header({ activePage, onNavigate, viewMode, onViewModeCha
           </div>
 
           <div className="hidden md:flex flex-1 justify-center">
-            <div className="flex items-center bg-[#f0fdf4] border border-[#bbf7d0] rounded-xl p-1 gap-0.5">
+            {showViewControls && <div className="flex items-center bg-[#f0fdf4] border border-[#bbf7d0] rounded-xl p-1 gap-0.5">
               <button
                 onClick={() => onViewModeChange('desktop')}
                 className={`flex items-center gap-2 px-5 py-1.75 rounded-lg text-[0.76rem] font-bold transition-all duration-200 ${
@@ -76,11 +77,11 @@ export default function Header({ activePage, onNavigate, viewMode, onViewModeCha
                 <Smartphone size={15} strokeWidth={viewMode === 'mobile' ? 2.5 : 2} />
                 Mobile View
               </button>
-            </div>
+            </div>}
           </div>
 
           <div className="flex items-center gap-2 shrink-0">
-            <div className="flex md:hidden items-center gap-1">
+            {showViewControls && <div className="flex md:hidden items-center gap-1">
               {(['desktop', 'mobile'] as const).map((v) => (
                 <button
                   key={v}
@@ -95,7 +96,7 @@ export default function Header({ activePage, onNavigate, viewMode, onViewModeCha
                   {v === 'desktop' ? <Monitor size={14} strokeWidth={viewMode === v ? 2.5 : 2} /> : <Smartphone size={14} strokeWidth={viewMode === v ? 2.5 : 2} />}
                 </button>
               ))}
-            </div>
+            </div>}
 
             <div className="hidden sm:flex items-center gap-2">
               <span className="text-[0.68rem] font-semibold text-[#9199a8] tracking-[0.08em] uppercase select-none whitespace-nowrap">

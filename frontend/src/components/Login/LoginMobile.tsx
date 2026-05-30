@@ -33,7 +33,7 @@ export default function LoginMobile({
         className="relative shrink-0"
         style={{
           height: '46%',
-          backgroundImage: "url('/src/components/commonfiles/Images/Login&create/toploginheader.png')",
+          backgroundImage: "url('/src/components/commonfiles/Images/Login&create/mobile.png')",
           backgroundSize: 'cover',
           backgroundPosition: 'center top',
         }}
@@ -54,15 +54,7 @@ export default function LoginMobile({
             <p className="text-white/80 text-[0.78rem] mt-1.5 leading-relaxed max-w-[270px]">
               Sign in to access powerful insights and manage your real estate intelligence.
             </p>
-            <div className="grid grid-cols-4 gap-2 mt-4">
-              {MOBILE_STATS.map(({ Icon, value, label }) => (
-                <div key={label} className="bg-white/10 backdrop-blur-sm rounded-2xl p-2.5 flex flex-col items-center text-center border border-white/10">
-                  <Icon sx={{ fontSize: 20, color: '#4ade80' }} />
-                  <p className="text-white font-extrabold text-[0.78rem] mt-1 leading-none">{value}</p>
-                  <p className="text-white/60 text-[0.52rem] leading-tight mt-1">{label}</p>
-                </div>
-              ))}
-            </div>
+            
           </div>
         </div>
       </div>

@@ -10,7 +10,6 @@ import AccessTimeOutlinedIcon from '@mui/icons-material/AccessTimeOutlined'
 import StarBorderOutlinedIcon from '@mui/icons-material/StarBorderOutlined'
 import LanguageIcon from '@mui/icons-material/Language'
 import Sidebar from '../commonfiles/sidebar/Sidebar'
-import CitySkyline from './CitySkyline'
 import Dropdown from '../commonfiles/Dropdown'
 import type { DropdownOption } from '../commonfiles/Dropdown'
 import { SOCIAL } from './constants'
@@ -89,8 +88,12 @@ export default function LoginDesktop({
         </div>
 
         <div className="flex-1 overflow-y-auto px-7 pt-1 pb-4">
-          <div className="mb-4">
-            <CitySkyline />
+          <div className="mb-4 -mx-7 -mt-1">
+            <img
+              src="/src/components/commonfiles/Images/Login&create/toploginheader.png"
+              alt="Yard skyline"
+              className="w-full object-cover"
+            />
           </div>
           <h2 className="text-[1.5rem] font-extrabold text-[#0f1e3d] leading-tight">
             Login to <span className="text-[#16a34a]">Yard</span>

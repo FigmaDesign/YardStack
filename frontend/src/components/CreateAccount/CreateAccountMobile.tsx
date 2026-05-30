@@ -29,15 +29,7 @@ export default function CreateAccountMobile(props: CreateAccountFormProps) {
             <p className="text-white/80 text-[0.78rem] mt-1.5 leading-relaxed max-w-[270px]">
               Create your account and unlock the power of intelligent real estate insights.
             </p>
-            <div className="grid grid-cols-4 gap-2 mt-4">
-              {STATS_MOBILE.map(({ Icon, value, label }) => (
-                <div key={label} className="bg-white/12 backdrop-blur-sm rounded-xl p-3 flex flex-col items-center text-center border border-white/15">
-                  <Icon sx={{ fontSize: 22, color: '#4ade80' }} />
-                  <p className="text-white font-extrabold text-[0.82rem] mt-1.5 leading-none">{value}</p>
-                  <p className="text-white/65 text-[0.55rem] leading-tight mt-1">{label}</p>
-                </div>
-              ))}
-            </div>
+            
           </div>
         </div>
       </div>

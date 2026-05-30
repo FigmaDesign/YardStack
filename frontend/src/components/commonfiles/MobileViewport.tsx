@@ -17,7 +17,7 @@ export default function MobileViewport({ children, isMobile = false }: MobileVie
       className="flex items-center justify-center h-full overflow-auto"
       style={{
         padding: 'clamp(12px, 3vh, 28px)',
-        backgroundColor: '#dde3ed',
+        backgroundColor: '#f0f2f5',
         boxSizing: 'border-box',
       }}
     >
@@ -28,26 +28,13 @@ export default function MobileViewport({ children, isMobile = false }: MobileVie
           flexShrink: 0,
           overflow: 'hidden',
           position: 'relative',
-          borderRadius: 48,
-          border: '10px solid #111827',
-          boxShadow: '0 32px 80px rgba(0,0,0,0.38), 0 8px 24px rgba(0,0,0,0.18)',
+          borderRadius: 12,
+          border: '1.5px solid #d1d5db',
+          boxShadow: '0 4px 24px rgba(0,0,0,0.08), 0 1px 4px rgba(0,0,0,0.04)',
           background: 'white',
           margin: '2px 0',
         }}
       >
-        <div
-          style={{
-            position: 'absolute',
-            top: 0,
-            left: '50%',
-            transform: 'translateX(-50%)',
-            width: 126,
-            height: 30,
-            background: '#111827',
-            borderRadius: '0 0 20px 20px',
-            zIndex: 50,
-          }}
-        />
         <div style={{ height: '100%', overflow: 'hidden' }}>
           {children}
         </div>

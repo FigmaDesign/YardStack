@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import { Monitor, Smartphone, ChevronDown } from 'lucide-react'
 import './header.css'
 
-export type Page = 'dashboard' | 'forms'
+export type Page = 'dashboard' | 'forms' | 'login' | 'createAccount'
 export type ViewMode = 'desktop' | 'mobile'
 
 interface HeaderProps {
@@ -15,6 +15,8 @@ interface HeaderProps {
 const PAGE_LABELS: Record<Page, string> = {
   dashboard: 'Dashboard',
   forms: 'Forms',
+  login: 'Login',
+  createAccount: 'Create Account',
 }
 
 export default function Header({ activePage, onNavigate, viewMode, onViewModeChange }: HeaderProps) {

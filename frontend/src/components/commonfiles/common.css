@@ -1,0 +1,92 @@
+/* ─── Shared button styles ─── */
+.ys-btn-primary {
+  padding: 0.6rem 1.25rem;
+  background: linear-gradient(135deg, #15803d, #166534);
+  color: #fff;
+  border: none;
+  border-radius: 0.5rem;
+  font-family: 'Outfit', system-ui, sans-serif;
+  font-size: 0.9rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: opacity 0.15s;
+}
+
+.ys-btn-primary:hover {
+  opacity: 0.9;
+}
+
+.ys-btn-secondary {
+  padding: 0.6rem 1.25rem;
+  background: transparent;
+  color: #15803d;
+  border: 1.5px solid #15803d;
+  border-radius: 0.5rem;
+  font-family: 'Outfit', system-ui, sans-serif;
+  font-size: 0.9rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+
+.ys-btn-secondary:hover {
+  background: #f0fdf4;
+}
+
+/* ─── Shared form group ─── */
+.ys-form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.ys-form-group label {
+  font-family: 'Outfit', system-ui, sans-serif;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #374151;
+}
+
+.ys-form-group input,
+.ys-form-group select,
+.ys-form-group textarea {
+  padding: 0.55rem 0.75rem;
+  border: 1px solid #d1d5db;
+  border-radius: 0.5rem;
+  font-family: 'Outfit', system-ui, sans-serif;
+  font-size: 0.9rem;
+  color: #111827;
+  outline: none;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+.ys-form-group input:focus,
+.ys-form-group select:focus,
+.ys-form-group textarea:focus {
+  border-color: #16a34a;
+  box-shadow: 0 0 0 3px rgba(22, 163, 74, 0.12);
+}
+
+/* ─── Shared card ─── */
+.ys-card {
+  background: #fff;
+  border: 1px solid #e4e7ec;
+  border-radius: 1rem;
+  box-shadow: 0 4px 24px rgba(15, 31, 61, 0.08);
+  padding: 1.5rem;
+}
+
+/* ─── Shared error / success text ─── */
+.ys-text-error {
+  font-family: 'Outfit', system-ui, sans-serif;
+  font-size: 0.78rem;
+  color: #dc2626;
+  font-weight: 500;
+}
+
+.ys-text-success {
+  font-family: 'Outfit', system-ui, sans-serif;
+  font-size: 0.78rem;
+  color: #16a34a;
+  font-weight: 500;
+}

@@ -22,8 +22,8 @@ function ShellBackground() {
     >
       <defs>
         <linearGradient id="primaryShellGrad" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stopColor="#0B3285" />
-          <stop offset="100%" stopColor="#031F6E" />
+          <stop offset="0%" stopColor="#081e4f" />
+          <stop offset="100%" stopColor="#020b24" />
         </linearGradient>
       </defs>
       <path d="M0 128 L0 28 Q0 0 28 0 L1372 0 Q1400 0 1400 28 L1400 128 Z" fill="url(#primaryShellGrad)" />
@@ -44,33 +44,34 @@ function TabCard({ tabKey, label, Icon, isActive, showDivider, onClick }: TabCar
   const [hovered, setHovered] = useState(false)
 
   const bg = isActive
-    ? 'linear-gradient(180deg, #34E27A 0%, #167DFF 100%)'
+    ? 'linear-gradient(135deg, #10b981 0%, #2563eb 100%)'
     : hovered
-      ? '#0A3D9E'
-      : '#03327F'
+      ? '#112a63'
+      : '#0a1d47'
 
   const style: CSSProperties = {
-    width: isActive ? 100 : 86,
-    height: 80,
+    width: isActive ? 84 : 76,
+    height: 64,
     flexShrink: 0,
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'center',
     gap: 4,
-    paddingLeft: 6,
-    paddingRight: 6,
-    paddingBottom: 12,
-    borderRadius: '16px 16px 4px 4px',
+    paddingLeft: 4,
+    paddingRight: 4,
+    paddingBottom: 8,
+    borderRadius: '20px 20px 0 0',
     border: 'none',
     outline: 'none',
     position: 'relative',
     cursor: 'pointer',
     WebkitTapHighlightColor: 'transparent',
     background: bg,
-    borderLeft: showDivider ? '1px solid rgba(255,255,255,0.07)' : 'none',
-    boxShadow: isActive ? '0 -4px 24px rgba(52,226,122,0.18)' : 'none',
-    transition: 'all 220ms cubic-bezier(0.4, 0, 0.2, 1)',
+    borderLeft: showDivider ? '1px solid rgba(255,255,255,0.05)' : 'none',
+    boxShadow: isActive ? '0 -4px 20px rgba(37,99,235,0.25)' : 'none',
+    transition: 'all 250ms cubic-bezier(0.4, 0, 0.2, 1)',
+    zIndex: isActive ? 10 : 1,
   }
 
   return (
@@ -85,21 +86,23 @@ function TabCard({ tabKey, label, Icon, isActive, showDivider, onClick }: TabCar
       aria-current={isActive ? 'page' : undefined}
     >
       <Icon
-        size={24}
+        size={20}
         strokeWidth={1.5}
         style={{
-          color: '#ffffff',
-          filter: isActive ? 'drop-shadow(0 0 6px rgba(52,226,122,0.5))' : 'none',
+          color: isActive ? '#ffffff' : '#cbd5e1',
+          filter: isActive ? 'drop-shadow(0 0 4px rgba(255,255,255,0.3))' : 'none',
+          transition: 'color 200ms',
         }}
       />
       <span
         style={{
-          fontSize: '0.62rem',
-          fontWeight: isActive ? 700 : 400,
-          color: isActive ? '#ffffff' : 'rgba(255,255,255,0.88)',
+          fontSize: '0.6rem',
+          fontWeight: isActive ? 700 : 500,
+          color: isActive ? '#ffffff' : '#94a3b8',
           textAlign: 'center',
-          lineHeight: 1.2,
-          maxWidth: 80,
+          lineHeight: 1.15,
+          maxWidth: 70,
+          transition: 'color 200ms',
         }}
       >
         {label}
@@ -109,10 +112,10 @@ function TabCard({ tabKey, label, Icon, isActive, showDivider, onClick }: TabCar
         <div
           style={{
             position: 'absolute',
-            bottom: 8,
+            bottom: 6,
             left: '50%',
             transform: 'translateX(-50%)',
-            width: 36,
+            width: 24,
             height: 3,
             borderRadius: 999,
             background: 'linear-gradient(90deg, #34E27A, #4AA3FF)',
@@ -132,7 +135,7 @@ interface InnerProps {
 
 function Inner({ tabs, active, onTabClick, scrollRef }: InnerProps) {
   return (
-    <div className="shrink-0 relative" style={{ height: 96 }}>
+    <div className="shrink-0 relative" style={{ height: 76 }}>
       <ShellBackground />
       <div
         ref={scrollRef}
@@ -144,8 +147,8 @@ function Inner({ tabs, active, onTabClick, scrollRef }: InnerProps) {
           overflowX: 'auto',
           scrollbarWidth: 'none',
           msOverflowStyle: 'none' as CSSProperties['msOverflowStyle'],
-          paddingLeft: 6,
-          paddingRight: 6,
+          paddingLeft: 12,
+          paddingRight: 12,
           gap: 0,
           alignItems: 'flex-end',
         }}

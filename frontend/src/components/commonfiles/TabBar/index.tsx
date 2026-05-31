@@ -32,7 +32,7 @@ export default function TabBar({ tabs, active, activeSubTab, onChange, onSubTabC
   }
 
   return (
-    <div style={{ background: '#041e5c', flexShrink: 0 }}>
+    <div style={{ background: 'transparent', flexShrink: 0 }}>
       <PrimaryTabBar
         tabs={tabs}
         active={active}

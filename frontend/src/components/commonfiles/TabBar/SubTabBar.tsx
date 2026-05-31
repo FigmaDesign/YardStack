@@ -32,17 +32,17 @@ function SubTabItem({ item, isActive, isFirst, onClick }: ItemProps) {
       onTouchEnd={() => setHovered(false)}
       style={{
         flex: '1 0 auto',
-        minWidth: 68,
+        minWidth: 64,
         height: '100%',
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
-        gap: 4,
-        padding: '0 8px 10px',
+        gap: 5,
+        padding: '0 6px 8px',
         border: 'none',
-        background: hovered && !isActive ? 'rgba(10,50,160,0.04)' : 'transparent',
-        borderLeft: !isFirst ? '1px solid rgba(20,40,100,0.08)' : 'none',
+        background: hovered && !isActive ? 'rgba(15,30,61,0.03)' : 'transparent',
+        borderLeft: !isFirst ? '1px solid #f3f4f6' : 'none',
         position: 'relative',
         cursor: 'pointer',
         WebkitTapHighlightColor: 'transparent',
@@ -51,21 +51,21 @@ function SubTabItem({ item, isActive, isFirst, onClick }: ItemProps) {
     >
       {Icon && (
         <Icon
-          size={20}
-          strokeWidth={1.75}
+          size={18}
+          strokeWidth={1.5}
           style={{
-            color: isActive ? '#0A459F' : '#1A2B55',
+            color: isActive ? '#0f1e3d' : '#6b7280',
             transition: 'color 200ms',
           }}
         />
       )}
       <span
         style={{
-          fontSize: '0.62rem',
-          fontWeight: isActive ? 700 : 400,
-          color: isActive ? '#0A459F' : '#1A2B55',
+          fontSize: '0.6rem',
+          fontWeight: isActive ? 700 : 500,
+          color: isActive ? '#0f1e3d' : '#6b7280',
           textAlign: 'center',
-          lineHeight: 1.2,
+          lineHeight: 1.1,
           whiteSpace: 'nowrap',
           transition: 'color 200ms',
         }}
@@ -77,13 +77,13 @@ function SubTabItem({ item, isActive, isFirst, onClick }: ItemProps) {
         <div
           style={{
             position: 'absolute',
-            bottom: 6,
+            bottom: 4,
             left: '50%',
             transform: 'translateX(-50%)',
-            width: 32,
+            width: 24,
             height: 3,
             borderRadius: 999,
-            background: 'linear-gradient(90deg, #34E27A, #4AA3FF)',
+            background: 'linear-gradient(90deg, #10b981, #3b82f6)',
           }}
         />
       )}
@@ -102,7 +102,7 @@ function Inner({ subTabs, active, onItemClick, scrollRef }: InnerProps) {
   if (subTabs.length === 0) return null
 
   return (
-    <div style={{ padding: '0 10px', marginTop: 8, paddingBottom: 6, flexShrink: 0 }}>
+    <div style={{ padding: '0 12px', marginTop: 12, paddingBottom: 8, flexShrink: 0 }}>
       <div
         ref={scrollRef}
         style={{
@@ -111,9 +111,9 @@ function Inner({ subTabs, active, onItemClick, scrollRef }: InnerProps) {
           scrollbarWidth: 'none',
           msOverflowStyle: 'none' as CSSProperties['msOverflowStyle'],
           background: '#ffffff',
-          borderRadius: 14,
-          boxShadow: '0 4px 14px rgba(0,0,0,0.07)',
-          height: 72,
+          borderRadius: 16,
+          boxShadow: '0 4px 20px rgba(0,0,0,0.06)',
+          height: 56,
           alignItems: 'stretch',
         }}
       >

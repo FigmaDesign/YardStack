@@ -1,4 +1,4 @@
-import { useState, useEffect, type MouseEvent, type FocusEvent } from 'react'
+import { useState, useEffect, useCallback, type MouseEvent, type FocusEvent } from 'react'
 import { createPortal } from 'react-dom'
 import { ChevronLeft, Crown } from 'lucide-react'
 import { NAV_ITEMS, type NavKey } from './data'
@@ -31,38 +31,39 @@ export default function Sidebar({ active = 'announcements', onNavigate }: Sideba
   useEffect(() => {
     setMounted(true)
     const hide = () => setTooltip(HIDDEN)
-    window.addEventListener('scroll', hide, true)
-    return () => window.removeEventListener('scroll', hide, true)
+    window.addEventListener('scroll', hide, { capture: true, passive: true })
+    return () => window.removeEventListener('scroll', hide, { capture: true })
   }, [])
 
-  const showTooltip = (
-    e: MouseEvent<HTMLElement> | FocusEvent<HTMLElement>,
-    type: 'nav' | 'premium',
-    label?: string
-  ) => {
-    if (!isCollapsed) return
-    const pos = getPos(e.currentTarget)
-    setTooltip({ type, label, x: pos.x, y: pos.y })
-  }
+  const showTooltip = useCallback(
+    (e: MouseEvent<HTMLElement> | FocusEvent<HTMLElement>, type: 'nav' | 'premium', label?: string) => {
+      if (!isCollapsed) return
+      const pos = getPos(e.currentTarget)
+      setTooltip({ type, label, x: pos.x, y: pos.y })
+    },
+    [isCollapsed]
+  )
 
-  const hideTooltip = () => setTooltip(HIDDEN)
+  const hideTooltip = useCallback(() => setTooltip(HIDDEN), [])
 
   return (
     <aside
-      className={`flex flex-col shrink-0 h-full text-white transition-all duration-500 ease-in-out relative z-[9999] shadow-[4px_0_32px_rgba(0,0,0,0.4)] bg-[linear-gradient(175deg,#1a3a6b_0%,#0f2550_30%,#0a1e42_60%,#071a38_80%,#051530_100%)] ${
+      aria-label="Main Navigation Sidebar"
+      className={`flex flex-col shrink-0 h-full text-white transition-all duration-500 ease-in-out relative z-[9999] shadow-[4px_0_32px_rgba(0,0,0,0.4)] bg-[linear-gradient(175deg,#1a3a6b_0%,#0f2550_30%,#0a1e42_60%,#071a38_80%,#051530_100%)] motion-reduce:transition-none ${
         isCollapsed ? 'w-[72px]' : 'w-60'
       }`}
     >
       <div className="flex flex-col items-center p-2 overflow-hidden shrink-0">
         <img
           src={YardLogo}
-          alt="Yard logo"
-          className={`object-contain transition-all duration-500 ease-in-out ${
+          alt="Yard Real Estate Intelligence"
+          className={`object-contain transition-all duration-500 ease-in-out motion-reduce:transition-none ${
             isCollapsed ? 'w-8 h-8' : 'w-11 h-11'
           }`}
         />
         <div
-          className={`flex flex-col items-center overflow-hidden whitespace-nowrap transition-all duration-500 ease-in-out ${
+          aria-hidden={isCollapsed}
+          className={`flex flex-col items-center overflow-hidden whitespace-nowrap transition-all duration-500 ease-in-out motion-reduce:transition-none ${
             isCollapsed ? 'h-0 opacity-0 mt-0' : 'h-9 opacity-100 mt-2.5'
           }`}
         >
@@ -72,17 +73,19 @@ export default function Sidebar({ active = 'announcements', onNavigate }: Sideba
           </p>
         </div>
       </div>
-      <div className="flex-1 overflow-y-auto overflow-x-visible pb-4 flex flex-col [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
-        
+
+      <nav
+        aria-label="Sidebar Menu"
+        className="flex-1 overflow-y-auto overflow-x-visible pb-4 flex flex-col [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
+      >
         <div
-          className={`px-6 mb-3 overflow-hidden transition-all duration-500 ease-in-out ${
+          aria-hidden="true"
+          className={`px-6 mb-3 overflow-hidden transition-all duration-500 ease-in-out motion-reduce:transition-none ${
             isCollapsed ? 'opacity-0 h-0 hidden' : 'opacity-100 h-auto block'
           }`}
-        >
-        </div>
+        />
 
-        {/* Navigation List */}
-        <ul className="list-none p-0 px-1 m-0 flex flex-col gap-0.5 flex-1">
+        <ul className="list-none p-0 px-1 m-0 flex flex-col gap-0.5 flex-1" role="list">
           {NAV_ITEMS.map(({ key, label, Icon }) => {
             const isActive = key === active
             return (
@@ -94,7 +97,8 @@ export default function Sidebar({ active = 'announcements', onNavigate }: Sideba
                   onMouseLeave={hideTooltip}
                   onBlur={hideTooltip}
                   aria-label={label}
-                  className={`w-full flex items-center py-2.5 rounded-lg text-[0.85rem] transition-all duration-200 bg-transparent border-none cursor-pointer active:scale-[0.97] active:opacity-80 ${
+                  aria-current={isActive ? 'page' : undefined}
+                  className={`w-full flex items-center py-2.5 rounded-lg text-[0.85rem] transition-all duration-200 bg-transparent border-none cursor-pointer active:scale-[0.97] active:opacity-80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#2dd4a0] focus-visible:ring-offset-2 focus-visible:ring-offset-[#0a1e42] motion-reduce:transition-none motion-reduce:transform-none ${
                     isCollapsed ? 'justify-center px-0' : 'justify-start px-3'
                   } ${
                     isActive
@@ -104,12 +108,13 @@ export default function Sidebar({ active = 'announcements', onNavigate }: Sideba
                 >
                   <Icon
                     size={isCollapsed ? 20 : 18}
-                    className={`shrink-0 transition-all duration-300 ${
+                    aria-hidden="true"
+                    className={`shrink-0 transition-all duration-300 motion-reduce:transition-none ${
                       isActive ? 'text-white stroke-2' : 'text-white/60 stroke-[1.6]'
                     }`}
                   />
                   <div
-                    className={`flex items-start overflow-hidden transition-all duration-500 ease-in-out ${
+                    className={`flex items-start overflow-hidden transition-all duration-500 ease-in-out motion-reduce:transition-none ${
                       isCollapsed ? 'w-0 opacity-0 ml-0' : 'flex-1 opacity-100 ml-3.5'
                     }`}
                   >
@@ -121,18 +126,19 @@ export default function Sidebar({ active = 'announcements', onNavigate }: Sideba
           })}
         </ul>
 
-        {/* Premium Card */}
         <div
           onMouseEnter={(e) => showTooltip(e, 'premium')}
           onFocus={(e) => showTooltip(e, 'premium')}
           onMouseLeave={hideTooltip}
           onBlur={hideTooltip}
           tabIndex={0}
-          className={`relative mx-2 mt-2 mb-4 rounded-[14px] transition-all duration-300 overflow-visible flex flex-col items-center justify-center border border-[#2dd4a0]/35 bg-[linear-gradient(160deg,#0c2248_0%,#071630_60%,#040f22_100%)] shadow-[inset_0_0_24px_rgba(45,212,160,0.1),0_4px_20px_rgba(0,0,0,0.4)] ${
-            isCollapsed ? 'p-2.5 cursor-pointer' : 'px-4 pt-5 pb-4 cursor-default'
+          role="group"
+          aria-label="Premium Platform Information"
+          className={`relative mx-2 mt-2 mb-4 rounded-[14px] transition-all duration-300 overflow-visible flex flex-col items-center justify-center border border-[#2dd4a0]/35 bg-[linear-gradient(160deg,#0c2248_0%,#071630_60%,#040f22_100%)] shadow-[inset_0_0_24px_rgba(45,212,160,0.1),0_4px_20px_rgba(0,0,0,0.4)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#2dd4a0] focus-visible:ring-offset-2 focus-visible:ring-offset-[#071a38] motion-reduce:transition-none ${
+            isCollapsed ? 'p-2.5 cursor-pointer hover:scale-[1.02]' : 'px-4 pt-5 pb-4 cursor-default'
           }`}
         >
-          <div className="absolute bottom-0 left-0 right-0 h-[52%] pointer-events-none">
+          <div className="absolute bottom-0 left-0 right-0 h-[52%] pointer-events-none" aria-hidden="true">
             <svg viewBox="0 0 100 40" preserveAspectRatio="none" className="w-full h-full">
               <defs>
                 <linearGradient id="wave-grad2" x1="0" y1="0" x2="0" y2="1">
@@ -150,15 +156,21 @@ export default function Sidebar({ active = 'announcements', onNavigate }: Sideba
             </svg>
           </div>
 
-          <div className={`flex justify-center relative z-10 transition-all duration-300 ${isCollapsed ? '' : 'mb-3'}`}>
+          <div
+            className={`flex justify-center relative z-10 transition-all duration-300 motion-reduce:transition-none ${
+              isCollapsed ? '' : 'mb-3'
+            }`}
+          >
             <Crown
               size={isCollapsed ? 20 : 30}
+              aria-hidden="true"
               className="text-[#4ade80] stroke-[1.6] drop-shadow-[0_0_12px_rgba(74,222,128,0.35)]"
             />
           </div>
 
           <div
-            className={`text-center transition-all duration-300 relative z-10 flex flex-col items-center w-full ${
+            aria-hidden={isCollapsed}
+            className={`text-center transition-all duration-300 relative z-10 flex flex-col items-center w-full motion-reduce:transition-none ${
               isCollapsed ? 'h-0 opacity-0 overflow-hidden' : 'h-auto opacity-100 mt-1'
             }`}
           >
@@ -170,22 +182,26 @@ export default function Sidebar({ active = 'announcements', onNavigate }: Sideba
             </p>
           </div>
         </div>
-      </div>
+      </nav>
 
-      {/* Collapse Button */}
       <button
-        onClick={() => setIsCollapsed(!isCollapsed)}
+        onClick={() => setIsCollapsed((prev) => !prev)}
+        aria-expanded={!isCollapsed}
+        aria-label={isCollapsed ? 'Expand Sidebar' : 'Collapse Sidebar'}
         title={isCollapsed ? 'Expand Sidebar' : 'Collapse Sidebar'}
-        className={`flex items-center py-4 text-[0.8rem] font-medium transition-colors duration-300 shrink-0 border-none border-t border-t-white/10 bg-[#050f23]/55 text-white/40 hover:text-white/80 cursor-pointer ${
+        className={`flex items-center py-4 text-[0.8rem] font-medium transition-colors duration-300 shrink-0 border-none border-t border-t-white/10 bg-[#050f23]/55 text-white/60 hover:text-white/90 hover:bg-[#050f23]/80 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#2dd4a0] focus-visible:ring-inset motion-reduce:transition-none ${
           isCollapsed ? 'justify-center px-0' : 'justify-start gap-3 px-6'
         }`}
       >
         <ChevronLeft
           size={16}
-          className={`stroke-2 transition-transform duration-500 ease-in-out ${isCollapsed ? 'rotate-180' : ''}`}
+          aria-hidden="true"
+          className={`stroke-2 transition-transform duration-500 ease-in-out motion-reduce:transition-none ${
+            isCollapsed ? 'rotate-180' : ''
+          }`}
         />
         <span
-          className={`overflow-hidden whitespace-nowrap transition-all duration-500 ease-in-out ${
+          className={`overflow-hidden whitespace-nowrap transition-all duration-500 ease-in-out motion-reduce:transition-none ${
             isCollapsed ? 'w-0 opacity-0' : 'w-auto opacity-100'
           }`}
         >
@@ -193,41 +209,51 @@ export default function Sidebar({ active = 'announcements', onNavigate }: Sideba
         </span>
       </button>
 
-      {/* Navigation Tooltip Portal */}
-      {mounted && tooltip.type === 'nav' && createPortal(
-        <div
-          className="fixed -translate-y-1/2 z-[10000] pointer-events-none flex items-center gap-0"
-          style={{ left: tooltip.x, top: tooltip.y }}
-        >
-          <div className="w-0 h-0 shrink-0 border-y-[6px] border-y-transparent border-r-[7px] border-r-[#1a3a6b]" />
-          <div className="bg-[linear-gradient(135deg,#1a3a6b_0%,#0f2550_100%)] border border-white/15 rounded-lg px-3.5 py-1.5 text-white/90 text-[13px] font-semibold whitespace-nowrap shadow-[0_4px_16px_rgba(0,0,0,0.5)]">
-            {tooltip.label}
-          </div>
-        </div>,
-        document.body
-      )}
-
-      {/* Premium Tooltip Portal */}
-      {mounted && tooltip.type === 'premium' && createPortal(
-        <div
-          className="fixed -translate-y-1/2 z-[10000] pointer-events-none flex items-center gap-0"
-          style={{ left: tooltip.x, top: tooltip.y }}
-        >
-          <div className="w-0 h-0 shrink-0 border-y-[7px] border-y-transparent border-r-[8px] border-r-[#0c2248]" />
-          <div className="bg-[linear-gradient(160deg,#0c2248_0%,#051a30_100%)] border border-[#4ade80]/30 rounded-xl px-4 py-3 min-w-[180px] shadow-[0_8px_28px_rgba(0,0,0,0.6),0_0_16px_rgba(74,222,128,0.1)]">
-            <div className="flex items-center gap-2 mb-2">
-              <Crown size={16} className="text-[#4ade80] stroke-[1.8] shrink-0" />
-              <span className="text-[#4ade80] text-[11px] font-extrabold tracking-[0.18em] uppercase drop-shadow-[0_0_8px_rgba(74,222,128,0.4)]">
-                Premium Platform
-              </span>
+      {mounted &&
+        tooltip.type === 'nav' &&
+        createPortal(
+          <div
+            role="tooltip"
+            className="fixed -translate-y-1/2 z-[10000] pointer-events-none flex items-center gap-0 animate-in fade-in duration-200"
+            style={{ left: tooltip.x, top: tooltip.y }}
+          >
+            <div
+              className="w-0 h-0 shrink-0 border-y-[6px] border-y-transparent border-r-[7px] border-r-[#1a3a6b]"
+              aria-hidden="true"
+            />
+            <div className="bg-[linear-gradient(135deg,#1a3a6b_0%,#0f2550_100%)] border border-white/15 rounded-lg px-3.5 py-1.5 text-white/90 text-[13px] font-semibold whitespace-nowrap shadow-[0_4px_16px_rgba(0,0,0,0.5)]">
+              {tooltip.label}
             </div>
-            <p className="text-white/65 text-[11.5px] leading-relaxed m-0">
-              Built for visionaries.<br />Designed for excellence.
-            </p>
-          </div>
-        </div>,
-        document.body
-      )}
+          </div>,
+          document.body
+        )}
+
+      {mounted &&
+        tooltip.type === 'premium' &&
+        createPortal(
+          <div
+            role="tooltip"
+            className="fixed -translate-y-1/2 z-[10000] pointer-events-none flex items-center gap-0 animate-in fade-in duration-200"
+            style={{ left: tooltip.x, top: tooltip.y }}
+          >
+            <div
+              className="w-0 h-0 shrink-0 border-y-[7px] border-y-transparent border-r-[8px] border-r-[#0c2248]"
+              aria-hidden="true"
+            />
+            <div className="bg-[linear-gradient(160deg,#0c2248_0%,#051a30_100%)] border border-[#4ade80]/30 rounded-xl px-4 py-3 min-w-[180px] shadow-[0_8px_28px_rgba(0,0,0,0.6),0_0_16px_rgba(74,222,128,0.1)]">
+              <div className="flex items-center gap-2 mb-2">
+                <Crown size={16} aria-hidden="true" className="text-[#4ade80] stroke-[1.8] shrink-0" />
+                <span className="text-[#4ade80] text-[11px] font-extrabold tracking-[0.18em] uppercase drop-shadow-[0_0_8px_rgba(74,222,128,0.4)]">
+                  Premium Platform
+                </span>
+              </div>
+              <p className="text-white/65 text-[11.5px] leading-relaxed m-0">
+                Built for visionaries.<br />Designed for excellence.
+              </p>
+            </div>
+          </div>,
+          document.body
+        )}
     </aside>
   )
 }

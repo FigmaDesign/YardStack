@@ -1,12 +1,18 @@
+import { type ReactNode } from 'react'
+
 interface MobileViewportProps {
-  children: React.ReactNode
+  children: ReactNode
   isMobile?: boolean
 }
 
 export default function MobileViewport({ children, isMobile = false }: MobileViewportProps) {
   if (isMobile) {
     return (
-      <div className="flex flex-col h-full w-full overflow-hidden" style={{ background: '#0d1117' }}>
+      <div 
+        role="main"
+        aria-label="Mobile Viewport"
+        className="flex flex-col h-full w-full overflow-hidden bg-[#0d1117]" 
+      >
         {children}
       </div>
     )
@@ -14,28 +20,16 @@ export default function MobileViewport({ children, isMobile = false }: MobileVie
 
   return (
     <div
-      className="flex items-center justify-center h-full overflow-auto"
-      style={{
-        padding: 'clamp(12px, 3vh, 28px)',
-        backgroundColor: '#f0f2f5',
-        boxSizing: 'border-box',
-      }}
+      role="region"
+      aria-label="Desktop Preview Environment"
+      className="flex items-center justify-center h-full overflow-auto box-border bg-[#f0f2f5] p-[clamp(12px,3vh,28px)]"
     >
       <div
-        style={{
-          aspectRatio: '9 / 19.5',
-          height: 'min(92vh, 900px)',
-          flexShrink: 0,
-          overflow: 'hidden',
-          position: 'relative',
-          borderRadius: 12,
-          border: '1.5px solid #d1d5db',
-          boxShadow: '0 4px 24px rgba(0,0,0,0.08), 0 1px 4px rgba(0,0,0,0.04)',
-          background: 'white',
-          margin: '2px 0',
-        }}
+        role="region"
+        aria-label="Mobile Device Simulator"
+        className="relative shrink-0 overflow-hidden bg-white my-[2px] rounded-xl border-[1.5px] border-[#d1d5db] shadow-[0_4px_24px_rgba(0,0,0,0.08),0_1px_4px_rgba(0,0,0,0.04)] aspect-[9/19.5] h-[min(92vh,900px)]"
       >
-        <div style={{ height: '100%', overflow: 'hidden' }}>
+        <div className="h-full w-full overflow-hidden">
           {children}
         </div>
       </div>

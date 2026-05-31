@@ -1,49 +1,56 @@
-﻿import React, { useState } from 'react'
+﻿import { useState, useCallback, type FormEvent } from 'react'
 import LoginDesktop from './LoginDesktop'
 import LoginMobile from './LoginMobile'
 
-type ViewMode = 'desktop' | 'mobile'
+export type ViewMode = 'desktop' | 'mobile'
 
-interface LoginProps {
+export interface LoginProps {
   viewMode?: ViewMode
   onLogin?: (email: string, password: string) => void
   onCreateAccountClick?: () => void
 }
 
-export default function Login({ viewMode = 'desktop', onLogin, onCreateAccountClick }: LoginProps) {
-  const [email,    setEmail]    = useState('')
+export default function Login({ 
+  viewMode = 'desktop', 
+  onLogin, 
+  onCreateAccountClick 
+}: LoginProps) {
+  const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-  const [showPwd,  setShowPwd]  = useState(false)
+  const [showPwd, setShowPwd] = useState(false)
   const [remember, setRemember] = useState(false)
   const [language, setLanguage] = useState('en')
 
-  function handleSubmit(e: React.FormEvent) {
-    e.preventDefault()
-    onLogin?.(email, password)
+  const handleSubmit = useCallback(
+    (e: FormEvent) => {
+      e.preventDefault()
+      onLogin?.(email, password)
+    },
+    [onLogin, email, password]
+  )
+
+  const formProps = {
+    email,
+    setEmail,
+    password,
+    setPassword,
+    showPwd,
+    setShowPwd,
+    remember,
+    setRemember,
+    onSubmit: handleSubmit,
+    onCreateAccountClick,
   }
 
   if (viewMode === 'mobile') {
-    return (
-      <LoginMobile
-        email={email} setEmail={setEmail}
-        password={password} setPassword={setPassword}
-        showPwd={showPwd} setShowPwd={setShowPwd}
-        remember={remember} setRemember={setRemember}
-        onSubmit={handleSubmit}
-        onCreateAccountClick={onCreateAccountClick}
-      />
-    )
+    return <LoginMobile {...formProps} />
   }
 
   return (
     <LoginDesktop
-      email={email} setEmail={setEmail}
-      password={password} setPassword={setPassword}
-      showPwd={showPwd} setShowPwd={setShowPwd}
-      remember={remember} setRemember={setRemember}
-      language={language} setLanguage={setLanguage}
-      onSubmit={handleSubmit}
-      onCreateAccountClick={onCreateAccountClick}
+      {...formProps}
+      language={language}
+      setLanguage={setLanguage}
     />
   )
 }

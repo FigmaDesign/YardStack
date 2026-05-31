@@ -1,6 +1,4 @@
-// Re-export shared types used across components
-
-export type Page = 'dashboard' | 'forms' | 'login' | 'createAccount'
+export type Page = 'dashboard'| 'login' | 'createAccount'
 export type ViewMode = 'desktop' | 'mobile'
 
 export interface User {

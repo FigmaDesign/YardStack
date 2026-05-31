@@ -1,3 +1,4 @@
+import { useCallback, useMemo, type ElementType } from 'react'
 import PrimaryTabBar, { type PrimaryTabItem } from './TabBar/PrimaryTabBar'
 import SubTabBar, { type SubTabItem } from './TabBar/SubTabBar'
 
@@ -6,7 +7,7 @@ export type { PrimaryTabItem, SubTabItem }
 export interface TabItem {
   key: string
   label: string
-  Icon: React.ElementType
+  Icon: ElementType
   subTabs?: SubTabItem[]
 }
 
@@ -18,22 +19,32 @@ interface TabBarProps {
   onSubTabChange: (sub: string) => void
 }
 
-import type React from 'react'
+export default function TabBar({
+  tabs,
+  active,
+  activeSubTab,
+  onChange,
+  onSubTabChange,
+}: TabBarProps) {
+  const activeItem = useMemo(() => tabs.find((t) => t.key === active), [tabs, active])
+  const subTabs = useMemo(() => activeItem?.subTabs ?? [], [activeItem])
 
-export default function TabBar({ tabs, active, activeSubTab, onChange, onSubTabChange }: TabBarProps) {
-  const activeItem = tabs.find(t => t.key === active)
-  const subTabs = activeItem?.subTabs ?? []
-
-  function handleMainChange(key: string) {
-    const item = tabs.find(t => t.key === key)
-    onChange(key)
-    if (item?.subTabs?.length) {
-      onSubTabChange(item.subTabs[0].label)
-    }
-  }
+  const handleMainChange = useCallback(
+    (key: string) => {
+      onChange(key)
+      const item = tabs.find((t) => t.key === key)
+      if (item?.subTabs?.length) {
+        onSubTabChange(item.subTabs[0].label)
+      }
+    },
+    [tabs, onChange, onSubTabChange]
+  )
 
   return (
-    <div style={{ background: '#041e5c', flexShrink: 0 }}>
+    <nav 
+      aria-label="Section Navigation" 
+      className="flex flex-col w-full shrink-0 bg-[#041e5c]"
+    >
       <PrimaryTabBar
         tabs={tabs}
         active={active}
@@ -44,7 +55,6 @@ export default function TabBar({ tabs, active, activeSubTab, onChange, onSubTabC
         active={activeSubTab}
         onChange={onSubTabChange}
       />
-    </div>
+    </nav>
   )
 }
-

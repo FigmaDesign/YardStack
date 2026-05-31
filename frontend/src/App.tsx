@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useCallback, useMemo } from 'react'
 import { useMediaQuery, useTheme } from '@mui/material'
 import Header from './components/Header/Header'
 import type { Page, ViewMode } from './components/Header/Header'
@@ -14,7 +14,75 @@ export default function App() {
   const [activePage, setActivePage] = useState<Page>('login')
   const [viewMode, setViewMode] = useState<ViewMode>('desktop')
 
-  const showViewControls = activePage === 'login' || activePage === 'createAccount' || activePage === 'dashboard'
+  const showViewControls = useMemo(() => {
+    return ['login', 'createAccount', 'dashboard'].includes(activePage)
+  }, [activePage])
+
+  const handleLogin = useCallback(() => setActivePage('dashboard'), [])
+  const handleCreateAccountClick = useCallback(() => setActivePage('createAccount'), [])
+  const handleCreateAccount = useCallback(() => setActivePage('dashboard'), [])
+  const handleLoginClick = useCallback(() => setActivePage('login'), [])
+
+  const renderPageContent = () => {
+    if (activePage === 'forms') {
+      return (
+        <section 
+          aria-label="Forms Placeholder"
+          className="flex items-center justify-center h-full bg-[#f5f6f8]"
+        >
+          <div className="text-center space-y-3">
+            <p 
+              aria-hidden="true" 
+              className="text-xs font-semibold uppercase tracking-[0.12em] text-[#9199a8]"
+            >
+              Current Page
+            </p>
+            <h1 className="text-4xl font-extrabold text-[#14532d] capitalize tracking-tight">
+              Forms
+            </h1>
+          </div>
+        </section>
+      )
+    }
+
+    let pageComponent = null
+
+    switch (activePage) {
+      case 'login':
+        pageComponent = (
+          <Login
+            viewMode={viewMode}
+            onLogin={handleLogin}
+            onCreateAccountClick={handleCreateAccountClick}
+          />
+        )
+        break
+      case 'createAccount':
+        pageComponent = (
+          <CreateAccount
+            viewMode={viewMode}
+            onCreateAccount={handleCreateAccount}
+            onLoginClick={handleLoginClick}
+          />
+        )
+        break
+      case 'dashboard':
+        pageComponent = <Dashboard viewMode={viewMode} />
+        break
+      default:
+        pageComponent = null
+    }
+
+    if (viewMode === 'mobile' && pageComponent) {
+      return (
+        <MobileViewport isMobile={isMobileScreen}>
+          {pageComponent}
+        </MobileViewport>
+      )
+    }
+
+    return pageComponent
+  }
 
   return (
     <div className="flex flex-col h-screen overflow-hidden font-['Outfit']">
@@ -26,62 +94,17 @@ export default function App() {
         showViewControls={showViewControls}
       />
 
-      <main className="flex-1 overflow-hidden">
-        <div key={activePage} className="ys-page-enter h-full">
-        {activePage === 'login' && (
-          viewMode === 'mobile' ? (
-            <MobileViewport isMobile={isMobileScreen}>
-              <Login
-                viewMode="mobile"
-                onLogin={() => setActivePage('dashboard')}
-                onCreateAccountClick={() => setActivePage('createAccount')}
-              />
-            </MobileViewport>
-          ) : (
-            <Login
-              viewMode="desktop"
-              onLogin={() => setActivePage('dashboard')}
-              onCreateAccountClick={() => setActivePage('createAccount')}
-            />
-          )
-        )}
-
-        {activePage === 'createAccount' && (
-          viewMode === 'mobile' ? (
-            <MobileViewport isMobile={isMobileScreen}>
-              <CreateAccount
-                viewMode="mobile"
-                onCreateAccount={() => setActivePage('dashboard')}
-                onLoginClick={() => setActivePage('login')}
-              />
-            </MobileViewport>
-          ) : (
-            <CreateAccount
-              viewMode="desktop"
-              onCreateAccount={() => setActivePage('dashboard')}
-              onLoginClick={() => setActivePage('login')}
-            />
-          )
-        )}
-
-        {activePage === 'dashboard' && (
-          viewMode === 'mobile' ? (
-            <MobileViewport isMobile={isMobileScreen}>
-              <Dashboard viewMode="mobile" />
-            </MobileViewport>
-          ) : (
-            <Dashboard viewMode="desktop" />
-          )
-        )}
-
-        {activePage === 'forms' && (
-          <div className="flex items-center justify-center h-full bg-[#f5f6f8]">
-            <div className="text-center space-y-3">
-              <p className="text-xs font-semibold uppercase tracking-[0.12em] text-[#9199a8]">Current Page</p>
-              <h1 className="text-4xl font-extrabold text-[#14532d] capitalize tracking-tight">Forms</h1>
-            </div>
-          </div>
-        )}
+      <main 
+        id="main-content"
+        aria-live="polite"
+        className="flex-1 overflow-hidden relative focus-visible:outline-none"
+        tabIndex={-1}
+      >
+        <div 
+          key={activePage} 
+          className="ys-page-enter h-full w-full motion-reduce:animate-none motion-reduce:transform-none motion-reduce:opacity-100"
+        >
+          {renderPageContent()}
         </div>
       </main>
     </div>

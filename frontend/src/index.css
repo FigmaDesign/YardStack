@@ -12,47 +12,111 @@ html, body, #root {
 }
 
 body {
-  font-family: 'Outfit', system-ui, sans-serif;
+  font-family: 'Outfit', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
   background: #f5f6f8;
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 @keyframes ys-fade-in {
-  from { opacity: 0 }
-  to   { opacity: 1 }
-}
-@keyframes ys-fade-in-up {
-  from { opacity: 0; transform: translateY(14px) }
-  to   { opacity: 1; transform: translateY(0) }
-}
-@keyframes ys-fade-in-down {
-  from { opacity: 0; transform: translateY(-10px) }
-  to   { opacity: 1; transform: translateY(0) }
-}
-@keyframes ys-slide-in-left {
-  from { opacity: 0; transform: translateX(-18px) }
-  to   { opacity: 1; transform: translateX(0) }
-}
-@keyframes ys-slide-in-right {
-  from { opacity: 0; transform: translateX(18px) }
-  to   { opacity: 1; transform: translateX(0) }
-}
-@keyframes ys-scale-in {
-  from { opacity: 0; transform: scale(0.97) }
-  to   { opacity: 1; transform: scale(1) }
-}
-@keyframes ys-shimmer {
-  from { background-position: -400px 0 }
-  to   { background-position:  400px 0 }
+  from { opacity: 0; }
+  to   { opacity: 1; }
 }
 
-.ys-fade-in        { animation: ys-fade-in        0.28s ease                        both; will-change: opacity }
-.ys-fade-in-up     { animation: ys-fade-in-up     0.32s cubic-bezier(0.4,0,0.2,1)  both; will-change: opacity, transform }
-.ys-fade-in-down   { animation: ys-fade-in-down   0.28s cubic-bezier(0.4,0,0.2,1)  both; will-change: opacity, transform }
-.ys-slide-in-left  { animation: ys-slide-in-left  0.32s cubic-bezier(0.4,0,0.2,1)  both; will-change: opacity, transform }
-.ys-slide-in-right { animation: ys-slide-in-right 0.32s cubic-bezier(0.4,0,0.2,1)  both; will-change: opacity, transform }
-.ys-scale-in       { animation: ys-scale-in       0.25s cubic-bezier(0.4,0,0.2,1)  both; will-change: opacity, transform }
-.ys-page-enter     { animation: ys-fade-in        0.25s ease                        both; will-change: opacity }
+@keyframes ys-fade-in-up {
+  from { 
+    opacity: 0; 
+    transform: translateY(14px); 
+  }
+  to { 
+    opacity: 1; 
+    transform: translateY(0); 
+  }
+}
+
+@keyframes ys-fade-in-down {
+  from { 
+    opacity: 0; 
+    transform: translateY(-10px); 
+  }
+  to { 
+    opacity: 1; 
+    transform: translateY(0); 
+  }
+}
+
+@keyframes ys-slide-in-left {
+  from { 
+    opacity: 0; 
+    transform: translateX(-18px); 
+  }
+  to { 
+    opacity: 1; 
+    transform: translateX(0); 
+  }
+}
+
+@keyframes ys-slide-in-right {
+  from { 
+    opacity: 0; 
+    transform: translateX(18px); 
+  }
+  to { 
+    opacity: 1; 
+    transform: translateX(0); 
+  }
+}
+
+@keyframes ys-scale-in {
+  from { 
+    opacity: 0; 
+    transform: scale(0.97); 
+  }
+  to { 
+    opacity: 1; 
+    transform: scale(1); 
+  }
+}
+
+@keyframes ys-shimmer {
+  from { background-position: -400px 0; }
+  to   { background-position: 400px 0; }
+}
+
+.ys-fade-in { 
+  animation: ys-fade-in 0.28s ease both; 
+  will-change: opacity; 
+}
+
+.ys-fade-in-up { 
+  animation: ys-fade-in-up 0.32s cubic-bezier(0.4, 0, 0.2, 1) both; 
+  will-change: opacity, transform; 
+}
+
+.ys-fade-in-down { 
+  animation: ys-fade-in-down 0.28s cubic-bezier(0.4, 0, 0.2, 1) both; 
+  will-change: opacity, transform; 
+}
+
+.ys-slide-in-left { 
+  animation: ys-slide-in-left 0.32s cubic-bezier(0.4, 0, 0.2, 1) both; 
+  will-change: opacity, transform; 
+}
+
+.ys-slide-in-right { 
+  animation: ys-slide-in-right 0.32s cubic-bezier(0.4, 0, 0.2, 1) both; 
+  will-change: opacity, transform; 
+}
+
+.ys-scale-in { 
+  animation: ys-scale-in 0.25s cubic-bezier(0.4, 0, 0.2, 1) both; 
+  will-change: opacity, transform; 
+}
+
+.ys-page-enter { 
+  animation: ys-fade-in 0.25s ease both; 
+  will-change: opacity; 
+}
 
 .ys-skeleton {
   background: linear-gradient(90deg, #f0f2f5 25%, #e8ebee 50%, #f0f2f5 75%);
@@ -62,8 +126,21 @@ body {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .ys-fade-in, .ys-fade-in-up, .ys-fade-in-down,
-  .ys-slide-in-left, .ys-slide-in-right, .ys-scale-in,
-  .ys-page-enter { animation: none; opacity: 1 }
-  .ys-skeleton   { animation: none; background: #f0f2f5 }
+  .ys-fade-in, 
+  .ys-fade-in-up, 
+  .ys-fade-in-down,
+  .ys-slide-in-left, 
+  .ys-slide-in-right, 
+  .ys-scale-in,
+  .ys-page-enter { 
+    animation: none !important; 
+    opacity: 1 !important; 
+    transform: none !important; 
+  }
+  
+  .ys-skeleton { 
+    animation: none !important; 
+    background: #f0f2f5 !important;
+    background-image: none !important;
+  }
 }

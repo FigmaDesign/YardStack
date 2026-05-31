@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useCallback, memo } from 'react'
 import YardLogo from '../commonfiles/Images/YardStackLogowithouttext.png'
 import ApartmentIcon from '@mui/icons-material/Apartment'
 import PeopleIcon from '@mui/icons-material/People'
@@ -32,44 +32,60 @@ const TAB_ITEMS = NAV_ITEMS.map(({ key, label, Icon, subTabs }) => ({
   subTabs: subTabs ?? [] 
 }))
 
-function StatCards() {
+const StatCards = memo(function StatCards() {
   return (
-    <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 mb-5">
+    <section aria-label="Key Statistics Loading" className="grid grid-cols-2 lg:grid-cols-4 gap-3 mb-5">
       {STAT_CARDS.map((_, idx) => (
-        <div key={idx} className="ys-fade-in-up" style={{ animationDelay: `${idx * 65}ms` }}>
-          <div className="ys-skeleton rounded-xl min-h-[5rem] border border-[#eef0f3] shadow-[0_1px_6px_rgba(0,0,0,0.04)]" />
+        <div 
+          key={idx} 
+          className="ys-fade-in-up motion-reduce:animate-none motion-reduce:transform-none motion-reduce:opacity-100" 
+          style={{ animationDelay: `${idx * 65}ms` }}
+        >
+          <div 
+            role="status"
+            aria-label="Loading statistic card"
+            className="ys-skeleton rounded-xl min-h-[5rem] border border-[#eef0f3] shadow-[0_1px_6px_rgba(0,0,0,0.04)]" 
+          />
         </div>
       ))}
-    </div>
+    </section>
   )
-}
+})
 
-function RecentProperties() {
+const RecentProperties = memo(function RecentProperties() {
   return (
-    <div className="ys-fade-in-up" style={{ animationDelay: '180ms' }}>
-      <div className="ys-skeleton rounded-2xl overflow-hidden h-64 border border-[#eef0f3] shadow-[0_1px_6px_rgba(0,0,0,0.06)]" />
-    </div>
+    <section aria-label="Recent Properties Loading" className="ys-fade-in-up motion-reduce:animate-none motion-reduce:transform-none motion-reduce:opacity-100" style={{ animationDelay: '180ms' }}>
+      <div 
+        role="status"
+        aria-label="Loading recent properties"
+        className="ys-skeleton rounded-2xl overflow-hidden h-64 border border-[#eef0f3] shadow-[0_1px_6px_rgba(0,0,0,0.06)]" 
+      />
+    </section>
   )
-}
+})
 
-function ActivityFeed() {
+const ActivityFeed = memo(function ActivityFeed() {
   return (
-    <div className="ys-fade-in-up" style={{ animationDelay: '260ms' }}>
-      <div className="ys-skeleton rounded-2xl h-64 border border-[#eef0f3] shadow-[0_1px_6px_rgba(0,0,0,0.06)]" />
-    </div>
+    <section aria-label="Activity Feed Loading" className="ys-fade-in-up motion-reduce:animate-none motion-reduce:transform-none motion-reduce:opacity-100" style={{ animationDelay: '260ms' }}>
+      <div 
+        role="status"
+        aria-label="Loading activity feed"
+        className="ys-skeleton rounded-2xl h-64 border border-[#eef0f3] shadow-[0_1px_6px_rgba(0,0,0,0.06)]" 
+      />
+    </section>
   )
-}
+})
 
 function DesktopDashboard() {
   const [activeNav, setActiveNav] = useState<NavKey>('announcements')
   const [activeSubTab, setActiveSubTab] = useState(SUB_TABS[0].label)
 
   return (
-    <div className="flex h-full overflow-hidden">
+    <main className="flex h-full overflow-hidden">
       <Sidebar active={activeNav} onNavigate={setActiveNav} />
 
       <div className="flex-1 flex flex-col overflow-hidden bg-[#f5f6f8] min-w-0">
-        <div className="shrink-0 bg-white border-b border-[#eef0f3] px-6 py-3 flex items-center justify-between shadow-[0_1px_4px_rgba(0,0,0,0.04)] gap-4">
+        <header className="shrink-0 bg-white border-b border-[#eef0f3] px-6 py-3 flex items-center justify-between shadow-[0_1px_4px_rgba(0,0,0,0.04)] gap-4">
           <div className="min-w-0">
             <h1 className="text-[1.15rem] font-extrabold text-[#0f1e3d] leading-none mt-0.5 capitalize truncate">
               {activeNav.replace(/([a-z])([A-Z])/g, '$1 $2')}
@@ -77,27 +93,38 @@ function DesktopDashboard() {
           </div>
           
           <div className="flex items-center gap-3 shrink-0">
-            <div className="hidden sm:flex items-center gap-2 bg-[#f5f6f8] border border-[#eef0f3] rounded-lg px-3 py-2">
-              <SearchIcon sx={{ fontSize: 15, color: '#9199a8' }} />
-              <input placeholder="Search..." className="bg-transparent text-[0.78rem] text-[#374151] placeholder-[#9199a8] outline-none w-36" />
+            <div className="hidden sm:flex items-center gap-2 bg-[#f5f6f8] border border-[#eef0f3] rounded-lg px-3 py-2 focus-within:ring-2 focus-within:ring-[#16a34a] focus-within:border-[#16a34a] transition-all duration-200">
+              <SearchIcon sx={{ fontSize: 15, color: '#9199a8' }} aria-hidden="true" />
+              <input 
+                type="search"
+                aria-label="Search dashboard"
+                placeholder="Search..." 
+                className="bg-transparent text-[0.78rem] text-[#374151] placeholder-[#9199a8] outline-none w-36" 
+              />
             </div>
             
-            <button className="relative w-9 h-9 shrink-0 rounded-lg border border-[#eef0f3] bg-white flex items-center justify-center hover:bg-[#f5f6f8] active:scale-[0.93] transition-all duration-150">
-              <NotificationsOutlinedIcon sx={{ fontSize: 18, color: '#374151' }} />
-              <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-[#16a34a] rounded-full" />
+            <button 
+              aria-label="Notifications, 1 unread"
+              className="relative w-9 h-9 shrink-0 rounded-lg border border-[#eef0f3] bg-white flex items-center justify-center hover:bg-[#f5f6f8] active:scale-[0.93] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#16a34a] transition-all duration-150 motion-reduce:transition-none motion-reduce:transform-none"
+            >
+              <NotificationsOutlinedIcon sx={{ fontSize: 18, color: '#374151' }} aria-hidden="true" />
+              <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-[#16a34a] rounded-full" aria-hidden="true" />
             </button>
             
-            <div className="w-9 h-9 shrink-0 rounded-lg bg-gradient-to-br from-[#16a34a] to-[#15803d] flex items-center justify-center text-white font-extrabold text-[0.85rem] shadow-sm select-none cursor-pointer">
+            <button 
+              aria-label="User profile menu"
+              className="w-9 h-9 shrink-0 rounded-lg bg-gradient-to-br from-[#16a34a] to-[#15803d] flex items-center justify-center text-white font-extrabold text-[0.85rem] shadow-sm select-none cursor-pointer hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#16a34a] focus-visible:ring-offset-2 focus-visible:ring-offset-[#f5f6f8] active:scale-95 transition-all duration-150 motion-reduce:transition-none motion-reduce:transform-none"
+            >
               Y
-            </div>
+            </button>
           </div>
-        </div>
+        </header>
 
-        <div className="shrink-0 border-b border-[#eef0f3]">
+        <nav aria-label="Secondary Navigation" className="shrink-0 border-b border-[#eef0f3]">
           <SubTabBar subTabs={SUB_TABS} active={activeSubTab} onChange={setActiveSubTab} variant="desktop" />
-        </div>
+        </nav>
 
-        <div className="flex-1 overflow-y-auto px-6 py-5">
+        <div className="flex-1 overflow-y-auto px-6 py-5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[#16a34a]" tabIndex={-1}>
           <StatCards />
           
           <div className="grid grid-cols-1 lg:grid-cols-5 gap-4">
@@ -110,7 +137,7 @@ function DesktopDashboard() {
           </div>
         </div>
       </div>
-    </div>
+    </main>
   )
 }
 
@@ -120,49 +147,59 @@ function MobileDashboard() {
 
   const activeItem = TAB_ITEMS.find(t => t.key === activeTab)
 
+  const handleTabChange = useCallback((key: string) => {
+    setActiveTab(key)
+    const item = TAB_ITEMS.find(t => t.key === key)
+    if (item?.subTabs?.length) {
+      setActiveSubTab(item.subTabs[0].label)
+    }
+  }, [])
+
   return (
-    <div className="h-full flex flex-col overflow-hidden bg-[#f5f6f8]">
-      <div className="shrink-0 bg-[#0d1f3c] px-4 pt-4 pb-3 flex items-center justify-between gap-3">
+    <main className="h-full flex flex-col overflow-hidden bg-[#f5f6f8]">
+      <header className="shrink-0 bg-[#0d1f3c] px-4 pt-4 pb-3 flex items-center justify-between gap-3">
         <div className="flex items-center gap-2.5 min-w-0">
-          <img src={YardLogo} alt="Yard" className="w-8 h-8 object-contain shrink-0" />
+          <img src={YardLogo} alt="Yard Logo" aria-hidden="true" className="w-8 h-8 object-contain shrink-0" />
           <div className="min-w-0">
-            <p className="text-[0.85rem] font-extrabold text-white leading-none tracking-wide truncate">YARD</p>
+            <h1 className="text-[0.85rem] font-extrabold text-white leading-none tracking-wide truncate">YARD</h1>
             <p className="text-[0.5rem] text-white/50 tracking-widest uppercase mt-0.5 truncate">Real Estate Intelligence</p>
           </div>
         </div>
         
         <div className="flex items-center gap-2 shrink-0">
-          <button className="relative w-8 h-8 shrink-0 rounded-lg bg-white/10 flex items-center justify-center active:scale-90 transition-transform duration-150">
-            <NotificationsOutlinedIcon sx={{ fontSize: 17, color: 'white' }} />
-            <span className="absolute top-1 right-1 w-1.5 h-1.5 bg-[#4ade80] rounded-full" />
+          <button 
+            aria-label="Notifications, 1 unread"
+            className="relative w-8 h-8 shrink-0 rounded-lg bg-white/10 flex items-center justify-center hover:bg-white/20 active:scale-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#4ade80] transition-all duration-150 motion-reduce:transition-none motion-reduce:transform-none"
+          >
+            <NotificationsOutlinedIcon sx={{ fontSize: 17, color: 'white' }} aria-hidden="true" />
+            <span className="absolute top-1 right-1 w-1.5 h-1.5 bg-[#4ade80] rounded-full" aria-hidden="true" />
           </button>
-          <div className="w-8 h-8 shrink-0 rounded-lg bg-gradient-to-br from-[#22c55e] to-[#0ea5e9] flex items-center justify-center text-white font-extrabold text-[0.8rem] shadow-sm select-none">
+          <button 
+            aria-label="User profile menu"
+            className="w-8 h-8 shrink-0 rounded-lg bg-gradient-to-br from-[#22c55e] to-[#0ea5e9] flex items-center justify-center text-white font-extrabold text-[0.8rem] shadow-sm select-none active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#4ade80] focus-visible:ring-offset-2 focus-visible:ring-offset-[#0d1f3c] transition-transform duration-150 motion-reduce:transition-none motion-reduce:transform-none"
+          >
             Y
-          </div>
+          </button>
         </div>
-      </div>
+      </header>
 
-      <div className="shrink-0">
+      <nav aria-label="Main Navigation" className="shrink-0">
         <TabBar
           tabs={TAB_ITEMS}
           active={activeTab}
           activeSubTab={activeSubTab}
-          onChange={key => {
-            setActiveTab(key)
-            const item = TAB_ITEMS.find(t => t.key === key)
-            if (item?.subTabs?.length) setActiveSubTab(item.subTabs[0].label)
-          }}
+          onChange={handleTabChange}
           onSubTabChange={setActiveSubTab}
         />
-      </div>
+      </nav>
 
-      <div className="flex-1 overflow-y-auto px-4 py-4 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
-        <div className="mb-4">
+      <div className="flex-1 overflow-y-auto px-4 py-4 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[#16a34a]" tabIndex={-1}>
+        <header className="mb-4">
           <p className="text-[0.65rem] font-semibold text-[#9199a8] uppercase tracking-[0.1em] truncate">
             {activeItem?.label ?? 'Dashboard'}
           </p>
           <h2 className="text-[1.1rem] font-extrabold text-[#0f1e3d] mt-0.5 truncate">{activeSubTab}</h2>
-        </div>
+        </header>
 
         <StatCards />
 
@@ -172,7 +209,7 @@ function MobileDashboard() {
 
         <ActivityFeed />
       </div>
-    </div>
+    </main>
   )
 }
 

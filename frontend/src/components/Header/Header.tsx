@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState, useId, useCallback } from 'react'
 import { Monitor, Smartphone, ChevronDown } from 'lucide-react'
 import Dropdown from '../commonfiles/Dropdown'
 
@@ -20,29 +20,57 @@ const PAGE_LABELS: Record<Page, string> = {
   createAccount: 'Create Account',
 }
 
-const PAGE_OPTIONS = (Object.keys(PAGE_LABELS) as Page[]).map(p => ({ value: p, label: PAGE_LABELS[p] }))
+const PAGE_OPTIONS = (Object.keys(PAGE_LABELS) as Page[]).map((p) => ({
+  value: p,
+  label: PAGE_LABELS[p],
+}))
 
-export default function Header({ activePage, onNavigate, viewMode, onViewModeChange, showViewControls = true }: HeaderProps) {
+export default function Header({
+  activePage,
+  onNavigate,
+  viewMode,
+  onViewModeChange,
+  showViewControls = true,
+}: HeaderProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const mobileMenuRef = useRef<HTMLDivElement>(null)
+  const menuId = useId()
+
+  const closeMenu = useCallback(() => setMobileMenuOpen(false), [])
 
   useEffect(() => {
-    function handler(e: MouseEvent) {
+    function handleMouseDown(e: MouseEvent) {
       if (mobileMenuRef.current && !mobileMenuRef.current.contains(e.target as Node)) {
-        setMobileMenuOpen(false)
+        closeMenu()
       }
     }
-    if (mobileMenuOpen) document.addEventListener('mousedown', handler)
-    return () => document.removeEventListener('mousedown', handler)
-  }, [mobileMenuOpen])
+
+    function handleKeyDown(e: KeyboardEvent) {
+      if (e.key === 'Escape') {
+        closeMenu()
+      }
+    }
+
+    if (mobileMenuOpen) {
+      document.addEventListener('mousedown', handleMouseDown, { capture: true, passive: true })
+      document.addEventListener('keydown', handleKeyDown, { capture: true })
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleMouseDown, { capture: true })
+      document.removeEventListener('keydown', handleKeyDown, { capture: true })
+    }
+  }, [mobileMenuOpen, closeMenu])
 
   return (
     <header className="sticky top-0 z-50 bg-white/90 backdrop-blur-xl border-b border-[#e4e7ec] shadow-[0px_1px_8px_rgba(15,31,61,0.06)]">
-      <div className="max-w-300 mx-auto px-4 sm:px-6">
+      <div className="max-w-[1200px] mx-auto px-4 sm:px-6">
         <div className="flex items-center justify-between h-16 gap-3">
-
-          <div className="flex items-center gap-2 shrink-0">
-            <div className="w-8 h-8 rounded-md flex items-center justify-center bg-linear-to-br from-[#15803d] to-[#166534] text-white font-bold text-[1.1rem] leading-none shadow-sm select-none">
+          <div className="flex items-center gap-2 shrink-0" aria-label="YardStack Logo">
+            <div 
+              aria-hidden="true"
+              className="w-8 h-8 rounded-md flex items-center justify-center bg-gradient-to-br from-[#15803d] to-[#166534] text-white font-bold text-[1.1rem] leading-none shadow-sm select-none"
+            >
               Y
             </div>
             <div className="hidden sm:block leading-none">
@@ -52,56 +80,82 @@ export default function Header({ activePage, onNavigate, viewMode, onViewModeCha
             </div>
           </div>
 
-          <div className="hidden md:flex flex-1 justify-center">
-            {showViewControls && <div className="flex items-center bg-[#f0fdf4] border border-[#bbf7d0] rounded-xl p-1 gap-0.5">
-              <button
-                onClick={() => onViewModeChange('desktop')}
-                className={`flex items-center gap-2 px-5 py-1.75 rounded-lg text-[0.76rem] font-bold transition-all duration-200 ${
-                  viewMode === 'desktop'
-                    ? 'bg-linear-to-br from-[#16a34a] to-[#15803d] text-white shadow-md'
-                    : 'text-[#166534] bg-transparent hover:bg-white/80'
-                }`}
+          <nav aria-label="View Controls" className="hidden md:flex flex-1 justify-center">
+            {showViewControls && (
+              <div 
+                role="group"
+                aria-label="Select view mode"
+                className="flex items-center bg-[#f0fdf4] border border-[#bbf7d0] rounded-xl p-1 gap-0.5"
               >
-                <Monitor size={15} strokeWidth={viewMode === 'desktop' ? 2.5 : 2} />
-                Desktop View
-              </button>
-              <button
-                onClick={() => onViewModeChange('mobile')}
-                className={`flex items-center gap-2 px-5 py-1.75 rounded-lg text-[0.76rem] font-bold transition-all duration-200 ${
-                  viewMode === 'mobile'
-                    ? 'bg-linear-to-br from-[#16a34a] to-[#15803d] text-white shadow-md'
-                    : 'text-[#166534] bg-transparent hover:bg-white/80'
-                }`}
-              >
-                <Smartphone size={15} strokeWidth={viewMode === 'mobile' ? 2.5 : 2} />
-                Mobile View
-              </button>
-            </div>}
-          </div>
-
-          <div className="flex items-center gap-2 shrink-0">
-            {showViewControls && <div className="flex md:hidden items-center gap-1">
-              {(['desktop', 'mobile'] as const).map((v) => (
                 <button
-                  key={v}
-                  aria-label={v === 'desktop' ? 'Desktop view' : 'Mobile view'}
-                  onClick={() => onViewModeChange(v)}
-                  className={`w-8 h-8 flex items-center justify-center rounded-md border transition-all ${
-                    viewMode === v
-                      ? 'border-[#16a34a] bg-[#16a34a]/10 text-[#16a34a]'
-                      : 'border-[#e4e7ec] bg-white text-[#9199a8]'
+                  type="button"
+                  aria-pressed={viewMode === 'desktop'}
+                  onClick={() => onViewModeChange('desktop')}
+                  className={`flex items-center gap-2 px-5 py-[7px] rounded-lg text-[0.76rem] font-bold transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#16a34a] focus-visible:ring-offset-2 focus-visible:ring-offset-[#f0fdf4] motion-reduce:transition-none ${
+                    viewMode === 'desktop'
+                      ? 'bg-gradient-to-br from-[#16a34a] to-[#15803d] text-white shadow-md'
+                      : 'text-[#166534] bg-transparent hover:bg-white/80'
                   }`}
                 >
-                  {v === 'desktop' ? <Monitor size={14} strokeWidth={viewMode === v ? 2.5 : 2} /> : <Smartphone size={14} strokeWidth={viewMode === v ? 2.5 : 2} />}
+                  <Monitor size={15} strokeWidth={viewMode === 'desktop' ? 2.5 : 2} aria-hidden="true" />
+                  Desktop View
                 </button>
-              ))}
-            </div>}
+                <button
+                  type="button"
+                  aria-pressed={viewMode === 'mobile'}
+                  onClick={() => onViewModeChange('mobile')}
+                  className={`flex items-center gap-2 px-5 py-[7px] rounded-lg text-[0.76rem] font-bold transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#16a34a] focus-visible:ring-offset-2 focus-visible:ring-offset-[#f0fdf4] motion-reduce:transition-none ${
+                    viewMode === 'mobile'
+                      ? 'bg-gradient-to-br from-[#16a34a] to-[#15803d] text-white shadow-md'
+                      : 'text-[#166534] bg-transparent hover:bg-white/80'
+                  }`}
+                >
+                  <Smartphone size={15} strokeWidth={viewMode === 'mobile' ? 2.5 : 2} aria-hidden="true" />
+                  Mobile View
+                </button>
+              </div>
+            )}
+          </nav>
+
+          <div className="flex items-center gap-2 shrink-0">
+            {showViewControls && (
+              <div 
+                role="group" 
+                aria-label="Select view mode" 
+                className="flex md:hidden items-center gap-1"
+              >
+                {(['desktop', 'mobile'] as const).map((v) => (
+                  <button
+                    key={v}
+                    type="button"
+                    aria-label={v === 'desktop' ? 'Desktop view' : 'Mobile view'}
+                    aria-pressed={viewMode === v}
+                    onClick={() => onViewModeChange(v)}
+                    className={`w-8 h-8 flex items-center justify-center rounded-md border transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#16a34a] focus-visible:ring-offset-1 motion-reduce:transition-none ${
+                      viewMode === v
+                        ? 'border-[#16a34a] bg-[#16a34a]/10 text-[#16a34a]'
+                        : 'border-[#e4e7ec] bg-white text-[#9199a8] hover:bg-gray-50 hover:text-gray-700'
+                    }`}
+                  >
+                    {v === 'desktop' ? (
+                      <Monitor size={14} strokeWidth={viewMode === v ? 2.5 : 2} aria-hidden="true" />
+                    ) : (
+                      <Smartphone size={14} strokeWidth={viewMode === v ? 2.5 : 2} aria-hidden="true" />
+                    )}
+                  </button>
+                ))}
+              </div>
+            )}
 
             <div className="hidden sm:flex items-center gap-2">
-              <span className="text-[0.68rem] font-semibold text-[#9199a8] tracking-[0.08em] uppercase select-none whitespace-nowrap">
+              <label 
+                htmlFor="desktop-page-selector" 
+                className="text-[0.68rem] font-semibold text-[#9199a8] tracking-[0.08em] uppercase select-none whitespace-nowrap"
+              >
                 Current View
-              </span>
+              </label>
               <Dropdown
+                id="desktop-page-selector"
                 options={PAGE_OPTIONS}
                 value={activePage}
                 onChange={(v) => onNavigate(v as Page)}
@@ -112,30 +166,56 @@ export default function Header({ activePage, onNavigate, viewMode, onViewModeCha
 
             <div className="relative sm:hidden" ref={mobileMenuRef}>
               <button
-                onClick={() => setMobileMenuOpen(v => !v)}
-                className="flex items-center gap-1 px-3 py-1.75 rounded-md border border-[#eef0f3] bg-white text-[0.78rem] font-semibold text-[#0f1f3d] shadow-sm"
+                type="button"
+                aria-expanded={mobileMenuOpen}
+                aria-haspopup="menu"
+                aria-controls={`mobile-menu-${menuId}`}
+                onClick={() => setMobileMenuOpen((v) => !v)}
+                className="flex items-center gap-1 px-3 py-[7px] rounded-md border border-[#eef0f3] bg-white text-[0.78rem] font-semibold text-[#0f1f3d] shadow-sm hover:bg-gray-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#16a34a] focus-visible:border-[#16a34a] transition-all duration-200"
               >
                 {PAGE_LABELS[activePage]}
-                <ChevronDown size={13} className={`text-[#9199a8] transition-transform ${mobileMenuOpen ? 'rotate-180' : ''}`} />
+                <ChevronDown 
+                  size={13} 
+                  aria-hidden="true"
+                  className={`text-[#9199a8] transition-transform duration-200 motion-reduce:transition-none ${
+                    mobileMenuOpen ? 'rotate-180' : ''
+                  }`} 
+                />
               </button>
+              
               {mobileMenuOpen && (
-                <div className="absolute right-0 mt-2 w-40 bg-white rounded-lg border border-[#eef0f3] shadow-lg overflow-hidden z-50">
-                  {(Object.keys(PAGE_LABELS) as Page[]).map((p) => (
-                    <button
-                      key={p}
-                      onClick={() => { onNavigate(p); setMobileMenuOpen(false) }}
-                      className={`w-full text-left px-4 py-2.5 text-[0.82rem] font-semibold transition-colors ${
-                        activePage === p ? 'bg-[#16a34a]/10 text-[#15803d]' : 'text-[#14532d] hover:bg-[#f0fdf4]'
-                      }`}
-                    >
-                      {PAGE_LABELS[p]}
-                    </button>
-                  ))}
+                <div 
+                  id={`mobile-menu-${menuId}`}
+                  role="menu"
+                  aria-label="Navigation Menu"
+                  className="absolute right-0 mt-2 w-40 bg-white rounded-lg border border-[#eef0f3] shadow-lg overflow-hidden z-50 animate-in fade-in slide-in-from-top-2 duration-200 ease-out"
+                >
+                  {(Object.keys(PAGE_LABELS) as Page[]).map((p) => {
+                    const isActive = activePage === p
+                    return (
+                      <button
+                        key={p}
+                        type="button"
+                        role="menuitem"
+                        aria-current={isActive ? 'page' : undefined}
+                        onClick={() => {
+                          onNavigate(p)
+                          closeMenu()
+                        }}
+                        className={`w-full text-left px-4 py-2.5 text-[0.82rem] font-semibold transition-colors duration-150 focus-visible:outline-none focus-visible:bg-[#f0fdf4] focus-visible:text-[#15803d] motion-reduce:transition-none ${
+                          isActive 
+                            ? 'bg-[#16a34a]/10 text-[#15803d]' 
+                            : 'text-[#14532d] hover:bg-[#f0fdf4]'
+                        }`}
+                      >
+                        {PAGE_LABELS[p]}
+                      </button>
+                    )
+                  })}
                 </div>
               )}
             </div>
           </div>
-
         </div>
       </div>
     </header>

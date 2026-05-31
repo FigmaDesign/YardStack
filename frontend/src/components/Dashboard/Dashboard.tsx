@@ -6,7 +6,6 @@ import CurrencyRupeeIcon from '@mui/icons-material/CurrencyRupee'
 import EventNoteIcon from '@mui/icons-material/EventNote'
 import NotificationsOutlinedIcon from '@mui/icons-material/NotificationsOutlined'
 import SearchIcon from '@mui/icons-material/Search'
-import MoreVertIcon from '@mui/icons-material/MoreVert'
 
 import Sidebar from '../commonfiles/sidebar/Sidebar'
 import TabBar from '../commonfiles/TabBar'
@@ -17,10 +16,10 @@ interface DashboardProps {
 }
 
 const STAT_CARDS = [
-  { label: 'Total Properties', value: '1,248', delta: '+12%', up: true,  Icon: ApartmentIcon,     color: '#1d4ed8', bg: '#eff6ff' },
-  { label: 'Active Users',     value: '10,432', delta: '+8%',  up: true,  Icon: PeopleIcon,        color: '#16a34a', bg: '#f0fdf4' },
-  { label: 'Revenue (Cr)',     value: '₹24.6',  delta: '+18%', up: true,  Icon: CurrencyRupeeIcon, color: '#d97706', bg: '#fffbeb' },
-  { label: 'Pending Bookings', value: '84',     delta: '-3%',  up: false, Icon: EventNoteIcon,     color: '#dc2626', bg: '#fef2f2' },
+  { Icon: ApartmentIcon,     color: '#1d4ed8', bg: '#eff6ff' },
+  { Icon: PeopleIcon,        color: '#16a34a', bg: '#f0fdf4' },
+  { Icon: CurrencyRupeeIcon, color: '#d97706', bg: '#fffbeb' },
+  { Icon: EventNoteIcon,     color: '#dc2626', bg: '#fef2f2' },
 ]
 
 const SUB_TABS = ['Overview', 'Properties', 'Analytics', 'Customers', 'Reports']
@@ -34,21 +33,9 @@ const TAB_ITEMS = NAV_ITEMS.map(({ key, label, Icon, subTabs }) => ({
 
 function StatCards() {
   return (
-    <div className="grid grid-cols-2 lg:grid-cols-4 gap-2 lg:gap-3 mb-5">
+    <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 mb-5">
       {STAT_CARDS.map((stat, idx) => (
-        <div key={idx} className="bg-white rounded-xl p-3 lg:p-4 shadow-[0_1px_6px_rgba(0,0,0,0.04)] border border-[#eef0f3] flex flex-col justify-center gap-1.5 lg:gap-2">
-          <div className="flex items-center gap-2 lg:gap-3">
-            <div className="w-7 h-7 lg:w-9 lg:h-9 shrink-0 rounded-lg flex items-center justify-center" style={{ backgroundColor: stat.bg, color: stat.color }}>
-              <stat.Icon className="!text-[16px] lg:!text-[18px]" />
-            </div>
-            <span className="text-[0.65rem] lg:text-[0.75rem] font-semibold text-[#6b7280] truncate">{stat.label}</span>
-          </div>
-          <div className="flex items-baseline justify-between mt-0.5 lg:mt-1 gap-1 lg:gap-2">
-            <span className="text-[1rem] lg:text-[1.25rem] font-extrabold text-[#0f1e3d] truncate">{stat.value}</span>
-            <span className={`text-[0.65rem] lg:text-[0.75rem] font-bold shrink-0 ${stat.up ? 'text-[#16a34a]' : 'text-[#dc2626]'}`}>
-              {stat.delta}
-            </span>
-          </div>
+        <div key={idx} className="bg-white rounded-xl p-3.5 lg:p-4 shadow-[0_1px_6px_rgba(0,0,0,0.04)] border border-[#eef0f3] flex items-center justify-center min-h-[5rem]">
         </div>
       ))}
     </div>
@@ -57,17 +44,13 @@ function StatCards() {
 
 function RecentProperties() {
   return (
-    <div className="bg-white rounded-2xl shadow-[0_1px_6px_rgba(0,0,0,0.06)] overflow-hidden h-64 flex items-center justify-center border border-[#eef0f3]">
-      <p className="text-sm font-medium text-gray-400">Recent Properties Placeholder</p>
-    </div>
+    <div className="bg-white rounded-2xl shadow-[0_1px_6px_rgba(0,0,0,0.06)] overflow-hidden h-64 border border-[#eef0f3]" />
   )
 }
 
 function ActivityFeed() {
   return (
-    <div className="bg-white rounded-2xl shadow-[0_1px_6px_rgba(0,0,0,0.06)] h-64 flex items-center justify-center border border-[#eef0f3]">
-      <p className="text-sm font-medium text-gray-400">Activity Feed Placeholder</p>
-    </div>
+    <div className="bg-white rounded-2xl shadow-[0_1px_6px_rgba(0,0,0,0.06)] h-64 border border-[#eef0f3]" />
   )
 }
 
@@ -80,7 +63,6 @@ function DesktopDashboard() {
       <Sidebar active={activeNav} onNavigate={setActiveNav} />
 
       <div className="flex-1 flex flex-col overflow-hidden bg-[#f5f6f8] min-w-0">
-        {/* Top Header */}
         <div className="shrink-0 bg-white border-b border-[#eef0f3] px-6 py-3 flex items-center justify-between shadow-[0_1px_4px_rgba(0,0,0,0.04)] gap-4">
           <div className="min-w-0">
             <p className="text-[0.65rem] font-semibold text-[#9199a8] uppercase tracking-[0.1em] truncate">Workspace</p>
@@ -106,8 +88,7 @@ function DesktopDashboard() {
           </div>
         </div>
 
-        {/* Sub Tabs */}
-        <div className="shrink-0 bg-white border-b border-[#eef0f3] px-6 flex items-center overflow-x-auto no-scrollbar">
+        <div className="shrink-0 bg-white border-b border-[#eef0f3] px-6 flex items-center overflow-x-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
           {SUB_TABS.map(tab => (
             <button
               key={tab}
@@ -123,7 +104,6 @@ function DesktopDashboard() {
           ))}
         </div>
 
-        {/* Main Content */}
         <div className="flex-1 overflow-y-auto px-6 py-5">
           <StatCards />
           
@@ -149,7 +129,6 @@ function MobileDashboard() {
 
   return (
     <div className="h-full flex flex-col overflow-hidden bg-[#f5f6f8]">
-      {/* Mobile Header */}
       <div className="shrink-0 bg-[#0d1f3c] px-4 pt-4 pb-3 flex items-center justify-between gap-3">
         <div className="flex items-center gap-2.5 min-w-0">
           <img src={YardLogo} alt="Yard" className="w-8 h-8 object-contain shrink-0" />
@@ -167,9 +146,6 @@ function MobileDashboard() {
           <div className="w-8 h-8 shrink-0 rounded-lg bg-gradient-to-br from-[#22c55e] to-[#0ea5e9] flex items-center justify-center text-white font-extrabold text-[0.8rem] shadow-sm select-none">
             Y
           </div>
-          <button className="w-8 h-8 shrink-0 rounded-lg bg-white/10 flex items-center justify-center">
-            <MoreVertIcon sx={{ fontSize: 17, color: 'white' }} />
-          </button>
         </div>
       </div>
 
@@ -187,8 +163,8 @@ function MobileDashboard() {
         />
       </div>
 
-      {/* Mobile Content */}
-      <div className="flex-1 overflow-y-auto px-4 py-4">
+      {/* Mobile scroll container with hidden scrollbar */}
+      <div className="flex-1 overflow-y-auto px-4 py-4 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
         <div className="mb-4">
           <p className="text-[0.65rem] font-semibold text-[#9199a8] uppercase tracking-[0.1em] truncate">
             {activeItem?.label ?? 'Dashboard'}

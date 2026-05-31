@@ -2,7 +2,7 @@ import { useState, useEffect, useCallback, type MouseEvent, type FocusEvent, typ
 import { createPortal } from 'react-dom'
 import { ChevronLeft, Crown } from 'lucide-react'
 import { NAV_ITEMS, type NavKey } from './data'
-import YardLogo from '../Images/YardStackLogowithouttext.png'
+import YardLogo from '../Images/YardStockLogowithouttext.png'
 
 interface SidebarProps {
   active?: NavKey
@@ -66,7 +66,7 @@ export default function Sidebar({ active = 'announcements', onNavigate }: Sideba
             isCollapsed ? 'h-0 opacity-0 mt-0' : 'h-9 opacity-100 mt-2.5'
           }`}
         >
-          <p className="text-[1.3rem] font-serif tracking-wider leading-none text-white m-0">YARD</p>
+          <p className="text-[1.3rem] font-serif tracking-wider leading-none text-white m-0">YARDStock</p>
           <p className="text-[0.5rem] font-medium tracking-[0.18em] uppercase text-white/55 mt-1.5">
             Real Estate Intelligence
           </p>

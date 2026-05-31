@@ -66,7 +66,7 @@ export default function Header({
     <header className="sticky top-0 z-50 bg-white/90 backdrop-blur-xl border-b border-[#e4e7ec] shadow-[0px_1px_8px_rgba(15,31,61,0.06)]">
       <div className="max-w-[1200px] mx-auto px-4 sm:px-6">
         <div className="flex items-center justify-between h-16 gap-3">
-          <div className="flex items-center gap-2 shrink-0" aria-label="YardStack Logo">
+          <div className="flex items-center gap-2 shrink-0" aria-label="YardStock Logo">
             <div 
               aria-hidden="true"
               className="w-8 h-8 rounded-[8px] flex items-center justify-center bg-gradient-to-br from-[#15803d] to-[#166534] text-white font-bold text-[1.1rem] leading-none shadow-sm select-none"
@@ -75,7 +75,7 @@ export default function Header({
             </div>
             <div className="hidden sm:block leading-none">
               <p className="text-[0.88rem] font-extrabold text-[#14532d] tracking-[-0.03em] m-0">
-                Yard<span className="text-[#16a34a]">Stack</span>
+                Yard<span className="text-[#16a34a]">Stock</span>
               </p>
             </div>
           </div>

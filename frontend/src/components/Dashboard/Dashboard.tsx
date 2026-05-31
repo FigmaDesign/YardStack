@@ -1,5 +1,5 @@
 import { useState, useCallback, memo } from 'react'
-import YardLogo from '../commonfiles/Images/YardStackLogowithouttext.png'
+import YardLogo from '../commonfiles/Images/YardStockLogowithouttext.png'
 import ApartmentIcon from '@mui/icons-material/Apartment'
 import PeopleIcon from '@mui/icons-material/People'
 import CurrencyRupeeIcon from '@mui/icons-material/CurrencyRupee'
@@ -167,7 +167,7 @@ function MobileDashboard() {
         <div className="flex items-center gap-2.5 min-w-0">
           <img src={YardLogo} alt="Yard Logo" aria-hidden="true" className="w-8 h-8 object-contain shrink-0" />
           <div className="min-w-0">
-            <h1 className="text-[0.85rem] font-extrabold text-white leading-none tracking-wide truncate">YARD</h1>
+            <h1 className="text-[0.85rem] font-extrabold text-white leading-none tracking-wide truncate">YARDStock</h1>
             <p className="text-[0.5rem] text-white/50 tracking-widest uppercase mt-0.5 truncate">Real Estate Intelligence</p>
           </div>
         </div>

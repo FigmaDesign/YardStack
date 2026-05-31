@@ -75,14 +75,14 @@ function TabCard({ tabKey, label, Icon, isActive, onClick }: TabCardProps) {
       className={[
         'relative flex flex-col items-center justify-center shrink-0 border-none outline-none cursor-pointer',
         'transition-all duration-200 ease-[cubic-bezier(0.4,0,0.2,1)]',
-        '[WebkitTapHighlightColor:transparent]',
+        '[WebkitTapHighlightColor:transparent] active:scale-[0.94] active:opacity-80',
         isActive
           ? 'bg-transparent rounded-none z-50 pl-1 pr-1 pb-1.5'
           : 'rounded-t-2xl z-10 pl-2 pr-1',
       ].join(' ')}
       style={{
         width: 64,
-        height: 66,
+        minHeight: 66,
         gap: 2,
         background: isActive
           ? 'transparent'
@@ -135,11 +135,11 @@ interface InnerProps {
 
 function Inner({ tabs, active, onTabClick, scrollRef }: InnerProps) {
   return (
-    <div className="shrink-0 relative" style={{ height: 66 }}>
+    <div className="shrink-0 relative" style={{ minHeight: 72 }}>
       <ShellBackground />
       <div
         ref={scrollRef}
-        className="box-border relative z-10 flex h-full overflow-x-auto items-end gap-0.5 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
+        className="box-border relative z-10 flex min-h-[72px] overflow-x-auto items-end gap-0.5 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
         style={{
           scrollbarWidth: 'none',
           msOverflowStyle: 'none',

@@ -9,7 +9,8 @@ import SearchIcon from '@mui/icons-material/Search'
 
 import Sidebar from '../commonfiles/sidebar/Sidebar'
 import TabBar from '../commonfiles/TabBar'
-import { NAV_ITEMS, type NavKey } from '../commonfiles/sidebar/data'
+import SubTabBar from '../commonfiles/TabBar/SubTabBar'
+import { NAV_ITEMS, COMMON_SUBTABS, type SubTabItem, type NavKey } from '../commonfiles/sidebar/data'
 
 interface DashboardProps {
   viewMode?: 'desktop' | 'mobile'
@@ -22,7 +23,7 @@ const STAT_CARDS = [
   { Icon: EventNoteIcon,     color: '#dc2626', bg: '#fef2f2' },
 ]
 
-const SUB_TABS = ['Overview', 'Properties', 'Analytics', 'Customers', 'Reports']
+const SUB_TABS: SubTabItem[] = COMMON_SUBTABS
 
 const TAB_ITEMS = NAV_ITEMS.map(({ key, label, Icon, subTabs }) => ({ 
   key, 
@@ -35,7 +36,8 @@ function StatCards() {
   return (
     <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 mb-5">
       {STAT_CARDS.map((_, idx) => (
-        <div key={idx} className="bg-white rounded-xl p-3.5 lg:p-4 shadow-[0_1px_6px_rgba(0,0,0,0.04)] border border-[#eef0f3] flex items-center justify-center min-h-[5rem]">
+        <div key={idx} className="ys-fade-in-up" style={{ animationDelay: `${idx * 65}ms` }}>
+          <div className="ys-skeleton rounded-xl min-h-[5rem] border border-[#eef0f3] shadow-[0_1px_6px_rgba(0,0,0,0.04)]" />
         </div>
       ))}
     </div>
@@ -44,19 +46,23 @@ function StatCards() {
 
 function RecentProperties() {
   return (
-    <div className="bg-white rounded-2xl shadow-[0_1px_6px_rgba(0,0,0,0.06)] overflow-hidden h-64 border border-[#eef0f3]" />
+    <div className="ys-fade-in-up" style={{ animationDelay: '180ms' }}>
+      <div className="ys-skeleton rounded-2xl overflow-hidden h-64 border border-[#eef0f3] shadow-[0_1px_6px_rgba(0,0,0,0.06)]" />
+    </div>
   )
 }
 
 function ActivityFeed() {
   return (
-    <div className="bg-white rounded-2xl shadow-[0_1px_6px_rgba(0,0,0,0.06)] h-64 border border-[#eef0f3]" />
+    <div className="ys-fade-in-up" style={{ animationDelay: '260ms' }}>
+      <div className="ys-skeleton rounded-2xl h-64 border border-[#eef0f3] shadow-[0_1px_6px_rgba(0,0,0,0.06)]" />
+    </div>
   )
 }
 
 function DesktopDashboard() {
-  const [activeNav, setActiveNav] = useState<NavKey>('dashboard')
-  const [activeSubTab, setActiveSubTab] = useState(SUB_TABS[0])
+  const [activeNav, setActiveNav] = useState<NavKey>('announcements')
+  const [activeSubTab, setActiveSubTab] = useState(SUB_TABS[0].label)
 
   return (
     <div className="flex h-full overflow-hidden">
@@ -65,7 +71,6 @@ function DesktopDashboard() {
       <div className="flex-1 flex flex-col overflow-hidden bg-[#f5f6f8] min-w-0">
         <div className="shrink-0 bg-white border-b border-[#eef0f3] px-6 py-3 flex items-center justify-between shadow-[0_1px_4px_rgba(0,0,0,0.04)] gap-4">
           <div className="min-w-0">
-            <p className="text-[0.65rem] font-semibold text-[#9199a8] uppercase tracking-[0.1em] truncate">Workspace</p>
             <h1 className="text-[1.15rem] font-extrabold text-[#0f1e3d] leading-none mt-0.5 capitalize truncate">
               {activeNav.replace(/([a-z])([A-Z])/g, '$1 $2')}
             </h1>
@@ -77,7 +82,7 @@ function DesktopDashboard() {
               <input placeholder="Search..." className="bg-transparent text-[0.78rem] text-[#374151] placeholder-[#9199a8] outline-none w-36" />
             </div>
             
-            <button className="relative w-9 h-9 shrink-0 rounded-lg border border-[#eef0f3] bg-white flex items-center justify-center hover:bg-[#f5f6f8] transition-colors">
+            <button className="relative w-9 h-9 shrink-0 rounded-lg border border-[#eef0f3] bg-white flex items-center justify-center hover:bg-[#f5f6f8] active:scale-[0.93] transition-all duration-150">
               <NotificationsOutlinedIcon sx={{ fontSize: 18, color: '#374151' }} />
               <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-[#16a34a] rounded-full" />
             </button>
@@ -88,20 +93,8 @@ function DesktopDashboard() {
           </div>
         </div>
 
-        <div className="shrink-0 bg-white border-b border-[#eef0f3] px-6 flex items-center overflow-x-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
-          {SUB_TABS.map(tab => (
-            <button
-              key={tab}
-              onClick={() => setActiveSubTab(tab)}
-              className={`px-4 py-3 text-[0.78rem] font-semibold border-b-2 transition-colors whitespace-nowrap shrink-0 ${
-                activeSubTab === tab
-                  ? 'border-[#16a34a] text-[#16a34a]'
-                  : 'border-transparent text-[#6b7280] hover:text-[#374151]'
-              }`}
-            >
-              {tab}
-            </button>
-          ))}
+        <div className="shrink-0 border-b border-[#eef0f3]">
+          <SubTabBar subTabs={SUB_TABS} active={activeSubTab} onChange={setActiveSubTab} variant="desktop" />
         </div>
 
         <div className="flex-1 overflow-y-auto px-6 py-5">
@@ -122,8 +115,8 @@ function DesktopDashboard() {
 }
 
 function MobileDashboard() {
-  const [activeTab, setActiveTab] = useState('dashboard')
-  const [activeSubTab, setActiveSubTab] = useState('Overview')
+  const [activeTab, setActiveTab] = useState('announcements')
+  const [activeSubTab, setActiveSubTab] = useState('Home')
 
   const activeItem = TAB_ITEMS.find(t => t.key === activeTab)
 
@@ -139,7 +132,7 @@ function MobileDashboard() {
         </div>
         
         <div className="flex items-center gap-2 shrink-0">
-          <button className="relative w-8 h-8 shrink-0 rounded-lg bg-white/10 flex items-center justify-center">
+          <button className="relative w-8 h-8 shrink-0 rounded-lg bg-white/10 flex items-center justify-center active:scale-90 transition-transform duration-150">
             <NotificationsOutlinedIcon sx={{ fontSize: 17, color: 'white' }} />
             <span className="absolute top-1 right-1 w-1.5 h-1.5 bg-[#4ade80] rounded-full" />
           </button>
@@ -163,7 +156,6 @@ function MobileDashboard() {
         />
       </div>
 
-      {/* Mobile scroll container with hidden scrollbar */}
       <div className="flex-1 overflow-y-auto px-4 py-4 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
         <div className="mb-4">
           <p className="text-[0.65rem] font-semibold text-[#9199a8] uppercase tracking-[0.1em] truncate">

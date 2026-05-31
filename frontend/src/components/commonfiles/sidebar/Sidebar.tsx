@@ -23,7 +23,7 @@ function getPos(el: HTMLElement) {
   return { x: r.right + 8, y: r.top + r.height / 2 }
 }
 
-export default function Sidebar({ active = 'dashboard', onNavigate }: SidebarProps) {
+export default function Sidebar({ active = 'announcements', onNavigate }: SidebarProps) {
   const [isCollapsed, setIsCollapsed] = useState(false)
   const [tooltip, setTooltip] = useState<TooltipState>(HIDDEN)
   const [mounted, setMounted] = useState(false)
@@ -79,9 +79,6 @@ export default function Sidebar({ active = 'dashboard', onNavigate }: SidebarPro
             isCollapsed ? 'opacity-0 h-0 hidden' : 'opacity-100 h-auto block'
           }`}
         >
-          <p className="text-[0.62rem] font-bold tracking-[0.18em] uppercase text-white/40 m-0">
-            Navigation
-          </p>
         </div>
 
         {/* Navigation List */}
@@ -97,7 +94,7 @@ export default function Sidebar({ active = 'dashboard', onNavigate }: SidebarPro
                   onMouseLeave={hideTooltip}
                   onBlur={hideTooltip}
                   aria-label={label}
-                  className={`w-full flex items-center py-2.5 rounded-lg text-[0.85rem] transition-all duration-300 bg-transparent border-none cursor-pointer ${
+                  className={`w-full flex items-center py-2.5 rounded-lg text-[0.85rem] transition-all duration-200 bg-transparent border-none cursor-pointer active:scale-[0.97] active:opacity-80 ${
                     isCollapsed ? 'justify-center px-0' : 'justify-start px-3'
                   } ${
                     isActive
@@ -112,11 +109,11 @@ export default function Sidebar({ active = 'dashboard', onNavigate }: SidebarPro
                     }`}
                   />
                   <div
-                    className={`flex items-center overflow-hidden whitespace-nowrap transition-all duration-500 ease-in-out ${
+                    className={`flex items-start overflow-hidden transition-all duration-500 ease-in-out ${
                       isCollapsed ? 'w-0 opacity-0 ml-0' : 'flex-1 opacity-100 ml-3.5'
                     }`}
                   >
-                    <span>{label}</span>
+                    <span className="leading-tight text-left">{label}</span>
                   </div>
                 </button>
               </li>

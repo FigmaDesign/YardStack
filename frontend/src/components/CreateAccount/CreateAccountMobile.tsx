@@ -6,7 +6,7 @@ export default function CreateAccountMobile(props: CreateAccountFormProps) {
   return (
     <div className="h-[100dvh] w-full bg-[#f4f6f9] flex flex-col font-['Outfit',sans-serif] overflow-y-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
       <div
-        className="relative shrink-0 pb-12"
+        className="relative shrink-0 pb-12 ys-fade-in-down"
         style={{
           backgroundImage: `url(${mobileBg})`,
           backgroundSize: 'cover',
@@ -33,7 +33,7 @@ export default function CreateAccountMobile(props: CreateAccountFormProps) {
         </div>
       </div>
 
-      <div className="relative z-20 -mt-6 pb-15">
+      <div className="relative z-20 -mt-6 pb-15 ys-scale-in" style={{ animationDelay: '80ms' }}>
         <div className="bg-white rounded-[8px] p-5 shadow-[0_8px_30px_rgba(0,0,0,0.08)] border border-gray-100">
           <h2 className="text-[#0f1e3d] text-[1.2rem] font-extrabold leading-none mb-1.5">Create Your Account</h2>
           <p className="text-[#6b7280] text-[0.75rem] mb-5">Fill in the details to get started</p>

@@ -14,8 +14,6 @@ export default function App() {
   const [activePage, setActivePage] = useState<Page>('login')
   const [viewMode, setViewMode] = useState<ViewMode>('desktop')
 
-  
-
   const showViewControls = activePage === 'login' || activePage === 'createAccount' || activePage === 'dashboard'
 
   return (
@@ -29,6 +27,7 @@ export default function App() {
       />
 
       <main className="flex-1 overflow-hidden">
+        <div key={activePage} className="ys-page-enter h-full">
         {activePage === 'login' && (
           viewMode === 'mobile' ? (
             <MobileViewport isMobile={isMobileScreen}>
@@ -83,6 +82,7 @@ export default function App() {
             </div>
           </div>
         )}
+        </div>
       </main>
     </div>
   )

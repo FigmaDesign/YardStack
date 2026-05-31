@@ -210,7 +210,7 @@ export default function CreateAccountForm(props: CreateAccountFormProps) {
 
       <button
         type="submit"
-        className={`relative ${isMobile ? 'w-full' : 'w-1/2 mx-auto'} flex items-center justify-center font-bold text-white bg-linear-to-r from-[#1d4ed8] via-[#1a7e5a] to-[#16a34a] hover:-translate-y-0.5 shadow-[0_4px_14px_rgba(22,163,74,0.25)] transition-all duration-300 ${isMobile ? 'py-3 mt-4 text-[0.9rem] rounded-[8px]' : 'py-2.5 px-5 mt-2 text-[0.95rem] rounded-[8px]'}`}
+        className={`relative ${isMobile ? 'w-full' : 'w-1/2 mx-auto'} flex items-center justify-center font-bold text-white bg-linear-to-r from-[#1d4ed8] via-[#1a7e5a] to-[#16a34a] hover:-translate-y-0.5 active:scale-[0.97] active:opacity-90 shadow-[0_4px_14px_rgba(22,163,74,0.25)] transition-all duration-200 ${isMobile ? 'py-3 mt-4 text-[0.9rem] rounded-[8px]' : 'py-2.5 px-5 mt-2 text-[0.95rem] rounded-[8px]'}`}
       >
         <span>Create Account</span>
       </button>
@@ -223,7 +223,7 @@ export default function CreateAccountForm(props: CreateAccountFormProps) {
 
       <div className="grid grid-cols-3 gap-2.5">
         {SOCIAL.map(({ label, logo }) => (
-          <button key={label} type="button" className={`flex items-center justify-center gap-2 border border-[#e0e3eb] font-semibold text-[#374151] bg-white hover:bg-gray-50 hover:-translate-y-0.5 transition-all duration-300 ${isMobile ? 'py-2 rounded-[8px] text-[0.75rem]' : 'py-2 rounded-[8px] text-[0.8rem] shadow-sm'}`}>
+          <button key={label} type="button" className={`flex items-center justify-center gap-2 border border-[#e0e3eb] font-semibold text-[#374151] bg-white hover:bg-gray-50 hover:-translate-y-0.5 active:scale-[0.96] transition-all duration-200 ${isMobile ? 'py-2 rounded-[8px] text-[0.75rem]' : 'py-2 rounded-[8px] text-[0.8rem] shadow-sm'}`}>
             <img src={logo} alt={label} className={`object-contain ${isMobile ? 'w-3.5 h-3.5' : 'w-4 h-4'}`} />
             <span>{label}</span>
           </button>

@@ -45,10 +45,10 @@ export default function LoginDesktop({
 }: LoginDesktopProps) {
   return (
     <div className="h-screen w-full flex overflow-hidden">
-      <Sidebar active="dashboard" />
+      <Sidebar active="announcements" />
 
       <div
-        className="flex-1 relative bg-cover bg-center bg-no-repeat"
+        className="flex-1 relative bg-cover bg-center bg-no-repeat ys-slide-in-left"
         style={{ backgroundImage: `url(${desktopBg})` }}
       >
         <div className="absolute inset-0 bg-linear-to-r from-[#050f20]/80 via-[#071428]/50 to-transparent" />
@@ -78,7 +78,7 @@ export default function LoginDesktop({
         </div>
       </div>
 
-      <div className="w-[480px] shrink-0 bg-white flex flex-col shadow-[-12px_0_40px_rgba(0,0,0,0.12)] z-10">
+      <div className="w-[480px] shrink-0 bg-white flex flex-col shadow-[-12px_0_40px_rgba(0,0,0,0.12)] z-10 ys-slide-in-right">
         <div className="flex justify-end pt-6 px-8 pb-1 shrink-0">
           <div className="">
             <Dropdown
@@ -104,7 +104,7 @@ export default function LoginDesktop({
           <h2 className="text-[1.65rem] font-extrabold text-[#0f1e3d] leading-tight">
             Login to <span className="text-[#16a34a]">Yard</span>
           </h2>
-          <form onSubmit={onSubmit} className="space-y-3.5" noValidate>
+          <form onSubmit={onSubmit} className="space-y-3.5 ys-fade-in-up" style={{ animationDelay: '80ms' }} noValidate>
             <div className="group">
               <label className="block text-[0.78rem] font-semibold text-[#1a1a2e] mb-1.5 transition-colors group-focus-within:text-[#16a34a]">Email Address</label>
               <div className="flex items-center rounded-[10px] border border-[#e0e3eb] bg-white group-hover:border-gray-300 focus-within:!border-[#16a34a] focus-within:ring-2 focus-within:ring-[#16a34a]/12 transition-all duration-300 shadow-sm focus-within:shadow-md">
@@ -136,7 +136,7 @@ export default function LoginDesktop({
               <button type="button" className="text-[0.8rem] font-semibold text-[#16a34a] hover:text-[#15803d] hover:underline transition-colors">Forgot Password?</button>
             </div>
 
-            <button type="submit" className="w-1/2 mx-auto flex items-center justify-center gap-2 px-5 py-2.5 mt-1 rounded-[8px] font-bold text-[0.95rem] text-white bg-linear-to-r from-[#1d4ed8] via-[#1a7e5a] to-[#16a34a] hover:-translate-y-0.5 shadow-[0_4px_14px_rgba(22,163,74,0.25)] hover:shadow-[0_6px_20px_rgba(22,163,74,0.4)] transition-all duration-300">
+            <button type="submit" className="w-1/2 mx-auto flex items-center justify-center gap-2 px-5 py-2.5 mt-1 rounded-[8px] font-bold text-[0.95rem] text-white bg-linear-to-r from-[#1d4ed8] via-[#1a7e5a] to-[#16a34a] hover:-translate-y-0.5 active:scale-[0.97] active:opacity-90 shadow-[0_4px_14px_rgba(22,163,74,0.25)] hover:shadow-[0_6px_20px_rgba(22,163,74,0.4)] transition-all duration-200">
               <span>Login</span>
             </button>
 
@@ -148,7 +148,7 @@ export default function LoginDesktop({
 
             <div className="grid grid-cols-3 gap-3">
               {SOCIAL.map(({ label, logo }) => (
-                <button key={label} type="button" className="flex items-center justify-center gap-2 py-2 border border-[#e0e3eb] rounded-xl text-[0.8rem] font-semibold text-[#374151] bg-white hover:bg-gray-50 hover:-translate-y-0.5 hover:border-gray-300 shadow-sm hover:shadow-md transition-all duration-300 group">
+                <button key={label} type="button" className="flex items-center justify-center gap-2 py-2 border border-[#e0e3eb] rounded-xl text-[0.8rem] font-semibold text-[#374151] bg-white hover:bg-gray-50 hover:-translate-y-0.5 active:scale-[0.96] hover:border-gray-300 shadow-sm hover:shadow-md transition-all duration-200 group">
                   <img src={logo} alt={label} className="w-4 h-4 object-contain transition-transform duration-300 group-hover:scale-110" />
                   <span>{label}</span>
                 </button>

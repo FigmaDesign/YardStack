@@ -49,7 +49,6 @@ export default function Header({ activePage, onNavigate, viewMode, onViewModeCha
               <p className="text-[0.88rem] font-extrabold text-[#14532d] tracking-[-0.03em] m-0">
                 Yard<span className="text-[#16a34a]">Stack</span>
               </p>
-              <p className="text-[0.68rem] text-[#9199a8] font-medium m-0 tracking-wide">Workspace</p>
             </div>
           </div>
 

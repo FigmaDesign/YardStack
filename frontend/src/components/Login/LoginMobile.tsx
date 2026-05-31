@@ -31,7 +31,7 @@ export default function LoginMobile({
   return (
     <div className="h-[100dvh] w-full bg-[#f4f6f9] flex flex-col font-['Outfit',sans-serif] overflow-y-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
       <div
-        className="relative shrink-0 pb-12"
+        className="relative shrink-0 pb-12 ys-fade-in-down"
         style={{
           backgroundImage: `url(${mobileBg})`,
           backgroundSize: 'cover',
@@ -58,7 +58,7 @@ export default function LoginMobile({
         </div>
       </div>
 
-      <div className="relative z-20 -mt-6 pb-15 ">
+      <div className="relative z-20 -mt-6 pb-15 ys-scale-in" style={{ animationDelay: '80ms' }}>
         <div className="bg-white rounded-[8px] p-5 shadow-[0_8px_30px_rgba(0,0,0,0.08)] border border-gray-100">
 
           <form onSubmit={onSubmit} className="space-y-3.5" noValidate>
@@ -93,7 +93,7 @@ export default function LoginMobile({
               <button type="button" className="text-[0.72rem] font-semibold text-[#16a34a] hover:text-[#15803d] hover:underline transition-colors">Forgot Password?</button>
             </div>
 
-            <button type="submit" className="w-3/4 mx-auto flex items-center justify-center h-10 rounded-[8px] font-bold text-[0.95rem] text-white bg-linear-to-r from-[#1d4ed8] via-[#1a7e5a] to-[#16a34a] hover:opacity-90 transition-opacity shadow-md">
+            <button type="submit" className="w-3/4 mx-auto flex items-center justify-center h-10 rounded-[8px] font-bold text-[0.95rem] text-white bg-linear-to-r from-[#1d4ed8] via-[#1a7e5a] to-[#16a34a] hover:opacity-90 active:scale-[0.97] active:opacity-80 transition-all duration-200 shadow-md">
               <span className="text-center">Login</span>
             </button>
 
@@ -105,7 +105,7 @@ export default function LoginMobile({
 
             <div className="grid grid-cols-3 gap-2.5">
               {SOCIAL.map(({ label, logo }) => (
-                <button key={label} type="button" className="flex items-center justify-center gap-2 border border-[#e0e3eb] font-semibold text-[#374151] bg-white hover:bg-gray-50 hover:-translate-y-0.5 transition-all duration-300 py-2 rounded-[8px] text-[0.75rem]">
+                <button key={label} type="button" className="flex items-center justify-center gap-2 border border-[#e0e3eb] font-semibold text-[#374151] bg-white hover:bg-gray-50 hover:-translate-y-0.5 active:scale-[0.95] transition-all duration-200 py-2 rounded-[8px] text-[0.75rem]">
                   <img src={logo} alt={label} className="object-contain w-3.5 h-3.5" />
                   <span>{label}</span>
                 </button>

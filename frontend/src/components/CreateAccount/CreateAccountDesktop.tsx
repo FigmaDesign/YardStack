@@ -46,8 +46,8 @@ export default function CreateAccountDesktop({ language, setLanguage, onLoginCli
             </p>
             <div className="mt-7 space-y-2">
               {FEATURES.map(({ Icon, title, desc }) => (
-                <div key={title} className="flex items-center gap-3 p-2.5 rounded-xl hover:bg-white/10 hover:-translate-y-0.5 border border-transparent hover:border-white/10 transition-all duration-300 cursor-default hover:shadow-[0_8px_24px_rgba(0,0,0,0.2)] group">
-                  <div className="bg-[#16a34a] rounded-lg p-2.5 shrink-0 shadow-[0_4px_12px_rgba(22,163,74,0.4)] group-hover:scale-110 group-hover:bg-[#15803d] transition-all duration-300">
+                <div key={title} className="flex items-center gap-3 p-2.5 rounded-[8px] hover:bg-white/10 hover:-translate-y-0.5 border border-transparent hover:border-white/10 transition-all duration-300 cursor-default hover:shadow-[0_8px_24px_rgba(0,0,0,0.2)] group">
+                  <div className="bg-[#16a34a] rounded-[8px] p-2.5 shrink-0 shadow-[0_4px_12px_rgba(22,163,74,0.4)] group-hover:scale-110 group-hover:bg-[#15803d] transition-all duration-300">
                     <Icon sx={{ fontSize: 18, color: 'white' }} />
                   </div>
                   <div>
@@ -59,7 +59,7 @@ export default function CreateAccountDesktop({ language, setLanguage, onLoginCli
             </div>
           </div>
 
-          <div className="bg-white/15 backdrop-blur-xl border border-white/20 rounded-2xl p-2 mb-20 shadow-[0_8px_32px_rgba(0,0,0,0.15)] hover:bg-white/20 hover:shadow-[0_8px_32px_rgba(0,0,0,0.25)] transition-all duration-500 group">
+          <div className="bg-white/15 backdrop-blur-xl border border-white/20 rounded-[8px] p-2 mb-20 shadow-[0_8px_32px_rgba(0,0,0,0.15)] hover:bg-white/20 hover:shadow-[0_8px_32px_rgba(0,0,0,0.25)] transition-all duration-500 group">
             <div className="flex items-center divide-x divide-white/20 py-1.5">
               {STATS_DESKTOP.map(({ value, label }) => (
                 <div key={label} className="flex-1 text-center px-2 first:pl-0 last:pr-0 transform transition-transform duration-300 group-hover:scale-[1.02]">

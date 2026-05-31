@@ -2,55 +2,41 @@ import CreateAccountForm, { type CreateAccountFormProps } from './CreateAccountF
 
 export default function CreateAccountMobile(props: CreateAccountFormProps) {
   return (
-    <div className="relative h-[100dvh] w-full bg-[#050f20] overflow-hidden">
-      {/* FIXED BACKGROUND HEADER */}
-      {/* This stays pinned to the back. Logo and Welcome text remain fully visible */}
+    <div className="h-[100dvh] w-full bg-[#f4f6f9] flex flex-col font-['Outfit',sans-serif] overflow-y-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
       <div
-        className="absolute top-0 left-0 w-full h-[70vh] z-0"
+        className="relative shrink-0 pb-12"
         style={{
           backgroundImage: "url('/src/components/commonfiles/Images/Login&create/mobile.png')",
           backgroundSize: 'cover',
           backgroundPosition: 'center top',
         }}
       >
-        <div className="absolute inset-0 bg-linear-to-b from-[#050f20]/95 via-[#071428]/80 to-[#0d1a35]/95" />
-        <div className="relative z-10 px-7 pt-14 pb-10">
+        <div className="absolute inset-0 bg-linear-to-b from-[#050f20]/90 via-[#071428]/70 to-[#0d1a35]/95" />
+        
+        <div className="relative z-10 px-5 pt-10">
           <div className="flex items-center gap-3 mb-6">
-            <img src="/src/components/commonfiles/Images/YardStackLogowithouttext.png" alt="Yard" className="w-12 h-12 object-contain drop-shadow-md" />
+            <img src="/src/components/commonfiles/Images/YardStackLogowithouttext.png" alt="Yard" className="w-10 h-10 object-contain drop-shadow-md" />
             <div>
-              <p className="text-white font-extrabold text-[1.4rem] tracking-[0.15em] leading-none drop-shadow-sm">YARD</p>
-              <p className="text-[#4ade80] font-semibold text-[0.6rem] tracking-[0.22em] uppercase mt-1.5 drop-shadow-sm">Real Estate Intelligence</p>
+              <p className="text-white font-extrabold text-[1.3rem] tracking-[0.15em] leading-none drop-shadow-sm">YARD</p>
+              <p className="text-[#4ade80] font-semibold text-[0.55rem] tracking-[0.22em] uppercase mt-1 drop-shadow-sm">Real Estate Intelligence</p>
             </div>
           </div>
 
-          <h2 className="text-white text-[2rem] font-extrabold leading-[1.1] drop-shadow-xl mt-2">
+          <h2 className="text-white text-[1.6rem] font-extrabold leading-tight drop-shadow-lg mt-2">
             Welcome to <span className="text-[#4ade80]">Yard</span>
           </h2>
+          <p className="text-white/85 text-[0.75rem] mt-2 leading-relaxed max-w-[280px] drop-shadow-md">
+            Create your account and unlock the power of intelligent real estate insights.
+          </p>
         </div>
       </div>
 
-      {/* SCROLLABLE FOREGROUND OVERLAY */}
-      {/* This layer handles the scrolling. It overlays the background entirely */}
-      <div className="relative z-10 h-[100dvh] w-full overflow-y-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] scroll-smooth">
-        
-        {/* SPACER */}
-        {/* Pushes the form down so only the top ~40% of the popup is visible initially */}
-        <div className="h-[55dvh] w-full shrink-0" /> 
-        
-        {/* BOTTOM SHEET (Form Container) */}
-        {/* When the user scrolls, this slides up over the background */}
-        <div className="bg-white rounded-t-[36px] shadow-[0_-16px_50px_rgba(0,0,0,0.35)] min-h-[85dvh] flex flex-col relative z-20">
+      <div className="relative z-20 -mt-6 pb-15">
+        <div className="bg-white rounded-[8px] p-5 shadow-[0_8px_30px_rgba(0,0,0,0.08)] border border-gray-100">
+          <h2 className="text-[#0f1e3d] text-[1.2rem] font-extrabold leading-none mb-1.5">Create Your Account</h2>
+          <p className="text-[#6b7280] text-[0.75rem] mb-5">Fill in the details to get started</p>
           
-          {/* Sticky Drag Handle Header - Stays at the top of the screen when scrolled up */}
-          <div className="sticky top-0 bg-white z-30 pt-5 pb-4 rounded-t-[36px]">
-            <div className="w-14 h-1.5 bg-gray-200/80 rounded-full mx-auto" />
-          </div>
-          
-          {/* Form Content - Safe bottom padding (pb-12) ensures nothing cuts off at the bottom */}
-          <div className="px-7 pb-12">
-            <CreateAccountForm {...props} showLoginLink={true} />
-          </div>
-          
+          <CreateAccountForm {...props} showLoginLink={true} isMobile={true} />
         </div>
       </div>
     </div>

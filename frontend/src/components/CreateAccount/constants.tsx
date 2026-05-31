@@ -1,6 +1,8 @@
 import GroupsIcon from '@mui/icons-material/Groups'
 import CurrencyRupeeIcon from '@mui/icons-material/CurrencyRupee'
 import PersonAddAlt1Icon from '@mui/icons-material/PersonAddAlt1'
+import msLogo from '../commonfiles/Images/microsoft.svg'
+import appleLogo from '../commonfiles/Images/apple.svg'
 
 export const PHONE_CODES = ['+91', '+1', '+44', '+61', '+971']
 
@@ -25,6 +27,6 @@ export const ROLE_OPTIONS = [
 
 export const SOCIAL = [
   { label: 'Google',    logo: 'https://www.svgrepo.com/show/475656/google-color.svg' },
-  { label: 'Microsoft', logo: 'https://www.svgrepo.com/show/448234/microsoft.svg' },
-  { label: 'Apple',     logo: 'https://www.svgrepo.com/show/452234/apple.svg' },
+  { label: 'Microsoft', logo: msLogo },
+  { label: 'Apple',     logo: appleLogo },
 ]

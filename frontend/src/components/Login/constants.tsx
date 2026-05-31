@@ -2,11 +2,14 @@ import GroupsIcon from '@mui/icons-material/Groups'
 import ApartmentIcon from '@mui/icons-material/Apartment'
 import TrendingUpIcon from '@mui/icons-material/TrendingUp'
 import CheckCircleOutlinedIcon from '@mui/icons-material/CheckCircleOutlined'
+import msLogo from '../commonfiles/Images/microsoft.svg'
+import appleLogo from '../commonfiles/Images/apple.svg'
+import googleLogo from '../commonfiles/Images/google.svg'
 
 export const SOCIAL = [
-  { label: 'Google',    logo: 'https://www.svgrepo.com/show/475656/google-color.svg' },
-  { label: 'Microsoft', logo: 'https://www.svgrepo.com/show/448234/microsoft.svg' },
-  { label: 'Apple',     logo: 'https://www.svgrepo.com/show/452234/apple.svg' },
+  { label: 'Google',    logo: googleLogo },
+  { label: 'Microsoft', logo: msLogo },
+  { label: 'Apple',     logo: appleLogo },
 ]
 
 export const MOBILE_STATS = [

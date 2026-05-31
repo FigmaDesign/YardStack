@@ -14,7 +14,7 @@ export default function App() {
   const [activePage, setActivePage] = useState<Page>('login')
   const [viewMode, setViewMode] = useState<ViewMode>('desktop')
 
-  const isMobile = isMobileScreen || viewMode === 'mobile'
+  
 
   const showViewControls = activePage === 'login' || activePage === 'createAccount' || activePage === 'dashboard'
 

@@ -26,7 +26,7 @@ const FEATURES = [
 
 export default function CreateAccountDesktop({ language, setLanguage, onLoginClick, ...formProps }: CreateAccountDesktopProps) {
   return (
-    <div className="h-full flex overflow-hidden">
+    <div className="h-screen w-full flex overflow-hidden">
       <Sidebar active="dashboard" />
 
       <div
@@ -34,8 +34,8 @@ export default function CreateAccountDesktop({ language, setLanguage, onLoginCli
         style={{ backgroundImage: "url('/src/components/commonfiles/Images/Login&create/Desktop1.png')" }}
       >
         <div className="absolute inset-0 bg-linear-to-r from-[#050f20]/75 via-[#071428]/55 to-transparent" />
-        <div className="relative z-10 flex flex-col justify-between h-full px-10 py-10 max-w-[520px]">
-          <div className="mt-4">
+        <div className="relative z-10 flex flex-col justify-between h-full px-10 py-8 max-w-[520px]">
+          <div className="mt-2">
             <p className="text-[#4ade80] text-[0.82rem] font-semibold tracking-wider uppercase">Create Your Account</p>
             <div className="w-10 h-0.5 bg-[#4ade80] mt-2 mb-5" />
             <h1 className="text-white text-[2.1rem] font-extrabold leading-[1.15] tracking-tight">
@@ -59,7 +59,7 @@ export default function CreateAccountDesktop({ language, setLanguage, onLoginCli
             </div>
           </div>
 
-          <div className="bg-white/15 backdrop-blur-xl border border-white/20 rounded-2xl p-5">
+          <div className="bg-white/15 backdrop-blur-xl border border-white/20 rounded-2xl p-2 mb-20">
             <div className="flex items-center divide-x divide-white/20">
               {STATS_DESKTOP.map(({ value, label }) => (
                 <div key={label} className="flex-1 text-center px-3 first:pl-0 last:pr-0">
@@ -68,31 +68,30 @@ export default function CreateAccountDesktop({ language, setLanguage, onLoginCli
                 </div>
               ))}
             </div>
-            <p className="text-white/75 text-[0.8rem] text-center mt-4 border-t border-white/15 pt-3">
+            <p className="text-white/80 text-[0.85rem] text-center mt-3 border-t border-white/15 pt-3">
               Already have an account?{' '}
-              <button type="button" onClick={onLoginClick} className="text-[#4ade80] font-bold hover:underline">Login here</button>
+              <button type="button" onClick={onLoginClick} className="text-[#4ade80] font-bold hover:text-white transition-colors">Login here</button>
             </p>
           </div>
         </div>
       </div>
 
-      <div className="w-[500px] shrink-0 bg-white flex flex-col shadow-[-6px_0_28px_rgba(0,0,0,0.09)]">
-        <div className="flex justify-end px-7 pt-5 pb-2 shrink-0">
-          <Dropdown
-            options={LANG_OPTIONS}
-            value={language}
-            onChange={setLanguage}
-            leftIcon={<LanguageIcon sx={{ fontSize: 15 }} />}
-            size="sm"
-            className="w-36"
-          />
+      <div className="w-[650px] shrink-0 bg-white flex flex-col shadow-[-6px_0_28px_rgba(0,0,0,0.09)] z-10">
+        <div className="flex justify-end pt-8 px-10 pb-4 shrink-0">
+          <div className="flex items-center bg-gray-50/50 py-1.5 px-3 rounded-xl border border-gray-100">
+            <span className="text-[0.75rem] font-bold text-[#6b7280] uppercase tracking-wider mr-2.5 mt-0.5">Language:</span>
+            <Dropdown
+              options={LANG_OPTIONS}
+              value={language}
+              onChange={setLanguage}
+              leftIcon={<LanguageIcon sx={{ fontSize: 15 }} />}
+              size="sm"
+              className="w-32"
+            />
+          </div>
         </div>
 
-        <div className="flex-1 overflow-y-auto px-7 pt-2 pb-6">
-          <h2 className="text-[1.4rem] font-extrabold text-[#0f1e3d] leading-tight mb-1">
-            Create Account
-          </h2>
-          <p className="text-[0.8rem] text-[#6b7280] mb-4">Fill in the details to get started with Yard</p>
+        <div className="flex-1 px-10 flex flex-col justify-start">
           <CreateAccountForm {...formProps} onLoginClick={onLoginClick} twoColumn showLoginLink={false} />
         </div>
       </div>

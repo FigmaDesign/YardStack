@@ -9,11 +9,9 @@ import BusinessOutlinedIcon from '@mui/icons-material/BusinessOutlined'
 import PhoneOutlinedIcon from '@mui/icons-material/PhoneOutlined'
 import SecurityOutlinedIcon from '@mui/icons-material/SecurityOutlined'
 import TaskAltIcon from '@mui/icons-material/TaskAlt'
-import PersonAddAlt1Icon from '@mui/icons-material/PersonAddAlt1'
-import ArrowForwardIcon from '@mui/icons-material/ArrowForward'
 import Dropdown from '../commonfiles/Dropdown'
 import FormField from './FormField'
-import { PHONE_CODES, ROLE_OPTIONS, SOCIAL } from './constants'
+import { ROLE_OPTIONS, SOCIAL } from './constants'
 
 export interface CreateAccountFormProps {
   name: string
@@ -45,16 +43,31 @@ export interface CreateAccountFormProps {
   showLoginLink?: boolean
 }
 
-const PHONE_CODE_OPTIONS = PHONE_CODES.map(c => ({ value: c, label: c }))
-
 export default function CreateAccountForm(props: CreateAccountFormProps) {
   const {
-    name, setName, email, setEmail, phone, setPhone, phoneCode, setPhoneCode,
+    name, setName, email, setEmail, phone, setPhone,
     company, setCompany, role, setRole, password, setPassword,
     confirmPassword, setConfirmPassword, showPwd, setShowPwd,
     showConfirm, setShowConfirm, agreed, setAgreed, errors, onSubmit, onLoginClick,
     twoColumn = false, showLoginLink = true,
   } = props
+
+  const phoneField = (
+    <div>
+      <label className="block text-[0.78rem] font-semibold text-[#1a1a2e] mb-1.5">
+        Phone Number<span className="text-red-500 ml-0.5">*</span>
+      </label>
+      <div className="flex items-center rounded-[10px] border border-[#e0e3eb] bg-white focus-within:border-[#16a34a] focus-within:ring-2 focus-within:ring-[#16a34a]/12 transition-all">
+        <span className="pl-3.5 text-[#b0b5c0] shrink-0"><PhoneOutlinedIcon sx={{ fontSize: 18 }} /></span>
+        <input
+          id="ca-phone" type="tel" value={phone} onChange={e => setPhone(e.target.value)}
+          placeholder="Enter phone number"
+          className="flex-1 px-3 py-2 text-[0.85rem] text-[#1a1a2e] placeholder-[#b0b5c0] bg-transparent outline-none"
+        />
+      </div>
+      {errors.phone && <p className="text-red-500 text-[0.72rem] mt-1">{errors.phone}</p>}
+    </div>
+  )
 
   const roleField = (
     <div>
@@ -73,6 +86,14 @@ export default function CreateAccountForm(props: CreateAccountFormProps) {
     </div>
   )
 
+  const companyField = (
+    <FormField
+      label="Company / Organization" id="ca-company" placeholder="Enter your company name"
+      value={company} onChange={setCompany}
+      icon={<BusinessOutlinedIcon sx={{ fontSize: 18 }} />}
+    />
+  )
+
   const passwordField = (
     <FormField
       label="Password" id="ca-password" type={showPwd ? 'text' : 'password'}
@@ -88,23 +109,52 @@ export default function CreateAccountForm(props: CreateAccountFormProps) {
     />
   )
 
+  const confirmPasswordField = (
+    <FormField
+      label="Confirm Password" id="ca-confirm" type={showConfirm ? 'text' : 'password'}
+      placeholder="Confirm your password"
+      value={confirmPassword} onChange={setConfirmPassword}
+      icon={<LockOutlinedIcon sx={{ fontSize: 18 }} />}
+      rightIcon={
+        <button type="button" onClick={() => setShowConfirm(!showConfirm)} className="text-[#b0b5c0] hover:text-[#6b7280] transition-colors">
+          {showConfirm ? <VisibilityOutlinedIcon sx={{ fontSize: 17 }} /> : <VisibilityOffOutlinedIcon sx={{ fontSize: 17 }} />}
+        </button>
+      }
+      error={errors.confirmPassword} required
+    />
+  )
+
   return (
-    <form onSubmit={onSubmit} className="space-y-3.5" noValidate>
+    <form onSubmit={onSubmit} className="space-y-2.5" noValidate>
       {twoColumn ? (
-        <div className="grid grid-cols-2 gap-3">
+        <>
           <FormField
             label="Full Name" id="ca-name" placeholder="Enter your full name"
             value={name} onChange={setName}
             icon={<PersonOutlinedIcon sx={{ fontSize: 18 }} />}
             error={errors.name} required
           />
-          <FormField
-            label="Work Email" id="ca-email" type="email" placeholder="Enter your work email"
-            value={email} onChange={setEmail}
-            icon={<EmailOutlinedIcon sx={{ fontSize: 18 }} />}
-            error={errors.email} required
-          />
-        </div>
+
+          <div className="grid grid-cols-2 gap-3">
+            <FormField
+              label="Work Email" id="ca-email" type="email" placeholder="Enter your work email"
+              value={email} onChange={setEmail}
+              icon={<EmailOutlinedIcon sx={{ fontSize: 18 }} />}
+              error={errors.email} required
+            />
+            {phoneField}
+          </div>
+
+          <div className="grid grid-cols-2 gap-3">
+            {companyField}
+            {roleField}
+          </div>
+
+          <div className="grid grid-cols-2 gap-3">
+            {passwordField}
+            {confirmPasswordField}
+          </div>
+        </>
       ) : (
         <>
           <FormField
@@ -119,77 +169,25 @@ export default function CreateAccountForm(props: CreateAccountFormProps) {
             icon={<EmailOutlinedIcon sx={{ fontSize: 18 }} />}
             error={errors.email} required
           />
+          {phoneField}
+          {companyField}
+          {roleField}
+          {passwordField}
+          {confirmPasswordField}
         </>
       )}
 
-      <div>
-        <label className="block text-[0.78rem] font-semibold text-[#1a1a2e] mb-1.5">
-          Phone Number<span className="text-red-500 ml-0.5">*</span>
-        </label>
-        <div className="flex gap-2">
-          <div className="w-[100px] shrink-0">
-            <Dropdown
-              options={PHONE_CODE_OPTIONS}
-              value={phoneCode}
-              onChange={setPhoneCode}
-              size="sm"
-              id="ca-phone-code"
-            />
-          </div>
-          <div className="flex-1 flex items-center rounded-[10px] border border-[#e0e3eb] bg-white focus-within:border-[#16a34a] focus-within:ring-2 focus-within:ring-[#16a34a]/12 transition-all">
-            <span className="pl-3.5 text-[#b0b5c0] shrink-0"><PhoneOutlinedIcon sx={{ fontSize: 18 }} /></span>
-            <input
-              id="ca-phone" type="tel" value={phone} onChange={e => setPhone(e.target.value)}
-              placeholder="Enter phone number"
-              className="flex-1 px-3 py-2.5 text-[0.85rem] text-[#1a1a2e] placeholder-[#b0b5c0] bg-transparent outline-none"
-            />
-          </div>
-        </div>
-        {errors.phone && <p className="text-red-500 text-[0.72rem] mt-1">{errors.phone}</p>}
-      </div>
-
-      <FormField
-        label="Company / Organization" id="ca-company" placeholder="Enter your company name"
-        value={company} onChange={setCompany}
-        icon={<BusinessOutlinedIcon sx={{ fontSize: 18 }} />}
-      />
-
-      {twoColumn ? (
-        <div className="grid grid-cols-2 gap-3">
-          {roleField}
-          {passwordField}
-        </div>
-      ) : (
-        <>
-          {roleField}
-          {passwordField}
-        </>
-      )}
-
-      <FormField
-        label="Confirm Password" id="ca-confirm" type={showConfirm ? 'text' : 'password'}
-        placeholder="Confirm your password"
-        value={confirmPassword} onChange={setConfirmPassword}
-        icon={<LockOutlinedIcon sx={{ fontSize: 18 }} />}
-        rightIcon={
-          <button type="button" onClick={() => setShowConfirm(!showConfirm)} className="text-[#b0b5c0] hover:text-[#6b7280] transition-colors">
-            {showConfirm ? <VisibilityOutlinedIcon sx={{ fontSize: 17 }} /> : <VisibilityOffOutlinedIcon sx={{ fontSize: 17 }} />}
-          </button>
-        }
-        error={errors.confirmPassword} required
-      />
-
-      <div className="bg-[#f0fdf4] border border-[#bbf7d0] rounded-xl p-3.5 flex items-center justify-between gap-3">
+      <div className="bg-[#f0fdf4] border border-[#bbf7d0] rounded-xl p-2.5 flex items-center justify-between gap-3 mt-1">
         <div className="flex items-start gap-2.5">
           <SecurityOutlinedIcon sx={{ fontSize: 18, color: '#16a34a', flexShrink: 0, marginTop: '1px' }} />
           <div>
             <p className="text-[0.75rem] font-bold text-[#14532d]">Your security is our priority</p>
             <p className="text-[0.72rem] text-[#166534] leading-relaxed mt-0.5">
-              We use advanced encryption and security protocols to protect your data and ensure a safe experience.
+              We use advanced encryption and security protocols to protect your data.
             </p>
           </div>
         </div>
-        <TaskAltIcon sx={{ fontSize: 28, color: '#16a34a', flexShrink: 0 }} />
+        <TaskAltIcon sx={{ fontSize: 26, color: '#16a34a', flexShrink: 0 }} />
       </div>
 
       <label className="flex items-start gap-2.5 cursor-pointer">
@@ -197,7 +195,7 @@ export default function CreateAccountForm(props: CreateAccountFormProps) {
           type="checkbox" checked={agreed} onChange={e => setAgreed(e.target.checked)}
           className="w-4 h-4 mt-0.5 rounded accent-[#16a34a] shrink-0"
         />
-        <span className="text-[0.78rem] text-[#374151] leading-relaxed">
+        <span className="text-[0.75rem] text-[#374151] leading-relaxed">
           I agree to the{' '}
           <button type="button" className="text-[#16a34a] font-semibold hover:underline">Terms of Service</button>
           {' '}and{' '}
@@ -208,16 +206,12 @@ export default function CreateAccountForm(props: CreateAccountFormProps) {
 
       <button
         type="submit"
-        className="w-full flex items-center justify-between px-5 py-3.5 rounded-xl font-bold text-[0.95rem] text-white bg-linear-to-r from-[#1d4ed8] via-[#1a7e5a] to-[#16a34a] hover:opacity-90 transition-opacity shadow-md"
+        className="w-full flex items-center justify-center px-2 py-2.5 rounded-xl font-bold text-[0.95rem] text-white bg-linear-to-r from-[#1d4ed8] via-[#1a7e5a] to-[#16a34a] hover:opacity-90 transition-opacity shadow-md mt-1"
       >
-        <span className="flex-1 text-center">Create Account</span>
-        {twoColumn
-          ? <PersonAddAlt1Icon sx={{ fontSize: 20 }} />
-          : <ArrowForwardIcon sx={{ fontSize: 20 }} />
-        }
+        <span>Create Account</span>
       </button>
 
-      <div className="flex items-center gap-3">
+      <div className="flex items-center gap-3 my-1">
         <div className="flex-1 h-px bg-[#e5e7eb]" />
         <span className="text-[0.63rem] font-semibold text-[#9ca3af] tracking-[0.14em] uppercase">Or sign up with</span>
         <div className="flex-1 h-px bg-[#e5e7eb]" />
@@ -225,7 +219,7 @@ export default function CreateAccountForm(props: CreateAccountFormProps) {
 
       <div className="grid grid-cols-3 gap-2.5">
         {SOCIAL.map(({ label, logo }) => (
-          <button key={label} type="button" className="flex items-center justify-center gap-2 py-2.5 border border-[#e0e3eb] rounded-xl text-[0.8rem] font-semibold text-[#374151] hover:bg-gray-50 transition-colors shadow-sm">
+          <button key={label} type="button" className="flex items-center justify-center gap-2 py-2 border border-[#e0e3eb] rounded-xl text-[0.8rem] font-semibold text-[#374151] hover:bg-gray-50 transition-colors shadow-sm">
             <img src={logo} alt={label} className="w-4 h-4 object-contain" />
             <span>{label}</span>
           </button>
@@ -241,4 +235,3 @@ export default function CreateAccountForm(props: CreateAccountFormProps) {
     </form>
   )
 }
-

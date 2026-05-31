@@ -1,10 +1,15 @@
-import { useRef, type CSSProperties, type ElementType, type RefObject } from 'react'
+import { useRef, useState, type CSSProperties, type ElementType, type RefObject } from 'react'
+
+export interface SubTabItem {
+  label: string
+  Icon?: ElementType
+}
 
 export interface TabItem {
   key: string
   label: string
   Icon: ElementType
-  subTabs?: string[]
+  subTabs?: (string | SubTabItem)[]
 }
 
 interface TabBarProps {
@@ -15,12 +20,14 @@ interface TabBarProps {
   onSubTabChange: (sub: string) => void
 }
 
-// ─── NavigationShellSVG ───────────────────────────────────────────────────────
+function normalizeSubTab(entry: string | SubTabItem): SubTabItem {
+  return typeof entry === 'string' ? { label: entry } : entry
+}
 
 function NavigationShellSVG() {
   return (
     <svg
-      viewBox="0 0 1400 148"
+      viewBox="0 0 1400 120"
       preserveAspectRatio="none"
       aria-hidden
       style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', display: 'block' }}
@@ -31,12 +38,10 @@ function NavigationShellSVG() {
           <stop offset="100%" stopColor="#022E7D" />
         </linearGradient>
       </defs>
-      <path d="M0 148 L0 44 Q0 0 44 0 L1356 0 Q1400 0 1400 44 L1400 148 Z" fill="url(#tabShellGrad)" />
+      <path d="M0 120 L0 28 Q0 0 28 0 L1372 0 Q1400 0 1400 28 L1400 120 Z" fill="url(#tabShellGrad)" />
     </svg>
   )
 }
-
-// ─── MainNavigationTab ────────────────────────────────────────────────────────
 
 interface MainNavigationTabProps {
   tabKey: string
@@ -48,24 +53,33 @@ interface MainNavigationTabProps {
 }
 
 function MainNavigationTab({ tabKey, label, Icon, isActive, showDivider, onClick }: MainNavigationTabProps) {
+  const [hovered, setHovered] = useState(false)
+
+  const bgValue = isActive
+    ? 'linear-gradient(180deg, #34E27A 0%, #167DFF 100%)'
+    : hovered
+      ? '#0A459F'
+      : '#03327F'
+
   const style: CSSProperties = {
-    width: isActive ? 112 : 96,
-    height: 128,
+    width: isActive ? 138 : 128,
+    height: 108,
     flexShrink: 0,
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'center',
-    gap: 9,
-    borderRadius: '22px 22px 8px 8px',
+    gap: 6,
+    paddingLeft: 8,
+    paddingRight: 8,
+    paddingBottom: 16,
+    borderRadius: '24px 24px 8px 8px',
     border: 'none',
     outline: 'none',
     position: 'relative',
     cursor: 'pointer',
     WebkitTapHighlightColor: 'transparent',
-    background: isActive
-      ? 'linear-gradient(180deg, #34E27A 0%, #167DFF 100%)'
-      : '#03327F',
+    background: bgValue,
     borderLeft: showDivider ? '1px solid rgba(255,255,255,0.08)' : 'none',
     transition: 'all 250ms cubic-bezier(0.4, 0, 0.2, 1)',
   }
@@ -75,25 +89,29 @@ function MainNavigationTab({ tabKey, label, Icon, isActive, showDivider, onClick
       type="button"
       style={style}
       onClick={e => onClick(tabKey, e.currentTarget)}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
       aria-current={isActive ? 'page' : undefined}
     >
-      <Icon size={26} style={{ color: 'white', strokeWidth: 1.5 }} />
+      <Icon
+        size={40}
+        strokeWidth={1.5}
+        style={{
+          color: 'white',
+          filter: isActive ? 'drop-shadow(0 0 6px rgba(52,226,122,0.45))' : 'none',
+        }}
+      />
       <span
         style={{
-          fontSize: '0.63rem',
-          fontWeight: isActive ? 700 : 500,
+          fontSize: '0.75rem',
+          fontWeight: isActive ? 700 : 400,
           color: isActive ? '#ffffff' : 'rgba(255,255,255,0.9)',
           textAlign: 'center',
-          lineHeight: 1.25,
-          maxWidth: 88,
+          lineHeight: 1.2,
+          maxWidth: 110,
         }}
       >
-        {label.split(' ').map((word, i, arr) => (
-          <span key={i}>
-            {word}
-            {i < arr.length - 1 && <br />}
-          </span>
-        ))}
+        {label}
       </span>
       {isActive && (
         <div
@@ -102,8 +120,8 @@ function MainNavigationTab({ tabKey, label, Icon, isActive, showDivider, onClick
             bottom: 10,
             left: '50%',
             transform: 'translateX(-50%)',
-            width: 44,
-            height: 5,
+            width: 40,
+            height: 4,
             borderRadius: 999,
             background: 'linear-gradient(90deg, #34E27A, #4AA3FF)',
           }}
@@ -112,8 +130,6 @@ function MainNavigationTab({ tabKey, label, Icon, isActive, showDivider, onClick
     </button>
   )
 }
-
-// ─── MainNavigation ───────────────────────────────────────────────────────────
 
 interface MainNavigationProps {
   tabs: TabItem[]
@@ -124,18 +140,18 @@ interface MainNavigationProps {
 
 function MainNavigation({ tabs, active, onTabClick, scrollRef }: MainNavigationProps) {
   return (
-    <div className="shrink-0 relative" style={{ height: 148 }}>
+    <div className="shrink-0 relative" style={{ height: 120 }}>
       <NavigationShellSVG />
       <div
         ref={scrollRef}
-        className="relative z-10 flex h-full overflow-x-auto items-end"
+        className="relative z-10 flex h-full overflow-x-auto"
         style={{
           scrollbarWidth: 'none',
           msOverflowStyle: 'none',
-          paddingLeft: 10,
-          paddingRight: 10,
-          paddingBottom: 10,
+          paddingLeft: 8,
+          paddingRight: 8,
           gap: 0,
+          alignItems: 'flex-end',
         }}
       >
         {tabs.map(({ key, label, Icon }, idx) => {
@@ -158,45 +174,57 @@ function MainNavigation({ tabs, active, onTabClick, scrollRef }: MainNavigationP
   )
 }
 
-// ─── SecondaryNavigationItem ──────────────────────────────────────────────────
-
 interface SecondaryNavigationItemProps {
   label: string
+  Icon?: ElementType
   isActive: boolean
-  isLast: boolean
+  isFirst: boolean
   onSubClick: (sub: string, el: HTMLButtonElement) => void
 }
 
-function SecondaryNavigationItem({ label, isActive, isLast, onSubClick }: SecondaryNavigationItemProps) {
+function SecondaryNavigationItem({ label, Icon, isActive, isFirst, onSubClick }: SecondaryNavigationItemProps) {
+  const [hovered, setHovered] = useState(false)
+
   return (
     <button
       type="button"
       onClick={e => onSubClick(label, e.currentTarget)}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
       style={{
-        height: 96,
+        flex: 1,
+        height: '100%',
         minWidth: 88,
         flexShrink: 0,
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
-        padding: '0 16px',
+        gap: 6,
+        padding: '0 10px 16px',
         border: 'none',
-        background: 'transparent',
-        borderRight: !isLast ? '1px solid rgba(26,43,85,0.12)' : 'none',
+        background: hovered ? 'rgba(3,50,127,0.04)' : 'transparent',
+        borderLeft: !isFirst ? '1px solid rgba(26,43,85,0.1)' : 'none',
         position: 'relative',
         cursor: 'pointer',
         WebkitTapHighlightColor: 'transparent',
         transition: 'all 250ms cubic-bezier(0.4, 0, 0.2, 1)',
       }}
     >
+      {Icon && (
+        <Icon
+          size={28}
+          strokeWidth={1.75}
+          style={{ color: isActive ? '#0A459F' : '#1A2B55' }}
+        />
+      )}
       <span
         style={{
-          fontSize: '0.72rem',
-          fontWeight: isActive ? 700 : 500,
+          fontSize: '0.75rem',
+          fontWeight: isActive ? 700 : 400,
           color: '#1A2B55',
           textAlign: 'center',
-          lineHeight: 1.3,
+          lineHeight: 1.25,
           whiteSpace: 'nowrap',
         }}
       >
@@ -206,10 +234,10 @@ function SecondaryNavigationItem({ label, isActive, isLast, onSubClick }: Second
         <div
           style={{
             position: 'absolute',
-            bottom: 12,
+            bottom: 8,
             left: '50%',
             transform: 'translateX(-50%)',
-            width: 32,
+            width: 36,
             height: 3,
             borderRadius: 999,
             background: 'linear-gradient(90deg, #34E27A, #4AA3FF)',
@@ -220,10 +248,8 @@ function SecondaryNavigationItem({ label, isActive, isLast, onSubClick }: Second
   )
 }
 
-// ─── SecondaryNavigation ──────────────────────────────────────────────────────
-
 interface SecondaryNavigationProps {
-  subTabs: string[]
+  subTabs: (string | SubTabItem)[]
   activeSubTab: string
   onSubClick: (sub: string, el: HTMLButtonElement) => void
   scrollRef: RefObject<HTMLDivElement | null>
@@ -232,7 +258,7 @@ interface SecondaryNavigationProps {
 function SecondaryNavigation({ subTabs, activeSubTab, onSubClick, scrollRef }: SecondaryNavigationProps) {
   if (subTabs.length === 0) return null
   return (
-    <div className="shrink-0 px-3 pt-2 pb-3">
+    <div className="shrink-0" style={{ padding: '0 12px', marginTop: 16, paddingBottom: 10 }}>
       <div
         ref={scrollRef}
         className="flex overflow-x-auto"
@@ -241,26 +267,28 @@ function SecondaryNavigation({ subTabs, activeSubTab, onSubClick, scrollRef }: S
           msOverflowStyle: 'none',
           background: '#ffffff',
           borderRadius: 22,
-          boxShadow: '0 10px 28px rgba(0,0,0,0.10)',
+          boxShadow: '0 8px 24px rgba(0,0,0,0.07)',
           height: 96,
           alignItems: 'stretch',
         }}
       >
-        {subTabs.map((sub, idx) => (
-          <SecondaryNavigationItem
-            key={sub}
-            label={sub}
-            isActive={sub === activeSubTab}
-            isLast={idx === subTabs.length - 1}
-            onSubClick={onSubClick}
-          />
-        ))}
+        {subTabs.map((entry, idx) => {
+          const item = normalizeSubTab(entry)
+          return (
+            <SecondaryNavigationItem
+              key={item.label}
+              label={item.label}
+              Icon={item.Icon}
+              isActive={item.label === activeSubTab}
+              isFirst={idx === 0}
+              onSubClick={onSubClick}
+            />
+          )
+        })}
       </div>
     </div>
   )
 }
-
-// ─── TabBar ───────────────────────────────────────────────────────────────────
 
 export default function TabBar({ tabs, active, activeSubTab, onChange, onSubTabChange }: TabBarProps) {
   const mainRef = useRef<HTMLDivElement>(null)
@@ -272,7 +300,10 @@ export default function TabBar({ tabs, active, activeSubTab, onChange, onSubTabC
   function handleMainClick(key: string, el: HTMLButtonElement) {
     const item = tabs.find(t => t.key === key)
     onChange(key)
-    if (item?.subTabs?.length) onSubTabChange(item.subTabs[0])
+    if (item?.subTabs?.length) {
+      const first = normalizeSubTab(item.subTabs[0])
+      onSubTabChange(first.label)
+    }
     el.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' })
   }
 
@@ -293,4 +324,3 @@ export default function TabBar({ tabs, active, activeSubTab, onChange, onSubTabC
     </div>
   )
 }
-

@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback, type MouseEvent, type FocusEvent } from 'react'
+import { useState, useEffect, useCallback, type MouseEvent, type FocusEvent, type CSSProperties } from 'react'
 import { createPortal } from 'react-dom'
 import { ChevronLeft, Crown } from 'lucide-react'
 import { NAV_ITEMS, type NavKey } from './data'
@@ -26,10 +26,9 @@ function getPos(el: HTMLElement) {
 export default function Sidebar({ active = 'announcements', onNavigate }: SidebarProps) {
   const [isCollapsed, setIsCollapsed] = useState(false)
   const [tooltip, setTooltip] = useState<TooltipState>(HIDDEN)
-  const [mounted, setMounted] = useState(false)
+  const [mounted] = useState(typeof document !== 'undefined')
 
   useEffect(() => {
-    setMounted(true)
     const hide = () => setTooltip(HIDDEN)
     window.addEventListener('scroll', hide, { capture: true, passive: true })
     return () => window.removeEventListener('scroll', hide, { capture: true })
@@ -49,8 +48,8 @@ export default function Sidebar({ active = 'announcements', onNavigate }: Sideba
   return (
     <aside
       aria-label="Main Navigation Sidebar"
-      className={`flex flex-col shrink-0 h-full text-white transition-all duration-500 ease-in-out relative z-[9999] shadow-[4px_0_32px_rgba(0,0,0,0.4)] bg-[linear-gradient(175deg,#1a3a6b_0%,#0f2550_30%,#0a1e42_60%,#071a38_80%,#051530_100%)] motion-reduce:transition-none ${
-        isCollapsed ? 'w-[72px]' : 'w-60'
+      className={`flex flex-col shrink-0 h-full text-white transition-all duration-500 ease-in-out relative z-9999 shadow-[4px_0_32px_rgba(0,0,0,0.4)] bg-[linear-gradient(175deg,#1a3a6b_0%,#0f2550_30%,#0a1e42_60%,#071a38_80%,#051530_100%)] motion-reduce:transition-none ${
+        isCollapsed ? 'w-18' : 'w-60'
       }`}
     >
       <div className="flex flex-col items-center p-2 overflow-hidden shrink-0">
@@ -62,7 +61,7 @@ export default function Sidebar({ active = 'announcements', onNavigate }: Sideba
           }`}
         />
         <div
-          aria-hidden={isCollapsed}
+          aria-hidden={isCollapsed ? "true" : "false"}
           className={`flex flex-col items-center overflow-hidden whitespace-nowrap transition-all duration-500 ease-in-out motion-reduce:transition-none ${
             isCollapsed ? 'h-0 opacity-0 mt-0' : 'h-9 opacity-100 mt-2.5'
           }`}
@@ -76,7 +75,7 @@ export default function Sidebar({ active = 'announcements', onNavigate }: Sideba
 
       <nav
         aria-label="Sidebar Menu"
-        className="flex-1 overflow-y-auto overflow-x-visible pb-4 flex flex-col [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
+        className="flex-1 overflow-y-auto overflow-x-visible pb-4 flex flex-col [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] scrollbar-none"
       >
         <div
           aria-hidden="true"
@@ -169,7 +168,7 @@ export default function Sidebar({ active = 'announcements', onNavigate }: Sideba
           </div>
 
           <div
-            aria-hidden={isCollapsed}
+            aria-hidden={isCollapsed ? "true" : "false"}
             className={`text-center transition-all duration-300 relative z-10 flex flex-col items-center w-full motion-reduce:transition-none ${
               isCollapsed ? 'h-0 opacity-0 overflow-hidden' : 'h-auto opacity-100 mt-1'
             }`}
@@ -177,7 +176,7 @@ export default function Sidebar({ active = 'announcements', onNavigate }: Sideba
             <p className="text-[0.66rem] font-extrabold tracking-[0.12em] uppercase w-full px-2 whitespace-nowrap overflow-visible text-[#4ade80] drop-shadow-[0_0_10px_rgba(74,222,128,0.35)] m-0">
               Premium Platform
             </p>
-            <p className="text-[0.72rem] mt-2 leading-tight font-medium w-full max-w-[240px] px-2 text-white/90 mb-0">
+            <p className="text-[0.72rem] mt-2 leading-tight font-medium w-full max-w-60 px-2 text-white/90 mb-0">
               Built for visionaries.<br />Designed for excellence.
             </p>
           </div>
@@ -186,7 +185,7 @@ export default function Sidebar({ active = 'announcements', onNavigate }: Sideba
 
       <button
         onClick={() => setIsCollapsed((prev) => !prev)}
-        aria-expanded={!isCollapsed}
+        aria-expanded={!isCollapsed ? "true" : "false"}
         aria-label={isCollapsed ? 'Expand Sidebar' : 'Collapse Sidebar'}
         title={isCollapsed ? 'Expand Sidebar' : 'Collapse Sidebar'}
         className={`flex items-center py-4 text-[0.8rem] font-medium transition-colors duration-300 shrink-0 border-none border-t border-t-white/10 bg-[#050f23]/55 text-white/60 hover:text-white/90 hover:bg-[#050f23]/80 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#2dd4a0] focus-visible:ring-inset motion-reduce:transition-none ${
@@ -214,8 +213,8 @@ export default function Sidebar({ active = 'announcements', onNavigate }: Sideba
         createPortal(
           <div
             role="tooltip"
-            className="fixed -translate-y-1/2 z-[10000] pointer-events-none flex items-center gap-0 animate-in fade-in duration-200"
-            style={{ left: tooltip.x, top: tooltip.y }}
+            style={{ '--tw-tip-x': `${tooltip.x}px`, '--tw-tip-y': `${tooltip.y}px` } as CSSProperties}
+            className="fixed -translate-y-1/2 z-10000 pointer-events-none flex items-center gap-0 animate-in fade-in duration-200 left-(--tw-tip-x) top-(--tw-tip-y)"
           >
             <div
               className="w-0 h-0 shrink-0 border-y-[6px] border-y-transparent border-r-[7px] border-r-[#1a3a6b]"
@@ -233,14 +232,14 @@ export default function Sidebar({ active = 'announcements', onNavigate }: Sideba
         createPortal(
           <div
             role="tooltip"
-            className="fixed -translate-y-1/2 z-[10000] pointer-events-none flex items-center gap-0 animate-in fade-in duration-200"
-            style={{ left: tooltip.x, top: tooltip.y }}
+            style={{ '--tw-tip-x': `${tooltip.x}px`, '--tw-tip-y': `${tooltip.y}px` } as CSSProperties}
+            className="fixed -translate-y-1/2 z-10000 pointer-events-none flex items-center gap-0 animate-in fade-in duration-200 left-(--tw-tip-x) top-(--tw-tip-y)"
           >
             <div
-              className="w-0 h-0 shrink-0 border-y-[7px] border-y-transparent border-r-[8px] border-r-[#0c2248]"
+              className="w-0 h-0 shrink-0 border-y-[7px] border-y-transparent border-r-8 border-r-[#0c2248]"
               aria-hidden="true"
             />
-            <div className="bg-[linear-gradient(160deg,#0c2248_0%,#051a30_100%)] border border-[#4ade80]/30 rounded-xl px-4 py-3 min-w-[180px] shadow-[0_8px_28px_rgba(0,0,0,0.6),0_0_16px_rgba(74,222,128,0.1)]">
+            <div className="bg-[linear-gradient(160deg,#0c2248_0%,#051a30_100%)] border border-[#4ade80]/30 rounded-xl px-4 py-3 min-w-45 shadow-[0_8px_28px_rgba(0,0,0,0.6),0_0_16px_rgba(74,222,128,0.1)]">
               <div className="flex items-center gap-2 mb-2">
                 <Crown size={16} aria-hidden="true" className="text-[#4ade80] stroke-[1.8] shrink-0" />
                 <span className="text-[#4ade80] text-[11px] font-extrabold tracking-[0.18em] uppercase drop-shadow-[0_0_8px_rgba(74,222,128,0.4)]">

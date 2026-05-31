@@ -304,14 +304,14 @@ export default function CreateAccountForm(props: CreateAccountFormProps) {
           <label htmlFor={`${formId}-agreed`} className="cursor-pointer">I agree to the </label>
           <button 
             type="button" 
-            className="text-[#15803d] font-semibold hover:text-[#14532d] hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#16a34a] rounded-[2px] transition-colors"
+            className="text-[#15803d] underline font-semibold hover:text-[#14532d] hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#16a34a] rounded-[2px] transition-colors"
           >
             Terms of Service
           </button>
           {' '}and{' '}
           <button 
             type="button" 
-            className="text-[#15803d] font-semibold hover:text-[#14532d] hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#16a34a] rounded-[2px] transition-colors"
+            className="text-[#15803d] underline font-semibold hover:text-[#14532d] hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#16a34a] rounded-[2px] transition-colors"
           >
             Privacy Policy
           </button>

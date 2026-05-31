@@ -23,6 +23,13 @@ const STAT_CARDS = [
   { Icon: EventNoteIcon,     color: '#dc2626', bg: '#fef2f2' },
 ]
 
+const STAGGER_DELAYS = [
+  '[animation-delay:0ms]',
+  '[animation-delay:65ms]',
+  '[animation-delay:130ms]',
+  '[animation-delay:195ms]',
+] as const
+
 const SUB_TABS: SubTabItem[] = COMMON_SUBTABS
 
 const TAB_ITEMS = NAV_ITEMS.map(({ key, label, Icon, subTabs }) => ({ 
@@ -38,13 +45,12 @@ const StatCards = memo(function StatCards() {
       {STAT_CARDS.map((_, idx) => (
         <div 
           key={idx} 
-          className="ys-fade-in-up motion-reduce:animate-none motion-reduce:transform-none motion-reduce:opacity-100" 
-          style={{ animationDelay: `${idx * 65}ms` }}
+          className={`ys-fade-in-up motion-reduce:animate-none motion-reduce:transform-none motion-reduce:opacity-100 ${STAGGER_DELAYS[idx]}`} 
         >
           <div 
             role="status"
             aria-label="Loading statistic card"
-            className="ys-skeleton rounded-xl min-h-[5rem] border border-[#eef0f3] shadow-[0_1px_6px_rgba(0,0,0,0.04)]" 
+            className="ys-skeleton rounded-xl min-h-20 border border-[#eef0f3] shadow-[0_1px_6px_rgba(0,0,0,0.04)]" 
           />
         </div>
       ))}
@@ -54,7 +60,7 @@ const StatCards = memo(function StatCards() {
 
 const RecentProperties = memo(function RecentProperties() {
   return (
-    <section aria-label="Recent Properties Loading" className="ys-fade-in-up motion-reduce:animate-none motion-reduce:transform-none motion-reduce:opacity-100" style={{ animationDelay: '180ms' }}>
+    <section aria-label="Recent Properties Loading" className="ys-fade-in-up motion-reduce:animate-none motion-reduce:transform-none motion-reduce:opacity-100 [animation-delay:180ms]">
       <div 
         role="status"
         aria-label="Loading recent properties"
@@ -66,7 +72,7 @@ const RecentProperties = memo(function RecentProperties() {
 
 const ActivityFeed = memo(function ActivityFeed() {
   return (
-    <section aria-label="Activity Feed Loading" className="ys-fade-in-up motion-reduce:animate-none motion-reduce:transform-none motion-reduce:opacity-100" style={{ animationDelay: '260ms' }}>
+    <section aria-label="Activity Feed Loading" className="ys-fade-in-up motion-reduce:animate-none motion-reduce:transform-none motion-reduce:opacity-100 [animation-delay:260ms]">
       <div 
         role="status"
         aria-label="Loading activity feed"
@@ -113,7 +119,7 @@ function DesktopDashboard() {
             
             <button 
               aria-label="User profile menu"
-              className="w-9 h-9 shrink-0 rounded-lg bg-gradient-to-br from-[#16a34a] to-[#15803d] flex items-center justify-center text-white font-extrabold text-[0.85rem] shadow-sm select-none cursor-pointer hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#16a34a] focus-visible:ring-offset-2 focus-visible:ring-offset-[#f5f6f8] active:scale-95 transition-all duration-150 motion-reduce:transition-none motion-reduce:transform-none"
+              className="w-9 h-9 shrink-0 rounded-lg bg-linear-to-br from-[#16a34a] to-[#15803d] flex items-center justify-center text-white font-extrabold text-[0.85rem] shadow-sm select-none cursor-pointer hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#16a34a] focus-visible:ring-offset-2 focus-visible:ring-offset-[#f5f6f8] active:scale-95 transition-all duration-150 motion-reduce:transition-none motion-reduce:transform-none"
             >
               Y
             </button>
@@ -176,7 +182,7 @@ function MobileDashboard() {
           </button>
           <button 
             aria-label="User profile menu"
-            className="w-8 h-8 shrink-0 rounded-lg bg-gradient-to-br from-[#22c55e] to-[#0ea5e9] flex items-center justify-center text-white font-extrabold text-[0.8rem] shadow-sm select-none active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#4ade80] focus-visible:ring-offset-2 focus-visible:ring-offset-[#0d1f3c] transition-transform duration-150 motion-reduce:transition-none motion-reduce:transform-none"
+            className="w-8 h-8 shrink-0 rounded-lg bg-linear-to-br from-[#22c55e] to-[#0ea5e9] flex items-center justify-center text-white font-extrabold text-[0.8rem] shadow-sm select-none active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#4ade80] focus-visible:ring-offset-2 focus-visible:ring-offset-[#0d1f3c] transition-transform duration-150 motion-reduce:transition-none motion-reduce:transform-none"
           >
             Y
           </button>
@@ -193,9 +199,9 @@ function MobileDashboard() {
         />
       </nav>
 
-      <div className="flex-1 overflow-y-auto px-4 py-4 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[#16a34a]" tabIndex={-1}>
+      <div className="flex-1 overflow-y-auto px-4 py-4 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] scrollbar-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[#16a34a]" tabIndex={-1}>
         <header className="mb-4">
-          <p className="text-[0.65rem] font-semibold text-[#9199a8] uppercase tracking-[0.1em] truncate">
+          <p className="text-[0.65rem] font-semibold text-[#9199a8] uppercase tracking-widest truncate">
             {activeItem?.label ?? 'Dashboard'}
           </p>
           <h2 className="text-[1.1rem] font-extrabold text-[#0f1e3d] mt-0.5 truncate">{activeSubTab}</h2>

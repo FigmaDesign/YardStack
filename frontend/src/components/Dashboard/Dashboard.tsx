@@ -11,6 +11,7 @@ import Sidebar from '../commonfiles/sidebar/Sidebar'
 import TabBar from '../commonfiles/TabBar'
 import SubTabBar from '../commonfiles/TabBar/SubTabBar'
 import { NAV_ITEMS, COMMON_SUBTABS, type SubTabItem, type NavKey } from '../commonfiles/sidebar/data'
+import Announcements from './announcements/Announcements'
 
 interface DashboardProps {
   viewMode?: 'desktop' | 'mobile'
@@ -36,7 +37,7 @@ const TAB_ITEMS = NAV_ITEMS.map(({ key, label, Icon, subTabs }) => ({
   key, 
   label, 
   Icon, 
-  subTabs: subTabs ?? [] 
+  subTabs: key === 'announcements' ? [] : (subTabs ?? []),
 }))
 
 const StatCards = memo(function StatCards() {
@@ -126,21 +127,28 @@ function DesktopDashboard() {
           </div>
         </header>
 
-        <nav aria-label="Secondary Navigation" className="shrink-0 border-b border-[#eef0f3]">
-          <SubTabBar subTabs={SUB_TABS} active={activeSubTab} onChange={setActiveSubTab} variant="desktop" />
-        </nav>
+        {activeNav !== 'announcements' && (
+          <nav aria-label="Secondary Navigation" className="shrink-0 border-b border-[#eef0f3]">
+            <SubTabBar subTabs={SUB_TABS} active={activeSubTab} onChange={setActiveSubTab} variant="desktop" />
+          </nav>
+        )}
 
-        <div className="flex-1 overflow-y-auto px-6 py-5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[#16a34a]" tabIndex={-1}>
-          <StatCards />
-          
-          <div className="grid grid-cols-1 lg:grid-cols-5 gap-4">
-            <div className="lg:col-span-3">
-              <RecentProperties />
+        <div className="flex-1 overflow-hidden flex flex-col focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[#16a34a]" tabIndex={-1}>
+          {activeNav === 'announcements' ? (
+            <Announcements />
+          ) : (
+            <div className="flex-1 overflow-y-auto px-6 py-5">
+              <StatCards />
+              <div className="grid grid-cols-1 lg:grid-cols-5 gap-4">
+                <div className="lg:col-span-3">
+                  <RecentProperties />
+                </div>
+                <div className="lg:col-span-2">
+                  <ActivityFeed />
+                </div>
+              </div>
             </div>
-            <div className="lg:col-span-2">
-              <ActivityFeed />
-            </div>
-          </div>
+          )}
         </div>
       </div>
     </main>
@@ -199,21 +207,24 @@ function MobileDashboard() {
         />
       </nav>
 
-      <div className="flex-1 overflow-y-auto px-4 py-4 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] scrollbar-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[#16a34a]" tabIndex={-1}>
-        <header className="mb-4">
-          <p className="text-[0.65rem] font-semibold text-[#9199a8] uppercase tracking-widest truncate">
-            {activeItem?.label ?? 'Dashboard'}
-          </p>
-          <h2 className="text-[1.1rem] font-extrabold text-[#0f1e3d] mt-0.5 truncate">{activeSubTab}</h2>
-        </header>
-
-        <StatCards />
-
-        <div className="mb-4">
-          <RecentProperties />
-        </div>
-
-        <ActivityFeed />
+      <div className="flex-1 overflow-hidden flex flex-col [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] scrollbar-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[#16a34a]" tabIndex={-1}>
+        {activeTab === 'announcements' ? (
+          <Announcements />
+        ) : (
+          <div className="flex-1 overflow-y-auto px-4 py-4">
+            <header className="mb-4">
+              <p className="text-[0.65rem] font-semibold text-[#9199a8] uppercase tracking-widest truncate">
+                {activeItem?.label ?? 'Dashboard'}
+              </p>
+              <h2 className="text-[1.1rem] font-extrabold text-[#0f1e3d] mt-0.5 truncate">{activeSubTab}</h2>
+            </header>
+            <StatCards />
+            <div className="mb-4">
+              <RecentProperties />
+            </div>
+            <ActivityFeed />
+          </div>
+        )}
       </div>
     </main>
   )

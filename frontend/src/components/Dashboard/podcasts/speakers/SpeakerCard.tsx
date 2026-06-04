@@ -8,7 +8,7 @@ interface SpeakerCardProps {
 
 export default memo(function SpeakerCard({ speaker }: SpeakerCardProps) {
   return (
-    <article className="flex items-center gap-3.5 sm:gap-4 px-4 sm:px-5 py-4 sm:py-5 border-b border-slate-100/80 hover:bg-slate-50/50 transition-colors duration-200 group cursor-pointer">
+    <article className="flex items-center gap-3.5 sm:gap-2 px-4 sm:px-2 py-4 sm:py-3 border-b border-slate-100/80 hover:bg-slate-50/50 transition-colors duration-200 group cursor-pointer">
       {/* Avatar */}
       <div
         className="w-14 h-14 sm:w-16 sm:h-16 rounded-full shrink-0 flex items-center justify-center text-white font-bold text-[0.85rem] sm:text-[0.95rem] shadow-md"

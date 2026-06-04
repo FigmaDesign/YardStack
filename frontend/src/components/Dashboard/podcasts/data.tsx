@@ -90,18 +90,6 @@ export const EPISODES: Episode[] = [
     thumbnailSubLabel: 'INSIGHTS',
   },
   {
-    id: 'ep-2',
-    title: 'Real Estate Market Trends – Q2 2025',
-    speaker: 'Neha Reddy',
-    role: 'Market Analyst',
-    duration: '26:12',
-    plays: '1.4K Plays',
-    timeAgo: '1 day ago',
-    thumbnailColor: '#16a34a',
-    thumbnailLabel: 'MARKET',
-    thumbnailSubLabel: 'TRENDS 2025',
-  },
-  {
     id: 'ep-3',
     title: 'Challenges & Opportunities for Builders in 2025',
     speaker: 'Sandeep Kumar',

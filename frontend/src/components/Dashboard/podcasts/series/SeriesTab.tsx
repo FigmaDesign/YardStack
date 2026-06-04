@@ -1,6 +1,6 @@
 import { memo } from 'react'
 import { Play, Clock, ChevronRight, Headphones } from 'lucide-react'
-import PageHeader from '../PageHeader'
+import PageHeader from '../components/PageHeader'
 import { SERIES_LIST } from '../data'
 
 export default memo(function SeriesTab() {

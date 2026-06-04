@@ -1,8 +1,8 @@
 import { memo } from 'react'
-import PageHeader from '../PageHeader'
-import FeaturedCard from '../FeaturedCard'
-import SectionHeader from '../SectionHeader'
-import EpisodeCard from '../EpisodeCard'
+import PageHeader from '../components/PageHeader'
+import FeaturedCard from '../components/FeaturedCard'
+import SectionHeader from '../components/SectionHeader'
+import EpisodeCard from '../episodes/EpisodeCard'
 import { FEATURED_TRENDING, TRENDING_EPISODES, TRENDING_TOPICS } from '../data'
 
 export default memo(function TrendingTab() {

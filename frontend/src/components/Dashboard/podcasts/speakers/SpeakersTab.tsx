@@ -1,8 +1,8 @@
 import { memo } from 'react'
 import { Play } from 'lucide-react'
-import PageHeader from '../PageHeader'
-import FeaturedCard from '../FeaturedCard'
-import SectionHeader from '../SectionHeader'
+import PageHeader from '../components/PageHeader'
+import FeaturedCard from '../components/FeaturedCard'
+import SectionHeader from '../components/SectionHeader'
 import SpeakerCard from './SpeakerCard'
 import { FEATURED_SPEAKER, SPEAKERS } from '../data'
 

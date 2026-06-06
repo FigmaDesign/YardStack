@@ -1,6 +1,3 @@
-// ── Podcast Data ──────────────────────────────────────────────────
-// All static data for the Podcasts section lives here.
-
 export interface Episode {
   id: string
   title: string
@@ -43,14 +40,12 @@ export interface Series {
   bgGradient: string
 }
 
-// ── Featured Content ─────────────────────────────────────────────
-
 export const FEATURED_EPISODE = {
   title: 'Future of Real Estate in India 2025',
   speaker: 'Rajesh Sharma',
-  role: 'Founder, Prime Builders',
+  role: 'Founder, Finwise Solutions',
   duration: '34:15',
-  plays: '2.1K Plays',
+  plays: '2.3K Plays',
   badge: 'Featured Episode',
 }
 
@@ -74,8 +69,6 @@ export const FEATURED_SPEAKER = {
   badge: 'Featured Speaker',
 }
 
-// ── Episodes ─────────────────────────────────────────────────────
-
 export const EPISODES: Episode[] = [
   {
     id: 'ep-1',
@@ -98,8 +91,8 @@ export const EPISODES: Episode[] = [
     plays: '980 Plays',
     timeAgo: '2 days ago',
     thumbnailColor: '#d97706',
-    thumbnailLabel: 'BUILDERS',
-    thumbnailSubLabel: 'TALK',
+    thumbnailLabel: 'BUILD',
+    thumbnailSubLabel: 'SMART',
   },
   {
     id: 'ep-4',
@@ -110,8 +103,8 @@ export const EPISODES: Episode[] = [
     plays: '760 Plays',
     timeAgo: '3 days ago',
     thumbnailColor: '#7c3aed',
-    thumbnailLabel: 'LAND',
-    thumbnailSubLabel: '& LEGAL TALKS',
+    thumbnailLabel: 'LEGAL',
+    thumbnailSubLabel: 'PERSPECTIVE',
   },
   {
     id: 'ep-5',
@@ -135,11 +128,9 @@ export const EPISODES: Episode[] = [
     timeAgo: '5 days ago',
     thumbnailColor: '#dc2626',
     thumbnailLabel: 'FINANCE',
-    thumbnailSubLabel: 'STRATEGIES',
+    thumbnailSubLabel: 'FOCUS',
   },
 ]
-
-// ── Trending Episodes ────────────────────────────────────────────
 
 export const TRENDING_EPISODES: Episode[] = [
   {
@@ -192,8 +183,6 @@ export const TRENDING_EPISODES: Episode[] = [
   },
 ]
 
-// ── Speakers ─────────────────────────────────────────────────────
-
 export const SPEAKERS: Speaker[] = [
   {
     id: 'sp-1',
@@ -243,8 +232,6 @@ export const SPEAKERS: Speaker[] = [
   },
 ]
 
-// ── Trending Topics ──────────────────────────────────────────────
-
 export const TRENDING_TOPICS: TrendingTopic[] = [
   { id: 'tt-1', label: 'Market Trends',    icon: '📈', color: '#16a34a', bgColor: '#f0fdf4' },
   { id: 'tt-2', label: 'Investment',        icon: '🏗️', color: '#1d4ed8', bgColor: '#eff6ff' },
@@ -252,8 +239,6 @@ export const TRENDING_TOPICS: TrendingTopic[] = [
   { id: 'tt-4', label: 'Legal & Policy',    icon: '⚖️', color: '#7c3aed', bgColor: '#f5f3ff' },
   { id: 'tt-5', label: 'Finance',           icon: '💰', color: '#dc2626', bgColor: '#fef2f2' },
 ]
-
-// ── Series ───────────────────────────────────────────────────────
 
 export const SERIES_LIST: Series[] = [
   {

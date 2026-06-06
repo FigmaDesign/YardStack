@@ -66,8 +66,8 @@ export default function Header({
     <header className="sticky top-0 z-50 bg-white/90 backdrop-blur-xl border-b border-[#e4e7ec] shadow-[0px_1px_8px_rgba(15,31,61,0.06)]">
       <div className="max-w-[1200px] mx-auto px-4 sm:px-6">
         <div className="flex items-center justify-between h-16 gap-3">
-          <div className="flex items-center gap-2 shrink-0" aria-label="YardStock Logo">
-            <div 
+          <div className="flex items-center gap-2 shrink-0" aria-label="YardStack Logo">
+            <div
               aria-hidden="true"
               className="w-8 h-8 rounded-[8px] flex items-center justify-center bg-gradient-to-br from-[#15803d] to-[#166534] text-white font-bold text-[1.1rem] leading-none shadow-sm select-none"
             >
@@ -75,14 +75,14 @@ export default function Header({
             </div>
             <div className="hidden sm:block leading-none">
               <p className="text-[0.88rem] font-extrabold text-[#14532d] tracking-[-0.03em] m-0">
-                Yard<span className="text-[#16a34a]">Stock</span>
+                Yard<span className="text-[#16a34a]">Stack</span>
               </p>
             </div>
           </div>
 
           <nav aria-label="View Controls" className="hidden md:flex flex-1 justify-center">
             {showViewControls && (
-              <div 
+              <div
                 role="group"
                 aria-label="Select view mode"
                 className="flex items-center bg-[#f0fdf4] border border-[#bbf7d0] rounded-[8px] p-1 gap-0.5"
@@ -91,11 +91,10 @@ export default function Header({
                   type="button"
                   aria-pressed={viewMode === 'desktop'}
                   onClick={() => onViewModeChange('desktop')}
-                  className={`flex items-center gap-2 px-5 py-[7px] rounded-[8px] text-[0.76rem] font-bold transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#16a34a] focus-visible:ring-offset-2 focus-visible:ring-offset-[#f0fdf4] motion-reduce:transition-none ${
-                    viewMode === 'desktop'
+                  className={`flex items-center gap-2 px-5 py-[7px] rounded-[8px] text-[0.76rem] font-bold transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#16a34a] focus-visible:ring-offset-2 focus-visible:ring-offset-[#f0fdf4] motion-reduce:transition-none ${viewMode === 'desktop'
                       ? 'bg-gradient-to-br from-[#16a34a] to-[#15803d] text-white shadow-md'
                       : 'text-[#166534] bg-transparent hover:bg-white/80'
-                  }`}
+                    }`}
                 >
                   <Monitor size={15} strokeWidth={viewMode === 'desktop' ? 2.5 : 2} aria-hidden="true" />
                   Desktop View
@@ -104,11 +103,10 @@ export default function Header({
                   type="button"
                   aria-pressed={viewMode === 'mobile'}
                   onClick={() => onViewModeChange('mobile')}
-                  className={`flex items-center gap-2 px-5 py-[7px] rounded-[8px] text-[0.76rem] font-bold transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#16a34a] focus-visible:ring-offset-2 focus-visible:ring-offset-[#f0fdf4] motion-reduce:transition-none ${
-                    viewMode === 'mobile'
+                  className={`flex items-center gap-2 px-5 py-[7px] rounded-[8px] text-[0.76rem] font-bold transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#16a34a] focus-visible:ring-offset-2 focus-visible:ring-offset-[#f0fdf4] motion-reduce:transition-none ${viewMode === 'mobile'
                       ? 'bg-gradient-to-br from-[#16a34a] to-[#15803d] text-white shadow-md'
                       : 'text-[#166534] bg-transparent hover:bg-white/80'
-                  }`}
+                    }`}
                 >
                   <Smartphone size={15} strokeWidth={viewMode === 'mobile' ? 2.5 : 2} aria-hidden="true" />
                   Mobile View
@@ -119,9 +117,9 @@ export default function Header({
 
           <div className="flex items-center gap-2 shrink-0">
             {showViewControls && (
-              <div 
-                role="group" 
-                aria-label="Select view mode" 
+              <div
+                role="group"
+                aria-label="Select view mode"
                 className="flex md:hidden items-center gap-1"
               >
                 {(['desktop', 'mobile'] as const).map((v) => (
@@ -131,11 +129,10 @@ export default function Header({
                     aria-label={v === 'desktop' ? 'Desktop view' : 'Mobile view'}
                     aria-pressed={viewMode === v}
                     onClick={() => onViewModeChange(v)}
-                    className={`w-8 h-8 flex items-center justify-center rounded-[8px] border transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#16a34a] focus-visible:ring-offset-1 motion-reduce:transition-none ${
-                      viewMode === v
+                    className={`w-8 h-8 flex items-center justify-center rounded-[8px] border transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#16a34a] focus-visible:ring-offset-1 motion-reduce:transition-none ${viewMode === v
                         ? 'border-[#16a34a] bg-[#16a34a]/10 text-[#16a34a]'
                         : 'border-[#e4e7ec] bg-white text-[#9199a8] hover:bg-gray-50 hover:text-gray-700'
-                    }`}
+                      }`}
                   >
                     {v === 'desktop' ? (
                       <Monitor size={14} strokeWidth={viewMode === v ? 2.5 : 2} aria-hidden="true" />
@@ -148,8 +145,8 @@ export default function Header({
             )}
 
             <div className="hidden sm:flex items-center gap-2">
-              <label 
-                htmlFor="desktop-page-selector" 
+              <label
+                htmlFor="desktop-page-selector"
                 className="text-[0.68rem] font-semibold text-[#9199a8] tracking-[0.08em] uppercase select-none whitespace-nowrap"
               >
                 Current View
@@ -174,17 +171,16 @@ export default function Header({
                 className="flex items-center gap-1 px-3 py-[7px] rounded-[8px] border border-[#eef0f3] bg-white text-[0.78rem] font-semibold text-[#0f1f3d] shadow-sm hover:bg-gray-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#16a34a] focus-visible:border-[#16a34a] transition-all duration-200"
               >
                 {PAGE_LABELS[activePage]}
-                <ChevronDown 
-                  size={13} 
+                <ChevronDown
+                  size={13}
                   aria-hidden="true"
-                  className={`text-[#9199a8] transition-transform duration-200 motion-reduce:transition-none ${
-                    mobileMenuOpen ? 'rotate-180' : ''
-                  }`} 
+                  className={`text-[#9199a8] transition-transform duration-200 motion-reduce:transition-none ${mobileMenuOpen ? 'rotate-180' : ''
+                    }`}
                 />
               </button>
-              
+
               {mobileMenuOpen && (
-                <div 
+                <div
                   id={`mobile-menu-${menuId}`}
                   role="menu"
                   aria-label="Navigation Menu"
@@ -202,11 +198,10 @@ export default function Header({
                           onNavigate(p)
                           closeMenu()
                         }}
-                        className={`w-full text-left px-4 py-2.5 text-[0.82rem] font-semibold transition-colors duration-150 focus-visible:outline-none focus-visible:bg-[#f0fdf4] focus-visible:text-[#15803d] motion-reduce:transition-none ${
-                          isActive 
-                            ? 'bg-[#16a34a]/10 text-[#15803d]' 
+                        className={`w-full text-left px-4 py-2.5 text-[0.82rem] font-semibold transition-colors duration-150 focus-visible:outline-none focus-visible:bg-[#f0fdf4] focus-visible:text-[#15803d] motion-reduce:transition-none ${isActive
+                            ? 'bg-[#16a34a]/10 text-[#15803d]'
                             : 'text-[#14532d] hover:bg-[#f0fdf4]'
-                        }`}
+                          }`}
                       >
                         {PAGE_LABELS[p]}
                       </button>

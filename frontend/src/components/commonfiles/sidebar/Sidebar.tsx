@@ -2,7 +2,7 @@ import { useState, useEffect, useCallback, type MouseEvent, type FocusEvent, typ
 import { createPortal } from 'react-dom'
 import { ChevronLeft, Crown } from 'lucide-react'
 import { NAV_ITEMS, type NavKey } from './data'
-import YardLogo from '../Images/YardStockLogowithouttext.png'
+import YardLogo from '../Images/YardStackLogowithouttext.png'
 
 interface SidebarProps {
   active?: NavKey
@@ -48,25 +48,22 @@ export default function Sidebar({ active = 'announcements', onNavigate }: Sideba
   return (
     <aside
       aria-label="Main Navigation Sidebar"
-      className={`flex flex-col shrink-0 h-full text-white transition-all duration-500 ease-in-out relative z-9999 shadow-[4px_0_32px_rgba(0,0,0,0.4)] bg-[linear-gradient(175deg,#1a3a6b_0%,#0f2550_30%,#0a1e42_60%,#071a38_80%,#051530_100%)] motion-reduce:transition-none ${
-        isCollapsed ? 'w-18' : 'w-60'
-      }`}
+      className={`flex flex-col shrink-0 h-full text-white transition-all duration-500 ease-in-out relative z-9999 shadow-[4px_0_32px_rgba(0,0,0,0.4)] bg-[linear-gradient(175deg,#1a3a6b_0%,#0f2550_30%,#0a1e42_60%,#071a38_80%,#051530_100%)] motion-reduce:transition-none ${isCollapsed ? 'w-18' : 'w-60'
+        }`}
     >
       <div className="flex flex-col items-center p-2 overflow-hidden shrink-0">
         <img
           src={YardLogo}
-          alt="YardStockReal Estate Intelligence"
-          className={`object-contain transition-all duration-500 ease-in-out motion-reduce:transition-none ${
-            isCollapsed ? 'w-8 h-8' : 'w-11 h-11'
-          }`}
+          alt="YardStackReal Estate Intelligence"
+          className={`object-contain transition-all duration-500 ease-in-out motion-reduce:transition-none ${isCollapsed ? 'w-8 h-8' : 'w-11 h-11'
+            }`}
         />
         <div
           aria-hidden={isCollapsed ? "true" : "false"}
-          className={`flex flex-col items-center overflow-hidden whitespace-nowrap transition-all duration-500 ease-in-out motion-reduce:transition-none ${
-            isCollapsed ? 'h-0 opacity-0 mt-0' : 'h-9 opacity-100 mt-2.5'
-          }`}
+          className={`flex flex-col items-center overflow-hidden whitespace-nowrap transition-all duration-500 ease-in-out motion-reduce:transition-none ${isCollapsed ? 'h-0 opacity-0 mt-0' : 'h-9 opacity-100 mt-2.5'
+            }`}
         >
-          <p className="text-[1.3rem] font-serif tracking-wider leading-none text-white m-0">YARDStock</p>
+          <p className="text-[1.3rem] font-serif tracking-wider leading-none text-white m-0">YARDStack</p>
           <p className="text-[0.5rem] font-medium tracking-[0.18em] uppercase text-white/55 mt-1.5">
             Real Estate Intelligence
           </p>
@@ -79,9 +76,8 @@ export default function Sidebar({ active = 'announcements', onNavigate }: Sideba
       >
         <div
           aria-hidden="true"
-          className={`px-6 mb-3 overflow-hidden transition-all duration-500 ease-in-out motion-reduce:transition-none ${
-            isCollapsed ? 'opacity-0 h-0 hidden' : 'opacity-100 h-auto block'
-          }`}
+          className={`px-6 mb-3 overflow-hidden transition-all duration-500 ease-in-out motion-reduce:transition-none ${isCollapsed ? 'opacity-0 h-0 hidden' : 'opacity-100 h-auto block'
+            }`}
         />
 
         <ul className="list-none p-0 px-1 m-0 flex flex-col gap-0.5 flex-1" role="list">
@@ -97,25 +93,21 @@ export default function Sidebar({ active = 'announcements', onNavigate }: Sideba
                   onBlur={hideTooltip}
                   aria-label={label}
                   aria-current={isActive ? 'page' : undefined}
-                  className={`w-full flex items-center py-2.5 rounded-[8px] text-[0.85rem] transition-all duration-200 bg-transparent border-none cursor-pointer active:scale-[0.97] active:opacity-80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#2dd4a0] focus-visible:ring-offset-2 focus-visible:ring-offset-[#0a1e42] motion-reduce:transition-none motion-reduce:transform-none ${
-                    isCollapsed ? 'justify-center px-0' : 'justify-start px-3'
-                  } ${
-                    isActive
+                  className={`w-full flex items-center py-2.5 rounded-[8px] text-[0.85rem] transition-all duration-200 bg-transparent border-none cursor-pointer active:scale-[0.97] active:opacity-80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#2dd4a0] focus-visible:ring-offset-2 focus-visible:ring-offset-[#0a1e42] motion-reduce:transition-none motion-reduce:transform-none ${isCollapsed ? 'justify-center px-0' : 'justify-start px-3'
+                    } ${isActive
                       ? 'bg-white/10 text-white font-semibold'
                       : 'text-white/75 hover:bg-white/5 hover:text-white'
-                  }`}
+                    }`}
                 >
                   <Icon
                     size={isCollapsed ? 20 : 18}
                     aria-hidden="true"
-                    className={`shrink-0 transition-all duration-300 motion-reduce:transition-none ${
-                      isActive ? 'text-white stroke-2' : 'text-white/60 stroke-[1.6]'
-                    }`}
+                    className={`shrink-0 transition-all duration-300 motion-reduce:transition-none ${isActive ? 'text-white stroke-2' : 'text-white/60 stroke-[1.6]'
+                      }`}
                   />
                   <div
-                    className={`flex items-start overflow-hidden transition-all duration-500 ease-in-out motion-reduce:transition-none ${
-                      isCollapsed ? 'w-0 opacity-0 ml-0' : 'flex-1 opacity-100 ml-3.5'
-                    }`}
+                    className={`flex items-start overflow-hidden transition-all duration-500 ease-in-out motion-reduce:transition-none ${isCollapsed ? 'w-0 opacity-0 ml-0' : 'flex-1 opacity-100 ml-3.5'
+                      }`}
                   >
                     <span className="leading-tight text-left">{label}</span>
                   </div>
@@ -133,9 +125,8 @@ export default function Sidebar({ active = 'announcements', onNavigate }: Sideba
           tabIndex={0}
           role="group"
           aria-label="Premium Platform Information"
-          className={`relative mx-2 mt-2 mb-4 rounded-[14px] transition-all duration-300 overflow-visible flex flex-col items-center justify-center border border-[#2dd4a0]/35 bg-[linear-gradient(160deg,#0c2248_0%,#071630_60%,#040f22_100%)] shadow-[inset_0_0_24px_rgba(45,212,160,0.1),0_4px_20px_rgba(0,0,0,0.4)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#2dd4a0] focus-visible:ring-offset-2 focus-visible:ring-offset-[#071a38] motion-reduce:transition-none ${
-            isCollapsed ? 'p-2.5 cursor-pointer hover:scale-[1.02]' : 'px-4 pt-5 pb-4 cursor-default'
-          }`}
+          className={`relative mx-2 mt-2 mb-4 rounded-[14px] transition-all duration-300 overflow-visible flex flex-col items-center justify-center border border-[#2dd4a0]/35 bg-[linear-gradient(160deg,#0c2248_0%,#071630_60%,#040f22_100%)] shadow-[inset_0_0_24px_rgba(45,212,160,0.1),0_4px_20px_rgba(0,0,0,0.4)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#2dd4a0] focus-visible:ring-offset-2 focus-visible:ring-offset-[#071a38] motion-reduce:transition-none ${isCollapsed ? 'p-2.5 cursor-pointer hover:scale-[1.02]' : 'px-4 pt-5 pb-4 cursor-default'
+            }`}
         >
           <div className="absolute bottom-0 left-0 right-0 h-[52%] pointer-events-none" aria-hidden="true">
             <svg viewBox="0 0 100 40" preserveAspectRatio="none" className="w-full h-full">
@@ -156,9 +147,8 @@ export default function Sidebar({ active = 'announcements', onNavigate }: Sideba
           </div>
 
           <div
-            className={`flex justify-center relative z-10 transition-all duration-300 motion-reduce:transition-none ${
-              isCollapsed ? '' : 'mb-3'
-            }`}
+            className={`flex justify-center relative z-10 transition-all duration-300 motion-reduce:transition-none ${isCollapsed ? '' : 'mb-3'
+              }`}
           >
             <Crown
               size={isCollapsed ? 20 : 30}
@@ -169,9 +159,8 @@ export default function Sidebar({ active = 'announcements', onNavigate }: Sideba
 
           <div
             aria-hidden={isCollapsed ? "true" : "false"}
-            className={`text-center transition-all duration-300 relative z-10 flex flex-col items-center w-full motion-reduce:transition-none ${
-              isCollapsed ? 'h-0 opacity-0 overflow-hidden' : 'h-auto opacity-100 mt-1'
-            }`}
+            className={`text-center transition-all duration-300 relative z-10 flex flex-col items-center w-full motion-reduce:transition-none ${isCollapsed ? 'h-0 opacity-0 overflow-hidden' : 'h-auto opacity-100 mt-1'
+              }`}
           >
             <p className="text-[0.66rem] font-extrabold tracking-[0.12em] uppercase w-full px-2 whitespace-nowrap overflow-visible text-[#4ade80] drop-shadow-[0_0_10px_rgba(74,222,128,0.35)] m-0">
               Premium Platform
@@ -188,21 +177,18 @@ export default function Sidebar({ active = 'announcements', onNavigate }: Sideba
         aria-expanded={!isCollapsed ? "true" : "false"}
         aria-label={isCollapsed ? 'Expand Sidebar' : 'Collapse Sidebar'}
         title={isCollapsed ? 'Expand Sidebar' : 'Collapse Sidebar'}
-        className={`flex items-center py-4 text-[0.8rem] font-medium transition-colors duration-300 shrink-0 border-none border-t border-t-white/10 bg-[#050f23]/55 text-white/60 hover:text-white/90 hover:bg-[#050f23]/80 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#2dd4a0] focus-visible:ring-inset motion-reduce:transition-none ${
-          isCollapsed ? 'justify-center px-0' : 'justify-start gap-3 px-6'
-        }`}
+        className={`flex items-center py-4 text-[0.8rem] font-medium transition-colors duration-300 shrink-0 border-none border-t border-t-white/10 bg-[#050f23]/55 text-white/60 hover:text-white/90 hover:bg-[#050f23]/80 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#2dd4a0] focus-visible:ring-inset motion-reduce:transition-none ${isCollapsed ? 'justify-center px-0' : 'justify-start gap-3 px-6'
+          }`}
       >
         <ChevronLeft
           size={16}
           aria-hidden="true"
-          className={`stroke-2 transition-transform duration-500 ease-in-out motion-reduce:transition-none ${
-            isCollapsed ? 'rotate-180' : ''
-          }`}
+          className={`stroke-2 transition-transform duration-500 ease-in-out motion-reduce:transition-none ${isCollapsed ? 'rotate-180' : ''
+            }`}
         />
         <span
-          className={`overflow-hidden whitespace-nowrap transition-all duration-500 ease-in-out motion-reduce:transition-none ${
-            isCollapsed ? 'w-0 opacity-0' : 'w-auto opacity-100'
-          }`}
+          className={`overflow-hidden whitespace-nowrap transition-all duration-500 ease-in-out motion-reduce:transition-none ${isCollapsed ? 'w-0 opacity-0' : 'w-auto opacity-100'
+            }`}
         >
           Collapse
         </span>

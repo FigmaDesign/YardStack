@@ -1,10 +1,11 @@
-import React, { useState } from "react"
+import type React from "react"
+import { useState } from "react"
 import StarIcon from "@mui/icons-material/Star"
 import PlayArrowIcon from "@mui/icons-material/PlayArrow"
 import PauseIcon from "@mui/icons-material/Pause"
 import SkipNextIcon from "@mui/icons-material/SkipNext"
 import SkipPreviousIcon from "@mui/icons-material/SkipPrevious"
-import VolumeUpIcon from "@mui/icons-material/VolumeUp"
+// removed unused VolumeUpIcon
 import CloseIcon from "@mui/icons-material/Close"
 import AccessTimeIcon from "@mui/icons-material/AccessTime"
 import MoreVertIcon from "@mui/icons-material/MoreVert"

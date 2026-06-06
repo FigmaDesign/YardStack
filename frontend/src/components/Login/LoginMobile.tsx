@@ -64,15 +64,6 @@ export default function LoginMobile({
 
   return (
     <main className="h-dvh w-full bg-[var(--ys-canvas)] flex flex-col font-['Outfit',sans-serif] overflow-y-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] scrollbar-none">
-      <svg aria-hidden="true" className="sr-only" style={{ position: 'absolute', width: 0, height: 0 }}>
-        <defs>
-          <linearGradient id="loginGradient" x1="0%" x2="100%" y1="0%" y2="0%">
-            <stop offset="0%" stopColor="#5C1A10" />
-            <stop offset="50%" stopColor="#8B3020" />
-            <stop offset="100%" stopColor="#E8590C" />
-          </linearGradient>
-        </defs>
-      </svg>
       <header
         className="relative shrink-0 pb-20 ys-fade-in-down motion-reduce:animate-none motion-reduce:transform-none motion-reduce:opacity-100 bg-no-repeat bg-[length:100%_100%] bg-center bg-(image:--mobile-bg)"
         style={{ '--mobile-bg': `url(${mobileBg})` } as React.CSSProperties}
@@ -81,11 +72,11 @@ export default function LoginMobile({
         
         <div className="relative z-10 px-5 pt-10 ">
           <div className="flex items-center gap-3 mb-6">
-           
+            
           </div>
 
           <h1 className="text-white text-[1.6rem] font-extrabold leading-tight drop-shadow-lg mt-10">
-            Welcome <span className="text-[var(--ys-primary)]">Back</span>
+            Welcome <span className="text-transparent bg-clip-text bg-linear-to-r from-[var(--ys-accent-orange)] to-[var(--ys-accent-light)]">Back</span>
           </h1>
           <p className="text-white/90 text-[0.75rem] mt-2 leading-relaxed max-w-70 drop-shadow-md">
             Sign in to access powerful insights and manage your real estate intelligence.
@@ -99,19 +90,19 @@ export default function LoginMobile({
       >
         <div className="bg-[var(--ys-canvas)] rounded-[8px] p-5 shadow-[0_8px_30px_rgba(0,0,0,0.08)] border border-[var(--ys-mute)]">
           
-          <div role="tablist" aria-label="Login method" className="flex rounded-[8px] bg-[var(--ys-canvas-soft)] p-1 mb-4 gap-1">
+          <div role="tablist" aria-label="Login method" className="flex rounded-[8px] bg-[var(--ys-canvas-lifted)] p-1 mb-4 gap-1">
             <button
               role="tab"
               type="button"
               aria-selected={loginMode === 'email' ? 'true' : 'false'}
               onClick={() => setLoginMode('email')}
-              className={`flex-1 flex items-center justify-center gap-1.5 py-2 rounded-[8px] text-[0.72rem] font-semibold transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ys-primary)] motion-reduce:transition-none ${
+              className={`flex-1 flex items-center justify-center gap-1.5 py-2 rounded-[8px] text-[0.72rem] font-semibold transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ys-accent-orange)] motion-reduce:transition-none ${
                 loginMode === 'email'
-                  ? 'bg-[var(--ys-canvas)] text-transparent bg-clip-text bg-linear-to-r from-[var(--ys-ink)] via-[var(--ys-ink-mid)] to-[var(--ys-primary)] shadow-sm'
-                  : 'text-[var(--ys-body-mid)] hover:text-[var(--ys-ink)]'
+                  ? 'bg-linear-to-r from-[var(--ys-accent-orange)] to-[var(--ys-accent-light)] text-white shadow-md'
+                  : 'text-[var(--ys-body)] hover:text-[var(--ys-ink)] hover:bg-[var(--ys-surface-alt)]/50'
               }`}
             >
-              <EmailOutlinedIcon sx={ loginMode === 'email' ? { fontSize: 14, fill: 'url(#loginGradient)' } : { fontSize: 14 } } className={loginMode === 'email' ? '' : 'text-[var(--ys-body-mid)]'} aria-hidden="true" />
+              <EmailOutlinedIcon sx={{ fontSize: 14 }} className={loginMode === 'email' ? 'text-white' : 'text-[var(--ys-body-accent)]'} aria-hidden="true" />
               Email & Password
             </button>
             <button
@@ -119,13 +110,13 @@ export default function LoginMobile({
               type="button"
               aria-selected={loginMode === 'phone' ? 'true' : 'false'}
               onClick={() => setLoginMode('phone')}
-              className={`flex-1 flex items-center justify-center gap-1.5 py-2 rounded-[8px] text-[0.72rem] font-semibold transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ys-primary)] motion-reduce:transition-none ${
+              className={`flex-1 flex items-center justify-center gap-1.5 py-2 rounded-[8px] text-[0.72rem] font-semibold transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ys-accent-orange)] motion-reduce:transition-none ${
                 loginMode === 'phone'
-                  ? 'bg-[var(--ys-canvas)] text-transparent bg-clip-text bg-linear-to-r from-[var(--ys-ink)] via-[var(--ys-ink-mid)] to-[var(--ys-primary)] shadow-sm'
-                  : 'text-[var(--ys-body-mid)] hover:text-[var(--ys-ink)]'
+                  ? 'bg-linear-to-r from-[var(--ys-accent-orange)] to-[var(--ys-accent-light)] text-white shadow-md'
+                  : 'text-[var(--ys-body)] hover:text-[var(--ys-ink)] hover:bg-[var(--ys-surface-alt)]/50'
               }`}
             >
-              <PhoneOutlinedIcon sx={ loginMode === 'phone' ? { fontSize: 14, fill: 'url(#loginGradient)' } : { fontSize: 14 } } className={loginMode === 'phone' ? '' : 'text-[var(--ys-body-mid)]'} aria-hidden="true" />
+              <PhoneOutlinedIcon sx={{ fontSize: 14 }} className={loginMode === 'phone' ? 'text-white' : 'text-[var(--ys-body-accent)]'} aria-hidden="true" />
               Phone & OTP
             </button>
           </div>
@@ -134,11 +125,11 @@ export default function LoginMobile({
             {loginMode === 'email' ? (
               <>
                 <div className="group">
-                  <label htmlFor={emailId} className="block text-[0.7rem] font-semibold text-[var(--ys-ink)] mb-1 transition-colors duration-300 group-focus-within:text-[var(--ys-ink-mid)]">
+                  <label htmlFor={emailId} className="block text-[0.7rem] font-semibold text-[var(--ys-ink)] mb-1 transition-colors duration-300 group-focus-within:text-[var(--ys-ink-soft)]">
                     Work Email
                   </label>
-                  <div className="flex items-center rounded-[8px] border border-[var(--ys-mute)] bg-[var(--ys-canvas)] group-hover:border-[var(--ys-body-mid)] focus-within:border-[var(--ys-ink)]! focus-within:ring-1 focus-within:ring-[var(--ys-ink)]/20 transition-all duration-300 motion-reduce:transition-none">
-                    <span aria-hidden="true" className="pl-3 text-[var(--ys-body-mid)] shrink-0 group-focus-within:text-[var(--ys-ink-mid)] transition-colors duration-300">
+                  <div className="flex items-center rounded-[8px] border border-[var(--ys-mute)] bg-[var(--ys-canvas)] group-hover:border-[var(--ys-body-accent)] focus-within:border-[var(--ys-ink)]! focus-within:ring-1 focus-within:ring-[var(--ys-ink)]/20 transition-all duration-300 motion-reduce:transition-none">
+                    <span aria-hidden="true" className="pl-3 text-[var(--ys-body-accent)] shrink-0 group-focus-within:text-[var(--ys-ink-soft)] transition-colors duration-300">
                       <EmailOutlinedIcon sx={{ fontSize: 16 }} />
                     </span>
                     <input
@@ -149,18 +140,18 @@ export default function LoginMobile({
                       required
                       autoComplete="email"
                       placeholder="Enter your work email"
-                      className="flex-1 px-2.5 py-2 text-[0.75rem] text-[var(--ys-ink)] placeholder-[var(--ys-body-mid)] bg-transparent outline-none w-full"
+                      className="flex-1 px-2.5 py-2 text-[0.75rem] text-[var(--ys-ink)] placeholder-[var(--ys-body)] bg-transparent outline-none w-full"
                     />
                     </div>
                     {errors.email && <p className="text-red-600 text-[0.72rem] mt-1">{errors.email}</p>}
                   </div>
 
                 <div className="group">
-                  <label htmlFor={passwordId} className="block text-[0.7rem] font-semibold text-[var(--ys-ink)] mb-1 transition-colors duration-300 group-focus-within:text-[var(--ys-ink-mid)]">
+                  <label htmlFor={passwordId} className="block text-[0.7rem] font-semibold text-[var(--ys-ink)] mb-1 transition-colors duration-300 group-focus-within:text-[var(--ys-ink-soft)]">
                     Password
                   </label>
-                  <div className="flex items-center rounded-[8px] border border-[var(--ys-mute)] bg-[var(--ys-canvas)] group-hover:border-[var(--ys-body-mid)] focus-within:border-[var(--ys-ink)]! focus-within:ring-1 focus-within:ring-[var(--ys-ink)]/20 transition-all duration-300 motion-reduce:transition-none">
-                    <span aria-hidden="true" className="pl-3 text-[var(--ys-body-mid)] shrink-0 group-focus-within:text-[var(--ys-ink-mid)] transition-colors duration-300">
+                  <div className="flex items-center rounded-[8px] border border-[var(--ys-mute)] bg-[var(--ys-canvas)] group-hover:border-[var(--ys-body-accent)] focus-within:border-[var(--ys-ink)]! focus-within:ring-1 focus-within:ring-[var(--ys-ink)]/20 transition-all duration-300 motion-reduce:transition-none">
+                    <span aria-hidden="true" className="pl-3 text-[var(--ys-body-accent)] shrink-0 group-focus-within:text-[var(--ys-ink-soft)] transition-colors duration-300">
                       <LockOutlinedIcon sx={{ fontSize: 16 }} />
                     </span>
                     <input
@@ -171,14 +162,14 @@ export default function LoginMobile({
                       required
                       autoComplete="current-password"
                       placeholder="Enter your password"
-                      className="flex-1 px-2.5 py-2 text-[0.75rem] text-[var(--ys-ink)] placeholder-[var(--ys-body-mid)] bg-transparent outline-none w-full"
+                      className="flex-1 px-2.5 py-2 text-[0.75rem] text-[var(--ys-ink)] placeholder-[var(--ys-body)] bg-transparent outline-none w-full"
                     />
                       <button
                       type="button"
                       onClick={() => setShowPwd(!showPwd)}
                       aria-label={showPwd ? 'Hide password' : 'Show password'}
                       aria-pressed={showPwd}
-                      className="pr-3 text-[var(--ys-body-mid)] hover:text-[var(--ys-ink-mid)] shrink-0 focus-visible:outline-none focus-visible:text-[var(--ys-ink-mid)] transition-colors duration-300 motion-reduce:transition-none"
+                      className="pr-3 text-[var(--ys-body-accent)] hover:text-[var(--ys-accent-orange)] shrink-0 focus-visible:outline-none focus-visible:text-[var(--ys-accent-orange)] transition-colors duration-300 motion-reduce:transition-none"
                     >
                       {showPwd ? <VisibilityOutlinedIcon sx={{ fontSize: 16 }} aria-hidden="true" /> : <VisibilityOffOutlinedIcon sx={{ fontSize: 16 }} aria-hidden="true" />}
                     </button>
@@ -189,11 +180,11 @@ export default function LoginMobile({
             ) : (
               <>
                 <div className="group">
-                  <label htmlFor={phoneId} className="block text-[0.7rem] font-semibold text-[var(--ys-ink)] mb-1 transition-colors duration-300 group-focus-within:text-[var(--ys-ink-mid)]">
+                  <label htmlFor={phoneId} className="block text-[0.7rem] font-semibold text-[var(--ys-ink)] mb-1 transition-colors duration-300 group-focus-within:text-[var(--ys-ink-soft)]">
                     Mobile Number
                   </label>
-                  <div className="flex items-center rounded-[8px] border border-[var(--ys-mute)] bg-[var(--ys-canvas)] group-hover:border-[var(--ys-body-mid)] focus-within:border-[var(--ys-ink)]! focus-within:ring-1 focus-within:ring-[var(--ys-ink)]/20 transition-all duration-300 motion-reduce:transition-none">
-                    <span aria-hidden="true" className="pl-3 text-[var(--ys-body-mid)] shrink-0 group-focus-within:text-[var(--ys-ink-mid)] transition-colors duration-300">
+                  <div className="flex items-center rounded-[8px] border border-[var(--ys-mute)] bg-[var(--ys-canvas)] group-hover:border-[var(--ys-body-accent)] focus-within:border-[var(--ys-ink)]! focus-within:ring-1 focus-within:ring-[var(--ys-ink)]/20 transition-all duration-300 motion-reduce:transition-none">
+                    <span aria-hidden="true" className="pl-3 text-[var(--ys-body-accent)] shrink-0 group-focus-within:text-[var(--ys-ink-soft)] transition-colors duration-300">
                       <PhoneOutlinedIcon sx={{ fontSize: 16 }} />
                     </span>
                     <input
@@ -203,13 +194,13 @@ export default function LoginMobile({
                       onChange={e => setPhone(e.target.value)}
                       autoComplete="tel"
                       placeholder="Enter your mobile number"
-                      className="flex-1 px-2.5 py-2 text-[0.75rem] text-[var(--ys-ink)] placeholder-[var(--ys-body-mid)] bg-transparent outline-none w-full"
+                      className="flex-1 px-2.5 py-2 text-[0.75rem] text-[var(--ys-ink)] placeholder-[var(--ys-body)] bg-transparent outline-none w-full"
                     />
                     <button
                       type="button"
                       onClick={onSendOtp}
                       disabled={phone.trim().length < 10}
-                      className="mr-2 px-2.5 py-1 rounded-[8px] text-[0.65rem] font-bold bg-[var(--ys-primary)] text-white hover:bg-[var(--ys-ink-mid)] disabled:opacity-40 disabled:cursor-not-allowed transition-colors duration-200 shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ys-primary)] motion-reduce:transition-none"
+                      className="mr-2 px-2.5 py-1 rounded-[8px] text-[0.65rem] font-bold bg-linear-to-r from-[var(--ys-ink)] to-[var(--ys-ink-soft)] text-white hover:opacity-90 disabled:opacity-40 disabled:cursor-not-allowed transition-colors duration-200 shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ys-primary)] motion-reduce:transition-none"
                     >
                       {otpSent ? 'Resend' : 'Send OTP'}
                     </button>
@@ -218,11 +209,11 @@ export default function LoginMobile({
                 </div>
 
                 <div className="group">
-                  <label htmlFor={otpId} className="block text-[0.7rem] font-semibold text-[var(--ys-ink)] mb-1 transition-colors duration-300 group-focus-within:text-[var(--ys-ink-mid)]">
+                  <label htmlFor={otpId} className="block text-[0.7rem] font-semibold text-[var(--ys-ink)] mb-1 transition-colors duration-300 group-focus-within:text-[var(--ys-ink-soft)]">
                     OTP
                   </label>
-                  <div className="flex items-center rounded-[8px] border border-[var(--ys-mute)] bg-[var(--ys-canvas)] group-hover:border-[var(--ys-body-mid)] focus-within:border-[var(--ys-ink)]! focus-within:ring-1 focus-within:ring-[var(--ys-ink)]/20 transition-all duration-300 motion-reduce:transition-none">
-                    <span aria-hidden="true" className="pl-3 text-[var(--ys-body-mid)] shrink-0 group-focus-within:text-[var(--ys-ink-mid)] transition-colors duration-300">
+                  <div className="flex items-center rounded-[8px] border border-[var(--ys-mute)] bg-[var(--ys-canvas)] group-hover:border-[var(--ys-body-accent)] focus-within:border-[var(--ys-ink)]! focus-within:ring-1 focus-within:ring-[var(--ys-ink)]/20 transition-all duration-300 motion-reduce:transition-none">
+                    <span aria-hidden="true" className="pl-3 text-[var(--ys-body-accent)] shrink-0 group-focus-within:text-[var(--ys-ink-soft)] transition-colors duration-300">
                       <SmsOutlinedIcon sx={{ fontSize: 16 }} />
                     </span>
                     <input
@@ -234,10 +225,10 @@ export default function LoginMobile({
                       onChange={e => setOtp(e.target.value.replace(/\D/g, ''))}
                       autoComplete="one-time-code"
                       placeholder="Enter 6-digit OTP"
-                      className="flex-1 px-2.5 py-2 text-[0.75rem] text-[var(--ys-ink)] placeholder-[var(--ys-body-mid)] bg-transparent outline-none w-full tracking-widest"
+                      className="flex-1 px-2.5 py-2 text-[0.75rem] text-[var(--ys-ink)] placeholder-[var(--ys-body)] bg-transparent outline-none w-full tracking-widest"
                     />
                   </div>
-                  {otpSent && <p className="text-[var(--ys-primary)] font-normal text-[0.65rem] mt-1">Sent to your number</p>}
+                  {otpSent && <p className="text-[var(--ys-accent-orange)] font-normal text-[0.65rem] mt-1">Sent to your number</p>}
                   {errors.otp && <p className="text-red-600 text-[0.72rem] mt-1">{errors.otp}</p>}
                 </div>
               </>
@@ -251,13 +242,13 @@ export default function LoginMobile({
                   type="checkbox" 
                   checked={remember} 
                   onChange={e => setRemember(e.target.checked)} 
-                  className="w-3.5 h-3.5 rounded-[8px] accent-[var(--ys-primary)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ys-primary)] focus-visible:ring-offset-1 transition-transform group-hover/check:scale-110 motion-reduce:transform-none" 
+                  className="w-3.5 h-3.5 rounded-[8px] accent-[var(--ys-accent-orange)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ys-accent-orange)] focus-visible:ring-offset-1 transition-transform group-hover/check:scale-110 motion-reduce:transform-none" 
                 />
                 Remember me
               </label>
               <button 
                 type="button" 
-                className="text-[0.72rem] underline font-semibold text-[var(--ys-ink-mid)] hover:text-[var(--ys-ink)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ys-primary)] rounded-[8px] transition-colors"
+                className="text-[0.72rem] underline font-semibold text-[var(--ys-link)] hover:text-[var(--ys-ink)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ys-accent-orange)] rounded-[8px] transition-colors"
               >
                 Forgot Password?
               </button>
@@ -266,14 +257,14 @@ export default function LoginMobile({
 
             <button 
               type="submit" 
-              className="w-3/4 mx-auto flex items-center justify-center h-10 rounded-[8px] font-bold text-[0.95rem] text-white bg-linear-to-r from-[var(--ys-ink)] via-[var(--ys-ink-mid)] to-[var(--ys-primary)] hover:opacity-90 active:scale-[0.97] active:opacity-80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ys-primary)] focus-visible:ring-offset-2 transition-all duration-200 shadow-md motion-reduce:transform-none motion-reduce:transition-none"
+              className="w-3/4 mx-auto flex items-center justify-center h-10 rounded-[8px] font-bold text-[0.95rem] text-white bg-linear-to-r from-[var(--ys-accent-orange)] to-[var(--ys-accent-light)] hover:opacity-90 active:scale-[0.97] active:opacity-80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ys-accent-orange)] focus-visible:ring-offset-2 transition-all duration-200 shadow-[0_4px_14px_rgba(207,69,0,0.25)] hover:shadow-[0_6px_20px_rgba(207,69,0,0.4)] motion-reduce:transform-none motion-reduce:transition-none"
             >
               <span>{loginMode === 'phone' ? 'Verify & Login' : 'Login'}</span>
             </button>
 
             <div className="flex items-center gap-3 my-4" aria-hidden="true">
               <div className="flex-1 h-px bg-linear-to-r from-transparent to-[var(--ys-mute)]" />
-              <span className="font-semibold text-[var(--ys-body-mid)] tracking-[0.14em] uppercase text-[0.6rem]">
+              <span className="font-semibold text-[var(--ys-body)] tracking-[0.14em] uppercase text-[0.6rem]">
                 Or sign in with
               </span>
               <div className="flex-1 h-px bg-linear-to-l from-transparent to-[var(--ys-mute)]" />
@@ -285,7 +276,7 @@ export default function LoginMobile({
                   key={label} 
                   type="button" 
                   aria-label={`Sign in with ${label}`}
-                  className="flex items-center justify-center gap-2 border border-[var(--ys-mute)] font-semibold text-[var(--ys-body)] bg-[var(--ys-canvas)] hover:bg-[var(--ys-canvas-soft)] hover:-translate-y-0.5 active:scale-[0.95] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ys-primary)] transition-all duration-200 py-2 rounded-[8px] text-[0.75rem] motion-reduce:transform-none motion-reduce:transition-none"
+                  className="flex items-center justify-center gap-2 border border-[var(--ys-mute)] font-semibold text-[var(--ys-body)] bg-[var(--ys-canvas)] hover:bg-[var(--ys-canvas-lifted)] hover:border-[var(--ys-body-accent)] hover:-translate-y-0.5 active:scale-[0.95] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ys-accent-orange)] transition-all duration-200 py-2 rounded-[8px] text-[0.75rem] motion-reduce:transform-none motion-reduce:transition-none"
                 >
                   <img src={logo} alt="" aria-hidden="true" className="object-contain w-3.5 h-3.5" />
                   <span>{label}</span>
@@ -298,7 +289,7 @@ export default function LoginMobile({
               <button 
                 type="button" 
                 onClick={onCreateAccountClick} 
-                className="text-[var(--ys-ink-mid)] underline font-bold hover:text-[var(--ys-ink)] hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ys-primary)] rounded-[8px] transition-all"
+                className="text-[var(--ys-link)] underline font-bold hover:text-[var(--ys-ink)] hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ys-accent-orange)] rounded-[8px] transition-all"
               >
                 Create Account
               </button>

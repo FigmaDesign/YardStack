@@ -1,18 +1,24 @@
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap');
 @import "tailwindcss";
 
-/* ── YardStack Design Tokens ── */
 :root {
-  --ys-primary:     #E8590C;
-  --ys-on-primary:  #FFFFFF;
-  --ys-ink:         #5C1A10;
-  --ys-ink-soft:    #6B2016;
-  --ys-ink-mid:     #8B3020;
-  --ys-body:        #57534E;
-  --ys-body-mid:    #78716C;
-  --ys-mute:        #D6D3D1;
-  --ys-canvas:      #FFF8F5;
-  --ys-canvas-soft: #F5F0EE;
+  --ys-brand-red: #EB001B;
+  --ys-brand-yellow: #F79E1B;
+  --ys-canvas: #F3F0EE;
+  --ys-canvas-lifted: #FCFBFA;
+  --ys-surface-alt: #F4F4F4;
+  --ys-white: #FFFFFF;
+  --ys-ink: #141413;
+  --ys-ink-soft: #262627;
+  --ys-body-accent: #555555;
+  --ys-body: #696969;
+  --ys-mute: #D1CDC7;
+  --ys-primary: #141413;
+  --ys-on-primary: #FFFFFF;
+  --ys-accent-orange: #CF4500;
+  --ys-accent-light: #F37338;
+  --ys-accent-brown: #9A3A0A;
+  --ys-link: #3860BE;
 }
 
 *, *::before, *::after {
@@ -28,6 +34,7 @@ html, body, #root {
 body {
   font-family: 'Outfit', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
   background: var(--ys-canvas);
+  color: var(--ys-ink);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -144,7 +151,7 @@ body {
 }
 
 .ys-skeleton {
-  background: linear-gradient(90deg, var(--ys-canvas-soft) 25%, var(--ys-mute) 50%, var(--ys-canvas-soft) 75%);
+  background: linear-gradient(90deg, var(--ys-canvas-lifted) 25%, var(--ys-mute) 50%, var(--ys-canvas-lifted) 75%);
   background-size: 400px 100%;
   animation: ys-shimmer 1.4s ease-in-out infinite;
   will-change: background-position;
@@ -165,7 +172,7 @@ body {
   
   .ys-skeleton { 
     animation: none !important; 
-    background: var(--ys-canvas-soft) !important;
+    background: var(--ys-canvas-lifted) !important;
     background-image: none !important;
   }
 }

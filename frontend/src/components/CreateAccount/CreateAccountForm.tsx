@@ -59,17 +59,17 @@ export default function CreateAccountForm(props: CreateAccountFormProps) {
     <div className="group">
       <label 
         htmlFor={`${formId}-phone`}
-        className={`block font-semibold text-[var(--ys-ink)] mb-1 transition-colors group-focus-within:text-[var(--ys-ink-mid)] ${isMobile ? 'text-[0.7rem]' : 'text-[0.78rem]'}`}
+        className={`block font-semibold text-[var(--ys-ink)] mb-1 transition-colors group-focus-within:text-[var(--ys-ink-soft)] ${isMobile ? 'text-[0.7rem]' : 'text-[0.78rem]'}`}
       >
         Phone Number<span className="text-red-600 ml-0.5" aria-hidden="true">*</span>
         <span className="sr-only">Required</span>
       </label>
       <div 
-        className={`flex items-center bg-[var(--ys-canvas)] border ${errors.phone ? 'border-red-500' : 'border-[var(--ys-mute)] group-hover:border-[var(--ys-body-mid)]'} focus-within:!border-[var(--ys-ink)] focus-within:ring-1 focus-within:ring-[var(--ys-ink)]/20 transition-all duration-300 rounded-[8px] motion-reduce:transition-none`}
+        className={`flex items-center bg-[var(--ys-canvas)] border ${errors.phone ? 'border-red-500' : 'border-[var(--ys-mute)] group-hover:border-[var(--ys-body-accent)]'} focus-within:!border-[var(--ys-ink)] focus-within:ring-1 focus-within:ring-[var(--ys-ink)]/20 transition-all duration-300 rounded-[8px] motion-reduce:transition-none`}
       >
         <span 
           aria-hidden="true" 
-          className={`text-[var(--ys-body-mid)] shrink-0 group-focus-within:text-[var(--ys-ink-mid)] transition-colors duration-300 motion-reduce:transition-none ${isMobile ? 'pl-3' : 'pl-3.5'}`}
+          className={`text-[var(--ys-body-accent)] shrink-0 group-focus-within:text-[var(--ys-ink-soft)] transition-colors duration-300 motion-reduce:transition-none ${isMobile ? 'pl-3' : 'pl-3.5'}`}
         >
           <PhoneOutlinedIcon sx={{ fontSize: isMobile ? 16 : 18 }} />
         </span>
@@ -82,7 +82,7 @@ export default function CreateAccountForm(props: CreateAccountFormProps) {
           aria-invalid={!!errors.phone}
           aria-describedby={errors.phone ? `${formId}-phone-error` : undefined}
           aria-required="true"
-          className={`flex-1 bg-transparent outline-none text-[var(--ys-ink)] placeholder-[var(--ys-body-mid)] ${isMobile ? 'px-2.5 py-2 text-[0.75rem]' : 'px-3 py-2 text-[0.85rem]'}`}
+          className={`flex-1 bg-transparent outline-none text-[var(--ys-ink)] placeholder-[var(--ys-body)] ${isMobile ? 'px-2.5 py-2 text-[0.75rem]' : 'px-3 py-2 text-[0.85rem]'}`}
         />
       </div>
       {errors.phone && (
@@ -97,7 +97,7 @@ export default function CreateAccountForm(props: CreateAccountFormProps) {
     <div className="group">
       <label 
         id={`${formId}-role-label`}
-        className={`block font-semibold text-[var(--ys-ink)] mb-1 transition-colors group-focus-within:text-[var(--ys-ink-mid)] ${isMobile ? 'text-[0.7rem]' : 'text-[0.78rem]'}`}
+        className={`block font-semibold text-[var(--ys-ink)] mb-1 transition-colors group-focus-within:text-[var(--ys-ink-soft)] ${isMobile ? 'text-[0.7rem]' : 'text-[0.78rem]'}`}
       >
         Role<span className="text-red-600 ml-0.5" aria-hidden="true">*</span>
         <span className="sr-only">Required</span>
@@ -150,7 +150,7 @@ export default function CreateAccountForm(props: CreateAccountFormProps) {
           onClick={() => setShowPwd(!showPwd)} 
           aria-label={showPwd ? "Hide password" : "Show password"}
           aria-pressed={showPwd}
-          className="text-[var(--ys-body-mid)] hover:text-[var(--ys-ink-mid)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ys-primary)] rounded-[4px] p-0.5 transition-colors duration-300 motion-reduce:transition-none"
+          className="text-[var(--ys-body-accent)] hover:text-[var(--ys-accent-orange)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ys-accent-orange)] rounded-[4px] p-0.5 transition-colors duration-300 motion-reduce:transition-none"
         >
           {showPwd ? (
             <VisibilityOutlinedIcon sx={{ fontSize: isMobile ? 16 : 17 }} aria-hidden="true" />
@@ -180,7 +180,7 @@ export default function CreateAccountForm(props: CreateAccountFormProps) {
           onClick={() => setShowConfirm(!showConfirm)} 
           aria-label={showConfirm ? "Hide confirm password" : "Show confirm password"}
           aria-pressed={showConfirm}
-          className="text-[var(--ys-body-mid)] hover:text-[var(--ys-ink-mid)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ys-primary)] rounded-[4px] p-0.5 transition-colors duration-300 motion-reduce:transition-none"
+          className="text-[var(--ys-body-accent)] hover:text-[var(--ys-accent-orange)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ys-accent-orange)] rounded-[4px] p-0.5 transition-colors duration-300 motion-reduce:transition-none"
         >
           {showConfirm ? (
             <VisibilityOutlinedIcon sx={{ fontSize: isMobile ? 16 : 17 }} aria-hidden="true" />
@@ -268,12 +268,12 @@ export default function CreateAccountForm(props: CreateAccountFormProps) {
 
       {!isMobile && (
         <div 
-          className="bg-[var(--ys-canvas-soft)] border border-[var(--ys-mute)] rounded-[8px] p-2.5 flex items-center justify-between gap-3 mt-2 shadow-[0_2px_10px_rgba(232,89,12,0.05)] hover:shadow-[0_4px_15px_rgba(232,89,12,0.1)] transition-all duration-300 motion-reduce:transition-none"
+          className="bg-[var(--ys-canvas-lifted)] border border-[var(--ys-mute)] rounded-[8px] p-2.5 flex items-center justify-between gap-3 mt-2 shadow-[0_2px_10px_rgba(207,69,0,0.05)] transition-all duration-300 motion-reduce:transition-none"
           role="status"
           aria-label="Security Information"
         >
           <div className="flex items-start gap-2.5">
-            <SecurityOutlinedIcon sx={{ fontSize: 18, color: 'var(--ys-primary)', flexShrink: 0, marginTop: '1px' }} aria-hidden="true" />
+            <SecurityOutlinedIcon sx={{ fontSize: 18, color: 'var(--ys-accent-orange)', flexShrink: 0, marginTop: '1px' }} aria-hidden="true" />
             <div>
               <p className="text-[0.75rem] font-bold text-[var(--ys-ink)]">Your security is our priority</p>
               <p className="text-[0.72rem] text-[var(--ys-ink-soft)] leading-relaxed mt-0.5">
@@ -283,7 +283,7 @@ export default function CreateAccountForm(props: CreateAccountFormProps) {
           </div>
           <TaskAltIcon 
             className="animate-[pulse_3s_ease-in-out_infinite] motion-reduce:animate-none" 
-            sx={{ fontSize: 26, color: 'var(--ys-primary)', flexShrink: 0 }} 
+            sx={{ fontSize: 26, color: 'var(--ys-accent-orange)', flexShrink: 0 }} 
             aria-hidden="true" 
           />
         </div>
@@ -298,20 +298,20 @@ export default function CreateAccountForm(props: CreateAccountFormProps) {
           aria-invalid={!!errors.agreed}
           aria-describedby={errors.agreed ? `${formId}-agreed-error` : undefined}
           aria-required="true"
-            className={`mt-0.5 rounded-[8px] accent-[var(--ys-primary)] shrink-0 transition-transform group-hover:scale-110 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ys-primary)] focus-visible:ring-offset-2 motion-reduce:transition-none motion-reduce:transform-none ${isMobile ? 'w-3.5 h-3.5' : 'w-4 h-4'}`}
+          className={`mt-0.5 rounded-[8px] accent-[var(--ys-accent-orange)] shrink-0 transition-transform group-hover:scale-110 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ys-accent-orange)] focus-visible:ring-offset-2 motion-reduce:transition-none motion-reduce:transform-none ${isMobile ? 'w-3.5 h-3.5' : 'w-4 h-4'}`}
         />
         <span className={`text-[var(--ys-body)] leading-relaxed ${isMobile ? 'text-[0.72rem]' : 'text-[0.75rem]'}`}>
           <label htmlFor={`${formId}-agreed`} className="cursor-pointer">I agree to the </label>
           <button 
             type="button" 
-            className="text-[var(--ys-ink-mid)] underline font-semibold hover:text-[var(--ys-ink)] hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ys-primary)] rounded-[8px] transition-colors"
+            className="text-[var(--ys-link)] underline font-semibold hover:text-[var(--ys-ink)] hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ys-accent-orange)] rounded-[8px] transition-colors"
           >
             Terms of Service
           </button>
           {' '}and{' '}
           <button 
             type="button" 
-            className="text-[var(--ys-ink-mid)] underline font-semibold hover:text-[var(--ys-ink)] hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ys-primary)] rounded-[8px] transition-colors"
+            className="text-[var(--ys-link)] underline font-semibold hover:text-[var(--ys-ink)] hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ys-accent-orange)] rounded-[8px] transition-colors"
           >
             Privacy Policy
           </button>
@@ -325,14 +325,14 @@ export default function CreateAccountForm(props: CreateAccountFormProps) {
 
       <button
         type="submit"
-        className={`relative ${isMobile ? 'w-full' : 'w-1/2 mx-auto'} flex items-center justify-center font-bold text-white bg-linear-to-r from-[var(--ys-ink)] via-[var(--ys-ink-mid)] to-[var(--ys-primary)] hover:-translate-y-0.5 active:scale-[0.97] active:opacity-90 shadow-[0_4px_14px_rgba(232,89,12,0.25)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ys-primary)] focus-visible:ring-offset-2 transition-all duration-200 motion-reduce:transition-none motion-reduce:transform-none ${isMobile ? 'py-3 mt-4 text-[0.9rem] rounded-[8px]' : 'py-2.5 px-5 mt-2 text-[0.95rem] rounded-[8px]'}`}
+        className={`relative ${isMobile ? 'w-full' : 'w-1/2 mx-auto'} flex items-center justify-center font-bold text-white bg-linear-to-r from-[var(--ys-accent-orange)] to-[var(--ys-accent-light)] hover:opacity-90 active:scale-[0.97] active:opacity-80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ys-accent-orange)] focus-visible:ring-offset-2 transition-all duration-200 shadow-[0_4px_14px_rgba(207,69,0,0.25)] hover:shadow-[0_6px_20px_rgba(207,69,0,0.4)] motion-reduce:transition-none motion-reduce:transform-none ${isMobile ? 'py-3 mt-4 text-[0.9rem] rounded-[8px]' : 'py-2.5 px-5 mt-2 text-[0.95rem] rounded-[8px]'}`}
       >
         <span>Create Account</span>
       </button>
 
       <div className={`flex items-center gap-3 ${isMobile ? 'my-4' : 'my-2'}`} aria-hidden="true">
         <div className="flex-1 h-px bg-linear-to-r from-transparent to-[var(--ys-mute)]" />
-        <span className={`font-semibold text-[var(--ys-body-mid)] tracking-[0.14em] uppercase ${isMobile ? 'text-[0.6rem]' : 'text-[0.63rem]'}`}>
+        <span className={`font-semibold text-[var(--ys-body)] tracking-[0.14em] uppercase ${isMobile ? 'text-[0.6rem]' : 'text-[0.63rem]'}`}>
           Or sign up with
         </span>
         <div className="flex-1 h-px bg-linear-to-l from-transparent to-[var(--ys-mute)]" />
@@ -344,7 +344,7 @@ export default function CreateAccountForm(props: CreateAccountFormProps) {
             key={label} 
             type="button" 
             aria-label={`Sign up with ${label}`}
-            className={`flex items-center justify-center gap-2 border border-[var(--ys-mute)] font-semibold text-[var(--ys-body)] bg-[var(--ys-canvas)] hover:bg-[var(--ys-canvas-soft)] hover:-translate-y-0.5 active:scale-[0.96] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ys-primary)] transition-all duration-200 motion-reduce:transition-none motion-reduce:transform-none ${isMobile ? 'py-2 rounded-[8px] text-[0.75rem]' : 'py-2 rounded-[8px] text-[0.8rem] shadow-sm'}`}
+            className={`flex items-center justify-center gap-2 border border-[var(--ys-mute)] font-semibold text-[var(--ys-body)] bg-[var(--ys-canvas)] hover:bg-[var(--ys-canvas-lifted)] hover:border-[var(--ys-body-accent)] hover:-translate-y-0.5 active:scale-[0.95] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ys-accent-orange)] transition-all duration-200 py-2 rounded-[8px] text-[0.75rem] motion-reduce:transition-none motion-reduce:transform-none`}
           >
             <img src={logo} alt="" aria-hidden="true" className={`object-contain ${isMobile ? 'w-3.5 h-3.5' : 'w-4 h-4'}`} />
             <span>{label}</span>
@@ -358,7 +358,7 @@ export default function CreateAccountForm(props: CreateAccountFormProps) {
           <button 
             type="button" 
             onClick={onLoginClick} 
-            className="text-[var(--ys-ink-mid)] font-bold hover:text-[var(--ys-ink)] hover:underline underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ys-primary)] rounded-[8px] transition-all duration-200 motion-reduce:transition-none"
+            className="text-[var(--ys-link)] font-bold hover:text-[var(--ys-ink)] hover:underline underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ys-accent-orange)] rounded-[8px] transition-all duration-200 motion-reduce:transition-none"
           >
             Login here
           </button>

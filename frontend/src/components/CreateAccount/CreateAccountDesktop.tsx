@@ -29,12 +29,12 @@ const FEATURES = [
     desc: 'Enterprise-grade security for your data' 
   },
   { 
-    Icon: BarChartIcon,             
+    Icon: BarChartIcon,            
     title: 'Smart & Powerful',        
     desc: 'Advanced analytics for smarter decisions' 
   },
   { 
-    Icon: GroupsIcon,               
+    Icon: GroupsIcon,              
     title: 'Built for Professionals', 
     desc: 'Designed for agents, developers & teams' 
   },
@@ -56,16 +56,16 @@ const HeroSection = memo(function HeroSection({ onLoginClick }: { onLoginClick?:
       
       <div className="relative z-10 flex flex-col justify-between h-full px-10 py-8 max-w-130">
         <div className="mt-2">
-          <p className="text-[var(--ys-primary)] text-[0.82rem] font-semibold tracking-wider uppercase drop-shadow-sm">
+          <p className="text-transparent bg-clip-text bg-linear-to-r from-[var(--ys-accent-orange)] to-[var(--ys-accent-light)] text-[0.82rem] font-bold tracking-wider uppercase drop-shadow-sm">
             Create Your Account
           </p>
           <div 
             aria-hidden="true"
-            className="w-10 h-0.5 bg-[var(--ys-primary)] mt-2 mb-5 shadow-[0_2px_8px_rgba(232,89,12,0.5)]" 
+            className="w-12 h-0.5 bg-linear-to-r from-[var(--ys-accent-orange)] to-[var(--ys-accent-light)] mt-2 mb-5 shadow-[0_2px_8px_rgba(207,69,0,0.5)] rounded-full" 
           />
           <h1 className="text-white text-[2.1rem] font-extrabold leading-[1.15] tracking-tight drop-shadow-lg">
             Join India's Most Intelligent<br />
-            Real Estate Platform <span className="text-[var(--ys-primary)]">YardStock</span>
+            Real Estate Platform <span className="text-[var(--ys-accent-orange)]">YardStock</span>
           </h1>
           <p className="text-white/90 text-[0.9rem] mt-4 leading-relaxed drop-shadow-md">
             Get started and unlock the power of<br />data-driven real estate intelligence.
@@ -80,12 +80,12 @@ const HeroSection = memo(function HeroSection({ onLoginClick }: { onLoginClick?:
               >
                 <div 
                   aria-hidden="true"
-                  className="bg-[var(--ys-primary)] rounded-[8px] p-2.5 shrink-0 shadow-[0_4px_12px_rgba(232,89,12,0.4)] group-hover:scale-110 group-hover:bg-[var(--ys-ink-mid)] transition-all duration-300 motion-reduce:transform-none motion-reduce:transition-none"
+                  className="bg-linear-to-br from-[var(--ys-accent-orange)] to-[var(--ys-accent-light)] rounded-[8px] p-2.5 shrink-0 shadow-[0_4px_12px_rgba(207,69,0,0.4)] group-hover:scale-110 transition-all duration-300 motion-reduce:transform-none motion-reduce:transition-none"
                 >
                   <Icon sx={{ fontSize: 18, color: 'white' }} />
                 </div>
                 <div>
-                  <p className="text-white font-semibold text-[0.85rem] group-hover:text-[var(--ys-primary)] transition-colors duration-300 motion-reduce:transition-none">
+                  <p className="text-white font-semibold text-[0.85rem] group-hover:text-[var(--ys-accent-light)] transition-colors duration-300 motion-reduce:transition-none">
                     {title}
                   </p>
                   <p className="text-white/80 text-[0.73rem] group-hover:text-white transition-colors duration-300 motion-reduce:transition-none">
@@ -97,7 +97,7 @@ const HeroSection = memo(function HeroSection({ onLoginClick }: { onLoginClick?:
           </div>
         </div>
 
-        <div className="bg-white/15 backdrop-blur-xl border border-white/20 rounded-[8px] p-2 mb-20 shadow-[0_8px_32px_rgba(0,0,0,0.15)] hover:bg-white/20 hover:shadow-[0_8px_32px_rgba(0,0,0,0.25)] transition-all duration-500 group motion-reduce:transition-none">
+        <div className="bg-white/10 backdrop-blur-xl border border-white/15 rounded-[8px] p-2 mb-20 shadow-[0_8px_32px_rgba(0,0,0,0.15)] hover:bg-white/15 hover:shadow-[0_8px_32px_rgba(0,0,0,0.25)] transition-all duration-500 group motion-reduce:transition-none">
           <div className="flex items-center divide-x divide-white/20 py-1" role="group" aria-label="Platform Statistics">
             {STATS_DESKTOP.map(({ value, label }) => (
               <div 
@@ -115,7 +115,7 @@ const HeroSection = memo(function HeroSection({ onLoginClick }: { onLoginClick?:
               type="button" 
               onClick={onLoginClick} 
               aria-label="Login to your existing account"
-              className="text-[var(--ys-primary)] font-bold hover:text-white hover:underline transition-all underline duration-300 rounded-[8px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ys-primary)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--ys-ink-soft)] motion-reduce:transition-none"
+              className="text-[var(--ys-link)] font-bold hover:text-white hover:underline transition-all underline duration-300 rounded-[8px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ys-accent-orange)]"
             >
               Login here
             </button>
@@ -134,7 +134,6 @@ export default function CreateAccountDesktop({
 }: CreateAccountDesktopProps) {
   return (
     <main className="h-screen w-full flex overflow-hidden bg-[var(--ys-ink)]">
-
       <HeroSection onLoginClick={onLoginClick} />
 
       <section 
@@ -162,17 +161,17 @@ export default function CreateAccountDesktop({
           />
         </div>
 
-        <div className="shrink-0 border-t border-[var(--ys-mute)] bg-[var(--ys-canvas-soft)]/50 py-3 px-6 flex items-center justify-around">
+        <div className="shrink-0 border-t border-[var(--ys-mute)] bg-[var(--ys-surface-alt)]/50 py-3 px-6 flex items-center justify-around">
           {([
             { Icon: VerifiedUserOutlinedIcon, label: 'Bank-Level\nSecurity' },
             { Icon: AccessTimeOutlinedIcon,   label: '99.9%\nUptime' },
             { Icon: StarBorderOutlinedIcon,   label: 'Trusted by Top\nDevelopers' },
           ] as { Icon: React.ElementType; label: string }[]).map(({ Icon, label }, i) => (
             <React.Fragment key={label}>
-              {i > 0 && <div aria-hidden="true" className="w-px h-7 bg-[var(--ys-mute)]" />}
+              {i > 0 && <div aria-hidden="true" className="w-px h-7 bg-linear-to-b from-transparent via-[var(--ys-mute)] to-transparent" />}
               <div className="flex flex-col items-center gap-1 text-center px-3 group">
-                <Icon sx={{ fontSize: 19 }} className="text-[var(--ys-primary)] transition-transform duration-300 group-hover:scale-110 group-hover:text-[var(--ys-ink-mid)] motion-reduce:transform-none motion-reduce:transition-none" aria-hidden="true" />
-                <p className="text-[0.57rem] text-[var(--ys-body-mid)] font-medium leading-tight whitespace-pre-line group-hover:text-[var(--ys-body)] transition-colors">
+                <Icon sx={{ fontSize: 19 }} className="text-[var(--ys-accent-orange)] transition-transform duration-300 group-hover:scale-110 group-hover:text-[var(--ys-accent-brown)] motion-reduce:transform-none motion-reduce:transition-none" aria-hidden="true" />
+                <p className="text-[0.57rem] text-[var(--ys-body)] font-medium leading-tight whitespace-pre-line group-hover:text-[var(--ys-ink)] transition-colors">
                   {label}
                 </p>
               </div>

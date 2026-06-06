@@ -16,7 +16,7 @@ export default function CreateAccountMobile(props: CreateAccountFormProps) {
         
         <div className="relative z-10 px-5 pt-10">
           <h1 className="text-white text-[1.6rem] font-extrabold leading-tight drop-shadow-lg mt-2">
-            Welcome to <span className="text-[var(--ys-primary)]">YardStock</span>
+            Welcome to <span className="text-transparent bg-clip-text bg-linear-to-r from-[var(--ys-accent-orange)] to-[var(--ys-accent-light)]">YardStock</span>
           </h1>
           <p className="text-white/90 text-[0.75rem] mt-2 leading-relaxed max-w-70 drop-shadow-md">
             Create your account and unlock the power of intelligent real estate insights.

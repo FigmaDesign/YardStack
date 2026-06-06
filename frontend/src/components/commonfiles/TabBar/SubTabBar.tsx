@@ -32,7 +32,7 @@ const SubTabItemComponent = memo(function SubTabItemComponent({ item, isActive, 
       id={`subtab-${label.toLowerCase().replace(/\s+/g, '-')}`}
       aria-controls={`subpanel-${label.toLowerCase().replace(/\s+/g, '-')}`}
       onClick={(e) => onClick(label, e.currentTarget)}
-      className={`relative flex cursor-pointer bg-transparent border-none transition-all duration-200 [-webkit-tap-highlight-color:transparent] active:scale-[0.95] active:opacity-80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ys-primary)] focus-visible:ring-inset motion-reduce:transition-none motion-reduce:transform-none ${
+      className={`relative flex cursor-pointer bg-transparent border-none transition-all duration-200 [-webkit-tap-highlight-color:transparent] active:scale-[0.95] active:opacity-80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ys-accent-orange)] focus-visible:ring-inset motion-reduce:transition-none motion-reduce:transform-none ${
         isDesktop
           ? 'h-full min-w-[120px] flex-row items-center px-4 py-3 gap-2'
           : 'h-full min-w-[64px] flex-[1_0_auto] flex-col items-center justify-center gap-[5px] pb-2'
@@ -46,7 +46,7 @@ const SubTabItemComponent = memo(function SubTabItemComponent({ item, isActive, 
           strokeWidth={1.5}
           aria-hidden="true"
           className={`transition-colors duration-200 motion-reduce:transition-none ${
-            isActive ? 'text-[var(--ys-primary)]' : 'text-[var(--ys-body-mid)]'
+            isActive ? 'text-[var(--ys-accent-orange)]' : 'text-[var(--ys-body-mid)]'
           } ${isDesktop ? 'inline-block' : ''}`}
         />
       )}
@@ -68,7 +68,7 @@ const SubTabItemComponent = memo(function SubTabItemComponent({ item, isActive, 
       {isActive && (
         <div 
           aria-hidden="true"
-          className="absolute bottom-[3px] left-1/2 h-[3px] w-5 -translate-x-1/2 rounded-[8px] bg-gradient-to-r from-[var(--ys-primary)] to-[var(--ys-ink-mid)]" 
+          className="absolute bottom-[3px] left-1/2 h-[3px] w-5 -translate-x-1/2 rounded-[8px] bg-linear-to-r from-[var(--ys-accent-orange)] to-[var(--ys-accent-light)]" 
         />
       )}
     </button>

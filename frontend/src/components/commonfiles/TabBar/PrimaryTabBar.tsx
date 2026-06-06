@@ -36,12 +36,12 @@ const ActiveSwiggyCurve = memo(function ActiveSwiggyCurve() {
     <svg
       viewBox="0 0 106 64"
       aria-hidden="true"
-      className="absolute bottom-0 left-1/2 -translate-x-1/2 pointer-events-none -z-10 w-[106px] h-[64px] drop-shadow-[0_-2px_8px_rgba(232,89,12,0.25)]"
+      className="absolute bottom-0 left-1/2 -translate-x-1/2 pointer-events-none -z-10 w-[106px] h-[64px] drop-shadow-[0_-2px_8px_rgba(207,69,0,0.25)]"
     >
       <defs>
         <linearGradient id="activeTabGrad" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0%" stopColor="var(--ys-primary)" />
-          <stop offset="100%" stopColor="var(--ys-ink-mid)" />
+          <stop offset="0%" stopColor="var(--ys-accent-orange)" />
+          <stop offset="100%" stopColor="var(--ys-accent-light)" />
         </linearGradient>
       </defs>
       <path
@@ -71,10 +71,10 @@ const TabCard = memo(function TabCard({ tabKey, label, Icon, isActive, onClick }
       id={`tab-${tabKey}`}
       aria-controls={`panel-${tabKey}`}
       onClick={(e) => onClick(tabKey, e.currentTarget)}
-      className={`relative flex flex-col items-center justify-center shrink-0 border-none outline-none cursor-pointer transition-all duration-200 ease-[cubic-bezier(0.4,0,0.2,1)] [-webkit-tap-highlight-color:transparent] active:scale-[0.94] active:opacity-80 w-[64px] min-h-[66px] gap-[2px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ys-primary)] focus-visible:ring-inset motion-reduce:transition-none motion-reduce:transform-none ${
+      className={`relative flex flex-col items-center justify-center shrink-0 border-none outline-none cursor-pointer transition-all duration-200 ease-[cubic-bezier(0.4,0,0.2,1)] [-webkit-tap-highlight-color:transparent] active:scale-[0.94] active:opacity-80 w-[64px] min-h-[66px] gap-[2px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ys-accent-orange)] focus-visible:ring-inset motion-reduce:transition-none motion-reduce:transform-none ${
         isActive
           ? 'bg-transparent hover:bg-transparent rounded-[8px] z-50 pl-1 pr-1 pb-1.5'
-          : 'bg-[var(--ys-ink-soft)]/50 hover:bg-[var(--ys-ink-mid)]/40 rounded-t-[8px] z-10 pl-2 pr-1'
+          : 'bg-[var(--ys-ink-soft)]/50 hover:bg-[var(--ys-ink-soft)]/80 rounded-t-[8px] z-10 pl-2 pr-1'
       }`}
     >
       {isActive && <ActiveSwiggyCurve />}
@@ -120,7 +120,7 @@ const Inner = memo(function Inner({ tabs, active, onTabClick, scrollRef }: Inner
         aria-orientation="horizontal"
         className="box-border relative z-10 flex min-h-[72px] overflow-x-auto items-end gap-0.5 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] border-b-2 border-b-transparent"
         style={{
-          borderImage: 'linear-gradient(to right, var(--ys-primary), var(--ys-ink-mid)) 1',
+          borderImage: 'linear-gradient(to right, var(--ys-accent-orange), var(--ys-accent-light)) 1',
         }}
       >
         {tabs.map(({ key, label, Icon }) => (

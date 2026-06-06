@@ -122,14 +122,14 @@ export default function Dropdown({
         aria-label={placeholder}
         onClick={() => setOpen((v) => !v)}
         onKeyDown={handleKeyDown}
-        className={`flex items-center gap-1.5 bg-[var(--ys-canvas)] border rounded-[8px] cursor-pointer outline-none transition-all duration-200 w-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ys-ink)] focus-visible:border-[var(--ys-ink)] motion-reduce:transition-none ${
-          open ? 'border-[var(--ys-ink)] ring-2 ring-[var(--ys-ink)]/15' : 'border-[var(--ys-mute)] hover:border-[var(--ys-ink)]'
+        className={`flex items-center gap-1.5 bg-[var(--ys-canvas)] border rounded-[8px] cursor-pointer outline-none transition-all duration-200 w-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ys-accent-orange)] focus-visible:border-[var(--ys-accent-orange)] motion-reduce:transition-none ${
+          open ? 'border-[var(--ys-accent-orange)] ring-2 ring-[var(--ys-accent-orange)]/15' : 'border-[var(--ys-mute)] hover:border-[var(--ys-accent-orange)]'
         } ${
           isSm ? 'px-2 py-[7px] text-[0.75rem]' : 'px-3 py-[8px] text-[0.8rem]'
         } font-semibold text-[var(--ys-ink)]`}
       >
         {leftIcon && (
-          <span aria-hidden="true" className="text-[var(--ys-body-mid)] shrink-0 transition-colors duration-200">
+          <span aria-hidden="true" className="text-[var(--ys-body-accent)] shrink-0 transition-colors duration-200">
             {leftIcon}
           </span>
         )}
@@ -143,8 +143,8 @@ export default function Dropdown({
         <ExpandMoreIcon
           aria-hidden="true"
           sx={{ fontSize: isSm ? 14 : 16 }}
-          className={`text-[var(--ys-body-mid)] shrink-0 transition-transform duration-200 motion-reduce:transition-none ${
-            open ? 'rotate-180' : ''
+          className={`text-[var(--ys-body-accent)] shrink-0 transition-transform duration-200 motion-reduce:transition-none ${
+            open ? 'rotate-180 text-[var(--ys-accent-orange)]' : ''
           }`}
         />
       </button>
@@ -174,7 +174,7 @@ export default function Dropdown({
                 onMouseEnter={() => setFocusedIndex(i)}
                 className={`px-3 py-2 text-[0.8rem] cursor-pointer transition-colors duration-150 select-none motion-reduce:transition-none ${
                   isSelected
-                    ? 'bg-[var(--ys-canvas-soft)] text-[var(--ys-ink)] font-semibold'
+                    ? 'bg-[var(--ys-canvas-soft)] text-[var(--ys-accent-orange)] font-bold'
                     : 'text-[var(--ys-body)]'
                 } ${isFocused && !isSelected ? 'bg-[var(--ys-canvas-soft)]/60' : ''}`}
               >

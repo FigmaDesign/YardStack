@@ -122,7 +122,7 @@ export default function Announcements() {
               onClick={handleLoadMore}
               disabled={isLoadingMore}
               aria-label="Load more posts"
-              className="group flex items-center justify-center gap-2.5 px-6 py-3 rounded-[8px] text-white font-bold text-[0.85rem] bg-linear-to-r from-[var(--ys-ink)] to-[var(--ys-primary)] shadow-[0_4px_16px_rgba(232,89,12,0.25)] hover:shadow-[0_6px_20px_rgba(232,89,12,0.35)] hover:from-[var(--ys-ink-soft)] hover:to-[var(--ys-primary)] active:scale-[0.97] disabled:opacity-80 disabled:active:scale-100 disabled:cursor-wait transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-[var(--ys-primary)]/40"
+              className="group flex items-center justify-center gap-2.5 px-6 py-3 rounded-[8px] text-white font-bold text-[0.85rem] bg-linear-to-r from-[var(--ys-accent-orange)] to-[var(--ys-accent-light)] shadow-[0_4px_16px_rgba(207,69,0,0.25)] hover:shadow-[0_6px_20px_rgba(207,69,0,0.35)] active:scale-[0.97] disabled:opacity-80 disabled:active:scale-100 disabled:cursor-wait transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-[var(--ys-accent-orange)]/40"
             >
               {isLoadingMore ? (
                 <>
@@ -156,7 +156,7 @@ export default function Announcements() {
               aria-haspopup="listbox"
               aria-expanded={isDropdownOpen ? 'true' : 'false'}
               aria-controls="page-size-listbox"
-              className="flex items-center justify-between w-16 px-3 py-1.5 border border-[var(--ys-mute)] rounded-[8px] text-[var(--ys-ink)] bg-[var(--ys-canvas-soft)] hover:bg-[var(--ys-canvas-soft)] focus:outline-none focus:ring-2 focus:ring-[var(--ys-primary)]/20 focus:border-[var(--ys-primary)] transition-all font-semibold"
+              className="flex items-center justify-between w-16 px-3 py-1.5 border border-[var(--ys-mute)] rounded-[8px] text-[var(--ys-ink)] bg-[var(--ys-canvas-soft)] hover:bg-[var(--ys-canvas-soft)] focus:outline-none focus:ring-2 focus:ring-[var(--ys-accent-orange)]/20 focus:border-[var(--ys-accent-orange)] transition-all font-semibold"
             >
               {pageSize}
               <ChevronRight 
@@ -182,7 +182,7 @@ export default function Announcements() {
                     onClick={() => handlePageSizeChange(n)}
                     className={`w-full text-left px-3 py-1.5 text-[0.75rem] font-semibold transition-colors ${
                       pageSize === n
-                        ? 'bg-[var(--ys-canvas-soft)] text-[var(--ys-primary)]'
+                        ? 'bg-[var(--ys-canvas-soft)] text-[var(--ys-accent-orange)]'
                         : 'text-[var(--ys-body)] hover:bg-[var(--ys-canvas-soft)] hover:text-[var(--ys-ink)]'
                     }`}
                   >
@@ -220,7 +220,7 @@ export default function Announcements() {
                 className={[
                   'w-8 h-8 text-[0.78rem] font-bold rounded-[8px] transition-all duration-200',
                   item === safePage
-                    ? 'bg-linear-to-r from-[var(--ys-ink)] to-[var(--ys-primary)] text-white shadow-md shadow-[var(--ys-primary)]/20'
+                    ? 'bg-linear-to-r from-[var(--ys-accent-orange)] to-[var(--ys-accent-light)] text-white shadow-md shadow-[var(--ys-accent-orange)]/20'
                     : 'text-[var(--ys-body)] hover:bg-[var(--ys-canvas)] hover:text-[var(--ys-ink)] hover:shadow-sm',
                 ].join(' ')}
               >

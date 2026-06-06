@@ -22,7 +22,7 @@ export default function MobileViewport({ children, isMobile = false }: MobileVie
     <div
       role="region"
       aria-label="Desktop Preview Environment"
-      className="flex items-center justify-center h-full overflow-auto box-border bg-[var(--ys-canvas-soft)] p-[clamp(12px,3vh,28px)]"
+      className="flex items-center justify-center h-full overflow-auto box-border bg-[var(--ys-surface-alt)] p-[clamp(12px,3vh,28px)]"
     >
       <div
         role="region"

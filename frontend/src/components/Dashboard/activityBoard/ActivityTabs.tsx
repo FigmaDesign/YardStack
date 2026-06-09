@@ -28,6 +28,18 @@ const ActivityTabs = memo(function ActivityTabs({ active, onChange }: ActivityTa
     return () => window.removeEventListener('resize', checkScroll)
   }, [])
 
+  useEffect(() => {
+    if (scrollRef.current) {
+      const container = scrollRef.current
+      const activeElement = container.querySelector('[data-active="true"]') as HTMLElement
+      
+      if (activeElement) {
+        const scrollLeft = activeElement.offsetLeft - container.clientWidth / 2 + activeElement.clientWidth / 2
+        container.scrollTo({ left: scrollLeft, behavior: 'smooth' })
+      }
+    }
+  }, [active])
+
   const scroll = (direction: 'left' | 'right') => {
     if (scrollRef.current) {
       const scrollAmount = 150
@@ -64,12 +76,20 @@ const ActivityTabs = memo(function ActivityTabs({ active, onChange }: ActivityTa
             <button
               key={tab.key}
               type="button"
+              data-active={isActive}
               onClick={() => onChange(tab.key)}
+              // Removed the hardcoded gray text/bg colors for the inactive state
               className={`group shrink-0 flex items-center gap-1.5 px-3 py-1.5 rounded-[8px] text-[11px] md:text-xs font-semibold transition-all duration-300 ease-out active:scale-95 border ${
                 isActive
                   ? 'bg-[var(--color-brand-purple)] text-white border-[var(--color-brand-purple)] shadow-[0_4px_12px_rgba(107,33,168,0.35)] hover:shadow-[0_6px_16px_rgba(107,33,168,0.45)] hover:-translate-y-[1px]'
-                  : 'bg-gray-100 text-[var(--color-text-secondary)] border-transparent hover:bg-gray-200 hover:shadow-sm hover:text-[var(--color-text-primary)] hover:-translate-y-[1px]'
+                  : 'hover:shadow-sm hover:-translate-y-[1px]'
               }`}
+              // Added dynamic styles for the inactive state using the tab.color hex value
+              style={!isActive && tab.color ? {
+                backgroundColor: `${tab.color}15`, // 15% opacity background
+                color: tab.color,                  // Full color text
+                borderColor: `${tab.color}40`,     // 40% opacity border
+              } : undefined}
             >
               <tab.Icon 
                 sx={{ fontSize: 16 }} 
@@ -77,20 +97,29 @@ const ActivityTabs = memo(function ActivityTabs({ active, onChange }: ActivityTa
                 style={!isActive ? { color: tab.color } : undefined} 
               />
               <span>{tab.label}</span>
+              
+              {/* Updated the count pill to match the unique colors */}
               <span className={`px-1.5 py-0.5 rounded-[6px] text-[9px] transition-colors duration-300 ${
                 isActive 
                   ? 'bg-white/20 text-white' 
-                  : 'bg-white/60 text-[var(--color-text-primary)] group-hover:bg-white'
-              }`}>
+                  : ''
+              }`}
+              style={!isActive && tab.color ? {
+                backgroundColor: `${tab.color}25`, // Slightly darker background for the pill
+                color: tab.color
+              } : undefined}
+              >
                 {tab.count}
               </span>
             </button>
           )
         })}
         
+        <div className="w-px h-4 bg-[#E5E7EB] shrink-0 mx-0.5" aria-hidden="true" />
+
         <button
           type="button"
-          className="group shrink-0 flex items-center gap-1 px-3 py-1.5 rounded-[8px] border border-transparent bg-gray-100 text-[var(--color-text-primary)] hover:bg-gray-200 transition-all duration-300 ease-out active:scale-95 hover:shadow-sm hover:-translate-y-[1px] font-semibold text-[11px] md:text-xs"
+          className="group shrink-0 flex items-center gap-1 px-3 py-1.5 rounded-[8px] border border-[var(--color-border-default)] bg-white text-[var(--color-text-primary)] hover:bg-gray-50 transition-all duration-300 ease-out active:scale-95 hover:shadow-sm hover:-translate-y-[1px] font-semibold text-[11px] md:text-xs"
           aria-label="Filter options"
         >
           <TuneIcon 
@@ -117,4 +146,4 @@ const ActivityTabs = memo(function ActivityTabs({ active, onChange }: ActivityTa
   )
 })
 
-export default ActivityTabs
+export default ActivityTabs;

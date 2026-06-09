@@ -1,8 +1,8 @@
 import { useState, useCallback, memo } from 'react'
-import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder'
-import CloseIcon from '@mui/icons-material/Close'
 import VerifiedIcon from '@mui/icons-material/Verified'
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
+import MoreVertIcon from '@mui/icons-material/MoreVert'
+import BusinessCenterIcon from '@mui/icons-material/BusinessCenter'
 
 import ActivityTabs from './ActivityTabs'
 import { ACTIVITY_ITEMS, type ActivityItem } from './data'
@@ -12,79 +12,103 @@ interface ActivityCardProps {
 }
 
 const ActivityCard = memo(function ActivityCard({ item }: ActivityCardProps) {
+  const [isExpanded, setIsExpanded] = useState(false)
+
   return (
-    <div 
-      className="flex flex-col md:flex-row items-start md:items-center justify-between p-4 md:p-5 mb-4 rounded-2xl mx-4 transition-all duration-300 shadow-sm hover:shadow-md border border-[#E5E7EB] hover:border-[var(--color-brand-magenta)]/30"
-      style={{ backgroundColor: item.cardBg || '#FFFFFF' }}
-    >
-      {/* Left Section: Logo & Details */}
-      <div className="flex items-center gap-4 w-full md:w-auto overflow-hidden">
-        {item.logoImg ? (
-          <img 
-            src={item.logoImg} 
-            alt={item.company} 
-            className="w-14 h-14 md:w-16 md:h-16 rounded-full object-cover shadow-sm shrink-0" 
-          />
-        ) : (
-          <div 
-            className="w-14 h-14 md:w-16 md:h-16 rounded-full flex items-center justify-center shrink-0 shadow-sm"
-            style={{ backgroundColor: item.logoBg, color: item.logoColor }}
+    <div className="relative mb-3 mx-2">
+      <div 
+        className="relative flex flex-col p-2.5 rounded-xl shadow-sm border border-[#E5E7EB] z-10 transition-colors"
+        style={{ backgroundColor: item.cardBg || '#FFFFFF' }}
+      >
+        <button className="absolute top-2.5 right-2 p-1 text-[var(--color-text-secondary)] hover:bg-black/5 rounded-full focus:outline-none">
+          <MoreVertIcon sx={{ fontSize: 18 }} />
+        </button>
+
+        <div className="flex items-start gap-2.5 w-full overflow-hidden pr-6">
+          {item.logoImg ? (
+            <img 
+              src={item.logoImg} 
+              alt={item.company} 
+              className="w-10 h-10 rounded-full object-cover shadow-sm shrink-0 mt-0.5" 
+            />
+          ) : (
+            <div 
+              className="w-10 h-10 rounded-full flex items-center justify-center shrink-0 shadow-sm mt-0.5"
+              style={{ backgroundColor: item.logoBg, color: item.logoColor }}
+            >
+              <span 
+                className="text-center font-bold text-[9px] leading-tight whitespace-pre-wrap tracking-wide" 
+                style={{ color: item.logoColor }}
+              >
+                {item.logoText}
+              </span>
+            </div>
+          )}
+          
+          <div className="flex flex-col min-w-0">
+            <div className="flex items-center gap-1">
+              <span className="text-[12px] font-bold text-[var(--color-text-primary)] truncate">
+                {item.company}
+              </span>
+              {item.verified && <VerifiedIcon sx={{ fontSize: 12 }} className="text-[#3B82F6] shrink-0" />}
+            </div>
+            <h3 className="text-[13px] font-extrabold text-[var(--color-text-primary)] mt-0.5 leading-snug truncate">
+              {item.title}
+            </h3>
+            <div className="flex flex-wrap items-center gap-1.5 mt-1">
+              <span 
+                className="px-1.5 py-0.5 rounded text-[9px] font-bold tracking-wide uppercase shrink-0"
+                style={{ backgroundColor: item.tagBg, color: item.tagColor }}
+              >
+                {item.tag}
+              </span>
+              <span className="text-[10px] font-medium text-[var(--color-text-secondary)] truncate">
+                {item.detail}
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <div className="flex items-center justify-end w-full mt-2.5 pt-2 border-t border-black/5">
+          <button 
+            onClick={() => setIsExpanded(!isExpanded)}
+            className="flex items-center gap-0.5 px-2 py-1 rounded-full text-[var(--color-brand-magenta)] font-bold text-[11px] transition-all hover:bg-[var(--color-brand-magenta)]/10 active:scale-95 focus:outline-none"
           >
-            <span 
-              className="text-center font-bold text-[11px] md:text-xs leading-tight whitespace-pre-wrap tracking-wide" 
-              style={{ color: item.logoColor }}
-            >
-              {item.logoText}
-            </span>
-          </div>
-        )}
-        
-        <div className="flex flex-col min-w-0 pr-2">
-          <div className="flex items-center gap-1.5">
-            <span className="text-[13px] md:text-sm font-bold text-[var(--color-text-primary)] truncate">
-              {item.company}
-            </span>
-            {item.verified && <VerifiedIcon sx={{ fontSize: 16 }} className="text-[#3B82F6] shrink-0" />}
-          </div>
-          <h3 className="text-[15px] md:text-base font-extrabold text-[var(--color-text-primary)] mt-0.5 leading-tight truncate">
-            {item.title}
-          </h3>
-          <div className="flex flex-wrap items-center gap-2 md:gap-3 mt-2">
-            <span 
-              className="px-2.5 py-1 rounded-md text-[10px] md:text-[11px] font-bold tracking-wide uppercase shrink-0"
-              style={{ backgroundColor: item.tagBg, color: item.tagColor }}
-            >
-              {item.tag}
-            </span>
-            <span className="text-[12px] md:text-[13px] font-medium text-[var(--color-text-secondary)] truncate">
-              {item.detail}
-            </span>
-          </div>
+            {isExpanded ? 'Hide' : 'View'} 
+            <KeyboardArrowDownIcon 
+              sx={{ fontSize: 16 }} 
+              className={`transition-transform duration-300 ${isExpanded ? 'rotate-180' : ''}`} 
+            />
+          </button>
         </div>
       </div>
 
-      {/* Right Section: Actions */}
-      <div className="flex items-center justify-between md:justify-end w-full md:w-auto gap-2 md:gap-6 shrink-0 mt-4 md:mt-0 pt-4 md:pt-0 border-t md:border-t-0 md:border-l border-[var(--color-border-default)] md:pl-6">
-        
-        {/* Secondary Actions (Save & Hide) */}
-        <div className="flex items-center gap-4 md:gap-6">
-          <button className="group flex flex-col items-center gap-1 text-[var(--color-text-secondary)] hover:text-[var(--color-brand-purple)] transition-colors focus:outline-none">
-            <BookmarkBorderIcon sx={{ fontSize: 22 }} className="group-active:scale-90 transition-transform" />
-            <span className="text-[10px] font-semibold">Save</span>
-          </button>
-          <button className="group flex flex-col items-center gap-1 text-[var(--color-text-secondary)] hover:text-red-500 transition-colors focus:outline-none">
-            <div className="w-[22px] h-[22px] rounded-full border-2 border-current flex items-center justify-center group-active:scale-90 transition-transform">
-              <CloseIcon sx={{ fontSize: 14 }} strokeWidth={2} />
+      <div 
+        className={`transition-all duration-300 ease-in-out overflow-hidden transform origin-top ${
+          isExpanded ? 'max-h-48 opacity-100 scale-y-100' : 'max-h-0 opacity-0 scale-y-95'
+        }`}
+      >
+        <div className="mx-2 p-3 pt-4 -mt-2 bg-white rounded-b-xl border border-t-0 border-[#E5E7EB] shadow-sm flex flex-col gap-2">
+          <div className="flex items-start gap-2 text-[11px] text-[var(--color-text-secondary)]">
+            <BusinessCenterIcon sx={{ fontSize: 14 }} className="text-[#6B21A8] shrink-0 mt-0.5" />
+            <div>
+              <span className="font-semibold text-[var(--color-text-primary)] block mb-0.5">Role Overview</span>
+              We are actively looking for candidates/agencies specializing in <strong className="text-gray-700">{item.tag}</strong> to fulfill the requirements for <strong className="text-gray-700">{item.title}</strong>. 
             </div>
-            <span className="text-[10px] font-semibold whitespace-nowrap">Ignore</span>
+          </div>
+          
+          <div className="pl-5 text-[10px] text-[var(--color-text-secondary)] border-l-2 border-[#F3F4F6] ml-1.5 mt-1">
+            <ul className="list-disc pl-3 space-y-0.5">
+              <li><strong>Budget/Compensation:</strong> {item.detail}</li>
+              <li><strong>Company:</strong> {item.company} {item.verified ? '(Verified)' : ''}</li>
+              <li>Must have relevant portfolio and experience.</li>
+            </ul>
+          </div>
+
+          <button className="mt-1 w-full py-1.5 rounded-lg bg-[#F3F4F6] text-[var(--color-text-primary)] text-[11px] font-bold hover:bg-[#E5E7EB] transition-colors">
+            Apply / Connect
           </button>
         </div>
-
-        {/* Primary Action (View) */}
-        <button className="flex items-center gap-1 px-4 py-2 ml-2 md:ml-0 rounded-full text-[var(--color-brand-magenta)] font-bold text-[13px] transition-all hover:bg-[var(--color-brand-magenta)]/10 active:scale-95 focus:outline-none focus:ring-2 focus:ring-[var(--color-brand-magenta)]/40">
-          View <KeyboardArrowDownIcon sx={{ fontSize: 18 }} />
-        </button>
-        
       </div>
     </div>
   )
@@ -98,11 +122,11 @@ export default function ActivityBoard() {
   }, [])
 
   return (
-    <div className="flex-1 w-full h-full overflow-y-auto scroll-smooth bg-[#F3F4F6] [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
-      <div className="sticky top-0 z-20 bg-[#F3F4F6]/95 backdrop-blur-md pb-2 pt-1">
+    <div className="flex-1 w-full h-full overflow-y-auto bg-[#F3F4F6] [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+      <div className="sticky top-0 z-30 bg-[#F3F4F6]/95 backdrop-blur-md pb-2 pt-1">
         <ActivityTabs active={activeFilter} onChange={handleFilterChange} />
       </div>
-      <div className="max-w-4xl mx-auto w-full pt-2 pb-8">
+      <div className="w-full pt-1 pb-8">
         {ACTIVITY_ITEMS.map((item) => (
           <ActivityCard key={item.id} item={item} />
         ))}

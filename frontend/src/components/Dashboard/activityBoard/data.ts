@@ -1,3 +1,4 @@
+import type React from 'react'
 import GridViewIcon from '@mui/icons-material/GridView'
 import PersonSearchIcon from '@mui/icons-material/PersonSearch'
 import SearchIcon from '@mui/icons-material/Search'

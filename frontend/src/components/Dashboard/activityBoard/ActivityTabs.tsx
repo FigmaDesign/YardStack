@@ -1,5 +1,7 @@
-import { memo } from 'react'
+import { memo, useRef, useState, useEffect } from 'react'
 import TuneIcon from '@mui/icons-material/Tune'
+import ChevronLeftIcon from '@mui/icons-material/ChevronLeft'
+import ChevronRightIcon from '@mui/icons-material/ChevronRight'
 import { FILTER_TABS } from './data'
 
 interface ActivityTabsProps {
@@ -8,35 +10,109 @@ interface ActivityTabsProps {
 }
 
 const ActivityTabs = memo(function ActivityTabs({ active, onChange }: ActivityTabsProps) {
+  const scrollRef = useRef<HTMLDivElement>(null)
+  const [canScrollLeft, setCanScrollLeft] = useState(false)
+  const [canScrollRight, setCanScrollRight] = useState(false)
+
+  const checkScroll = () => {
+    if (scrollRef.current) {
+      const { scrollLeft, scrollWidth, clientWidth } = scrollRef.current
+      setCanScrollLeft(scrollLeft > 0)
+      setCanScrollRight(Math.ceil(scrollLeft) < scrollWidth - clientWidth - 2)
+    }
+  }
+
+  useEffect(() => {
+    checkScroll()
+    window.addEventListener('resize', checkScroll)
+    return () => window.removeEventListener('resize', checkScroll)
+  }, [])
+
+  const scroll = (direction: 'left' | 'right') => {
+    if (scrollRef.current) {
+      const scrollAmount = 150
+      scrollRef.current.scrollBy({
+        left: direction === 'left' ? -scrollAmount : scrollAmount,
+        behavior: 'smooth'
+      })
+    }
+  }
+
   return (
-    <div className="flex items-center justify-center gap-3 px-4 py-4 overflow-x-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
-      {FILTER_TABS.map((tab) => {
-        const isActive = active === tab.key
-        return (
+    <div className="relative flex items-center w-full group/container">
+      {canScrollLeft && (
+        <div className="absolute left-0 z-20 flex items-center h-full pl-1 pr-2 bg-gradient-to-r from-[#F3F4F6] from-60% to-transparent pointer-events-none">
           <button
-            key={tab.key}
             type="button"
-            onClick={() => onChange(tab.key)}
-            className={`shrink-0 flex items-center gap-1.5 px-4 py-2 rounded-xl text-sm font-semibold transition-all duration-200 active:scale-95 border ${
-              isActive
-                ? 'bg-[var(--color-brand-purple)] text-white border-[var(--color-brand-purple)] shadow-[0_4px_12px_rgba(107,33,168,0.25)]'
-                : 'bg-white text-[var(--color-text-secondary)] border-[var(--color-border-default)] hover:border-[#cfcfdb] hover:bg-gray-50'
-            }`}
+            onClick={() => scroll('left')}
+            className="flex items-center justify-center w-6 h-6 bg-white rounded-full shadow-[0_2px_8px_rgba(0,0,0,0.15)] text-[var(--color-text-secondary)] hover:text-[var(--color-brand-purple)] hover:scale-110 active:scale-95 transition-all pointer-events-auto"
+            aria-label="Scroll left"
           >
-            <tab.Icon sx={{ fontSize: 18 }} className={isActive ? 'text-white' : ''} style={!isActive ? { color: tab.color } : undefined} />
-            <span>{tab.label}</span>
-            <span className={isActive ? 'text-white/80' : 'text-[var(--color-text-primary)]'}>{tab.count}</span>
+            <ChevronLeftIcon sx={{ fontSize: 18 }} />
           </button>
-        )
-      })}
-      <button
-        type="button"
-        className="shrink-0 flex items-center gap-1.5 px-4 py-2 rounded-xl border border-[var(--color-border-default)] bg-white text-[var(--color-text-primary)] hover:bg-gray-50 transition-all duration-200 active:scale-95 font-semibold text-sm"
-        aria-label="Filter options"
+        </div>
+      )}
+
+      <div 
+        ref={scrollRef}
+        onScroll={checkScroll}
+        className="flex items-center gap-2 px-3 py-3 overflow-x-auto w-full [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] scroll-smooth relative z-10"
       >
-        <TuneIcon sx={{ fontSize: 18 }} className="text-[var(--color-brand-purple)]" />
-        Filter
-      </button>
+        {FILTER_TABS.map((tab) => {
+          const isActive = active === tab.key
+          return (
+            <button
+              key={tab.key}
+              type="button"
+              onClick={() => onChange(tab.key)}
+              className={`group shrink-0 flex items-center gap-1.5 px-3 py-1.5 rounded-[8px] text-[11px] md:text-xs font-semibold transition-all duration-300 ease-out active:scale-95 border ${
+                isActive
+                  ? 'bg-[var(--color-brand-purple)] text-white border-[var(--color-brand-purple)] shadow-[0_4px_12px_rgba(107,33,168,0.35)] hover:shadow-[0_6px_16px_rgba(107,33,168,0.45)] hover:-translate-y-[1px]'
+                  : 'bg-gray-100 text-[var(--color-text-secondary)] border-transparent hover:bg-gray-200 hover:shadow-sm hover:text-[var(--color-text-primary)] hover:-translate-y-[1px]'
+              }`}
+            >
+              <tab.Icon 
+                sx={{ fontSize: 16 }} 
+                className={`transition-transform duration-300 ease-out group-hover:scale-110 ${isActive ? 'text-white' : ''}`} 
+                style={!isActive ? { color: tab.color } : undefined} 
+              />
+              <span>{tab.label}</span>
+              <span className={`px-1.5 py-0.5 rounded-[6px] text-[9px] transition-colors duration-300 ${
+                isActive 
+                  ? 'bg-white/20 text-white' 
+                  : 'bg-white/60 text-[var(--color-text-primary)] group-hover:bg-white'
+              }`}>
+                {tab.count}
+              </span>
+            </button>
+          )
+        })}
+        
+        <button
+          type="button"
+          className="group shrink-0 flex items-center gap-1 px-3 py-1.5 rounded-[8px] border border-transparent bg-gray-100 text-[var(--color-text-primary)] hover:bg-gray-200 transition-all duration-300 ease-out active:scale-95 hover:shadow-sm hover:-translate-y-[1px] font-semibold text-[11px] md:text-xs"
+          aria-label="Filter options"
+        >
+          <TuneIcon 
+            sx={{ fontSize: 16 }} 
+            className="text-[var(--color-brand-purple)] transition-transform duration-300 ease-out group-hover:rotate-90" 
+          />
+          Filter
+        </button>
+      </div>
+
+      {canScrollRight && (
+        <div className="absolute right-0 z-20 flex items-center h-full pr-1 pl-4 bg-gradient-to-l from-[#F3F4F6] from-60% to-transparent pointer-events-none">
+          <button
+            type="button"
+            onClick={() => scroll('right')}
+            className="flex items-center justify-center w-6 h-6 bg-white rounded-full shadow-[0_2px_8px_rgba(0,0,0,0.15)] text-[var(--color-text-secondary)] hover:text-[var(--color-brand-purple)] hover:scale-110 active:scale-95 transition-all pointer-events-auto"
+            aria-label="Scroll right"
+          >
+            <ChevronRightIcon sx={{ fontSize: 18 }} />
+          </button>
+        </div>
+      )}
     </div>
   )
 })

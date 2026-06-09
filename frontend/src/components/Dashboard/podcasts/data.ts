@@ -1,3 +1,10 @@
+import thumb1 from './podcasts/thumb_1.png'
+import thumb2 from './podcasts/thumb_2.png'
+import thumb3 from './podcasts/thumb_3.png'
+import thumb4 from './podcasts/thumb_4.png'
+import thumb5 from './podcasts/thumb_5.png'
+import thumb6 from './podcasts/thumb_6.png'
+
 export const FILTER_TABS = [
   { key: 'all', label: 'All' },
   { key: 'realestate', label: 'Real Estate' },
@@ -29,7 +36,7 @@ export const PODCAST_EPISODES: PodcastEpisode[] = [
     duration: '32:45',
     listens: '12.4K listens',
     timeAgo: '2 days ago',
-    thumbnail: '/podcasts/thumb_1.png',
+    thumbnail: thumb1,
     category: 'marketing',
     verified: true,
   },
@@ -41,7 +48,7 @@ export const PODCAST_EPISODES: PodcastEpisode[] = [
     duration: '28:10',
     listens: '9.8K listens',
     timeAgo: '3 days ago',
-    thumbnail: '/podcasts/thumb_2.png',
+    thumbnail: thumb2,
     category: 'realestate',
     verified: true,
   },
@@ -53,7 +60,7 @@ export const PODCAST_EPISODES: PodcastEpisode[] = [
     duration: '25:30',
     listens: '18.2K listens',
     timeAgo: '5 days ago',
-    thumbnail: '/podcasts/thumb_3.png',
+    thumbnail: thumb3,
     category: 'sales',
     verified: true,
   },
@@ -65,7 +72,7 @@ export const PODCAST_EPISODES: PodcastEpisode[] = [
     duration: '29:15',
     listens: '7.6K listens',
     timeAgo: '1 week ago',
-    thumbnail: '/podcasts/thumb_4.png',
+    thumbnail: thumb4,
     category: 'finance',
     verified: true,
   },
@@ -77,7 +84,7 @@ export const PODCAST_EPISODES: PodcastEpisode[] = [
     duration: '27:40',
     listens: '15.3K listens',
     timeAgo: '1 week ago',
-    thumbnail: '/podcasts/thumb_5.png',
+    thumbnail: thumb5,
     category: 'construction',
     verified: true,
   },
@@ -89,7 +96,7 @@ export const PODCAST_EPISODES: PodcastEpisode[] = [
     duration: '22:18',
     listens: '6.2K listens',
     timeAgo: '1 week ago',
-    thumbnail: '/podcasts/thumb_6.png',
+    thumbnail: thumb6,
     category: 'realestate',
     verified: true,
   },

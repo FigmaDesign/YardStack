@@ -33,13 +33,6 @@ const StandardNavButton = memo(function StandardNavButton({ item, isActive, onCl
       onClick={() => onClick(key)}
       className="group relative flex flex-1 flex-col items-center justify-center gap-1.5 min-w-0 py-2 sm:py-2.5 px-1 border-none outline-none cursor-pointer bg-transparent transition-all duration-300 ease-out active:scale-[0.92] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#7C3AED]/50 focus-visible:ring-inset motion-reduce:transition-none motion-reduce:transform-none [-webkit-tap-highlight-color:transparent]"
     >
-      {isActive && (
-        <div
-          aria-hidden="true"
-          className="absolute inset-x-2 inset-y-1 rounded-lg bg-[#7C3AED]/5 border border-[#7C3AED]/10 shadow-[0_0_10px_rgba(124,58,237,0.03)] animate-[fadeScale_0.3s_ease-out]"
-        />
-      )}
-
       <div className="relative z-10">
         <Icon
           size={20}

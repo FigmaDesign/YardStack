@@ -10,17 +10,22 @@ interface SpotlightTabsProps {
 }
 
 const getTabEmoji = (tab: any) => {
-  if (tab.emoji) return tab.emoji;
+  if (tab.emoji) return tab.emoji
   
-  const lowerLabel = tab.label?.toLowerCase() || '';
-  if (lowerLabel.includes('for you')) return '✨';
-  if (lowerLabel.includes('trending')) return '🔥';
-  if (lowerLabel.includes('hiring')) return '🧑‍💼';
-  if (lowerLabel.includes('looking')) return '🔍';
-  if (lowerLabel.includes('offerings')) return '💼';
-  if (lowerLabel.includes('resources')) return '📖';
-  if (lowerLabel.includes('all')) return '🗂️';
-  return '📌';
+  const lowerLabel = tab.label?.toLowerCase() || ''
+  if (lowerLabel.includes('for you')) return '✨'
+  if (lowerLabel.includes('trending')) return '🔥'
+  if (lowerLabel.includes('hiring')) return '🧑‍💼'
+  if (lowerLabel.includes('looking')) return '🔍'
+  if (lowerLabel.includes('offerings')) return '💼'
+  if (lowerLabel.includes('resources')) return '📖'
+  if (lowerLabel.includes('market')) return '🛒'
+  if (lowerLabel.includes('builder')) return '🛠️'
+  if (lowerLabel.includes('building')) return '🏗️'
+  if (lowerLabel.includes('projects')) return '🚀'
+  if (lowerLabel.includes('success')) return '🏆'
+  if (lowerLabel.includes('all')) return '🗂️'
+  return '📌'
 }
 
 const SpotlightTabs = memo(function SpotlightTabs({ active, onChange }: SpotlightTabsProps) {
@@ -96,14 +101,12 @@ const SpotlightTabs = memo(function SpotlightTabs({ active, onChange }: Spotligh
               onClick={() => onChange(tab.key)}
               className={`group shrink-0 flex items-center gap-1.5 px-3 py-1.5 rounded-[8px] text-[11px] md:text-xs font-semibold transition-all duration-300 ease-out active:scale-95 border ${
                 isActive
-                  // Changed to border-transparent to prevent added thickness on the solid active background
                   ? 'bg-[var(--color-brand-purple)] text-white border-transparent shadow-[0_4px_12px_rgba(107,33,168,0.35)] hover:shadow-[0_6px_16px_rgba(107,33,168,0.45)] hover:-translate-y-[1px]'
-                  : 'hover:shadow-sm hover:-translate-y-[1px]'
+                  : 'border-gray-200 hover:shadow-sm hover:-translate-y-[1px]'
               }`}
               style={!isActive && tab.color ? {
                 backgroundColor: `${tab.color}15`,
                 color: tab.color,                  
-                // Dropped opacity from 40 to 20 for a much softer, lighter border
                 borderColor: `${tab.color}20`,     
               } : undefined}
             >
@@ -134,7 +137,6 @@ const SpotlightTabs = memo(function SpotlightTabs({ active, onChange }: Spotligh
 
         <button
           type="button"
-          // Applied explicitly light border-gray-200 to ensure a thin, subtle outline
           className="group shrink-0 flex items-center gap-1 px-3 py-1.5 rounded-[8px] border border-gray-200 bg-white text-[var(--color-text-primary)] hover:bg-gray-50 transition-all duration-300 ease-out active:scale-95 hover:shadow-sm hover:-translate-y-[1px] font-semibold text-[11px] md:text-xs"
           aria-label="Filter options"
         >
@@ -162,4 +164,4 @@ const SpotlightTabs = memo(function SpotlightTabs({ active, onChange }: Spotligh
   )
 })
 
-export default SpotlightTabs
+export default SpotlightTabs;

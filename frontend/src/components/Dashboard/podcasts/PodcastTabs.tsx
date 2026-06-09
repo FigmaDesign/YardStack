@@ -21,8 +21,6 @@ const PodcastTabs = memo(function PodcastTabs({ active, onChange }: PodcastTabsP
       setCanScrollRight(Math.ceil(scrollLeft + clientWidth) < scrollWidth - 1)
     }
   }
-
-  // Center the active tab smoothly
   useEffect(() => {
     if (scrollRef.current) {
       const container = scrollRef.current

@@ -78,17 +78,15 @@ const ActivityTabs = memo(function ActivityTabs({ active, onChange }: ActivityTa
               type="button"
               data-active={isActive}
               onClick={() => onChange(tab.key)}
-              // Removed the hardcoded gray text/bg colors for the inactive state
               className={`group shrink-0 flex items-center gap-1.5 px-3 py-1.5 rounded-[8px] text-[11px] md:text-xs font-semibold transition-all duration-300 ease-out active:scale-95 border ${
                 isActive
                   ? 'bg-[var(--color-brand-purple)] text-white border-[var(--color-brand-purple)] shadow-[0_4px_12px_rgba(107,33,168,0.35)] hover:shadow-[0_6px_16px_rgba(107,33,168,0.45)] hover:-translate-y-[1px]'
                   : 'hover:shadow-sm hover:-translate-y-[1px]'
               }`}
-              // Added dynamic styles for the inactive state using the tab.color hex value
               style={!isActive && tab.color ? {
-                backgroundColor: `${tab.color}15`, // 15% opacity background
-                color: tab.color,                  // Full color text
-                borderColor: `${tab.color}40`,     // 40% opacity border
+                backgroundColor: `${tab.color}15`,
+                color: tab.color,
+                borderColor: `${tab.color}40`,
               } : undefined}
             >
               <tab.Icon 
@@ -98,14 +96,13 @@ const ActivityTabs = memo(function ActivityTabs({ active, onChange }: ActivityTa
               />
               <span>{tab.label}</span>
               
-              {/* Updated the count pill to match the unique colors */}
               <span className={`px-1.5 py-0.5 rounded-[6px] text-[9px] transition-colors duration-300 ${
                 isActive 
                   ? 'bg-white/20 text-white' 
                   : ''
               }`}
               style={!isActive && tab.color ? {
-                backgroundColor: `${tab.color}25`, // Slightly darker background for the pill
+                backgroundColor: `${tab.color}25`, 
                 color: tab.color
               } : undefined}
               >

@@ -11,15 +11,16 @@ import { ACTIVITY_ITEMS, type ActivityItem } from './data'
 
 interface ActivityCardProps {
   item: ActivityItem
+  index: number
 }
 
-const ActivityCard = memo(function ActivityCard({ item }: ActivityCardProps) {
+const ActivityCard = memo(function ActivityCard({ item, index }: ActivityCardProps) {
   const [isExpanded, setIsExpanded] = useState(false)
   const [isSaved, setIsSaved] = useState(false)
   
   const [swipeOffset, setSwipeOffset] = useState(0)
   const [isSwiping, setIsSwiping] = useState(false)
-  const [tooltipPos, setTooltipPos] = useState<'top' | 'bottom'>('top')
+  const [tooltipPos, setTooltipPos] = useState<'top' | 'bottom'>(index === 0 ? 'bottom' : 'top')
   
   const startX = useRef(0)
   const initialOffset = useRef(0)
@@ -56,7 +57,7 @@ const ActivityCard = memo(function ActivityCard({ item }: ActivityCardProps) {
   const handleTooltipPosition = () => {
     if (saveBtnRef.current) {
       const rect = saveBtnRef.current.getBoundingClientRect()
-      if (rect.top < 50) {
+      if (rect.top < 120) {
         setTooltipPos('bottom')
       } else {
         setTooltipPos('top')
@@ -66,8 +67,8 @@ const ActivityCard = memo(function ActivityCard({ item }: ActivityCardProps) {
 
   return (
     <div className="relative mb-3 mx-2">
-      <div className="relative z-10 rounded-xl overflow-hidden shadow-sm">
-        <div className="absolute inset-y-0 right-0 w-[80px] bg-red-500 flex flex-col items-center justify-center text-white md:hidden z-0">
+      <div className="relative z-10 rounded-xl shadow-sm">
+        <div className="absolute inset-y-0 right-0 w-[80px] bg-red-500 rounded-r-xl flex flex-col items-center justify-center text-white md:hidden z-0">
           <button 
             type="button"
             className="flex flex-col items-center justify-center w-full h-full active:bg-red-600 transition-colors border-none outline-none cursor-pointer bg-transparent"
@@ -234,8 +235,8 @@ export default function ActivityBoard() {
         <ActivityTabs active={activeFilter} onChange={handleFilterChange} />
       </div>
       <div className="w-full pt-1 pb-8">
-        {ACTIVITY_ITEMS.map((item) => (
-          <ActivityCard key={item.id} item={item} />
+        {ACTIVITY_ITEMS.map((item, index) => (
+          <ActivityCard key={item.id} item={item} index={index} />
         ))}
       </div>
     </div>

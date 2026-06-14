@@ -114,7 +114,7 @@ const EpisodeCard = memo(function EpisodeCard({ episode }: EpisodeCardProps) {
         <div className="flex-1 min-w-0 pt-0.5 relative">
           <div className="flex items-start justify-between gap-1.5">
             <div className="min-w-0 flex-1">
-              <h3 className="text-[16px] md:text-[14px] font-semibold text-[var(--color-text-primary)] leading-snug line-clamp-2">
+              <h3 className="text-[16px] md:text-[14px] font-medium text-[var(--color-text-primary)] leading-snug line-clamp-2">
                 {episode.title}
               </h3>
               

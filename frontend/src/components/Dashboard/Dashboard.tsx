@@ -180,7 +180,7 @@ function MobileDashboard() {
   }, [])
 
   return (
-    <main className="h-full flex flex-col overflow-hidden bg-gradient-to-br from-[#f8f9fa] to-[#eef0f3]">
+    <main className="h-full flex flex-col overflow-hidden bg-linear-to-br from-[#f8f9fa] to-[#eef0f3]">
       <DashboardHeader />
 
       <nav aria-label="Main Navigation" className="shrink-0 bg-white shadow-sm z-10">
@@ -217,7 +217,7 @@ function MobileDashboard() {
               <p className="text-[0.65rem] font-semibold text-[#6b7280] uppercase tracking-widest truncate">
                 {activeItem?.label ?? 'Dashboard'}
               </p>
-              <h2 className="text-[1.2rem] font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-[#6B21A8] to-[#D946EF] mt-1 truncate">
+              <h2 className="text-[1.2rem] font-extrabold text-transparent bg-clip-text bg-linear-to-r from-[#6B21A8] to-[#D946EF] mt-1 truncate">
                 {activeSubTab}
               </h2>
             </header>

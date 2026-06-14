@@ -27,9 +27,9 @@ const TabCard = memo(({ tabKey, label, Icon, badge, isActive, onClick }: TabCard
     id={`tab-${tabKey}`}
     aria-controls={`panel-${tabKey}`}
     onClick={(e) => onClick(tabKey, e.currentTarget)}
-    className={`relative shrink-0 flex flex-col items-center justify-center gap-[2px] transition-all duration-300 outline-none cursor-pointer w-[76px] h-[72px] px-1 py-2 rounded-[18px] ${
+    className={`relative shrink-0 flex flex-col items-center justify-center gap-[2px] transition-all duration-300 outline-none cursor-pointer w-[76px] h-[72px] px-1 py-1 rounded-[18px] ${
       isActive
-        ? 'bg-gradient-to-b from-[#FAF7FF] to-[#F2EAFF] shadow-[0_4px_16px_rgba(124,58,237,0.18)] border border-[#C4B5FD]'
+        ? 'bg-gradient-to-b from-[#FAF7FF] to-[#F2EAFF] shadow-[0_4px_16px_rgba(124,58,237,0.18)] border border-[#C4B5FD] -py-2'
         : 'bg-transparent border border-gray-200'
     }`}
   >

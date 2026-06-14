@@ -13,7 +13,7 @@ export default function Directory() {
 
   return (
     <div className="flex-1 w-full h-full overflow-y-auto bg-[#F3F4F6] [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
-      <div className="w-full pt-4 pb-8">
+      <div className="w-full pt-1 pb-1">
         <section className="px-2 md:px-4 max-w-4xl mx-auto">
           <div className="mb-4 mx-2">
             <h1 className="text-xl font-bold text-[var(--color-text-primary)] mb-1">Directory</h1>

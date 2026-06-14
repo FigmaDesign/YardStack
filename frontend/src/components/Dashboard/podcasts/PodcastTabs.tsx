@@ -9,6 +9,38 @@ interface PodcastTabsProps {
   onChange: (key: string) => void
 }
 
+interface TabType {
+  key: string
+  label: string
+  color?: string
+}
+
+const TabButton = memo(function TabButton({ 
+  tab, 
+  isActive, 
+  onClick 
+}: { 
+  tab: TabType
+  isActive: boolean
+  onClick: (key: string) => void 
+}) {
+  return (
+    <button
+      type="button"
+      aria-pressed={isActive}
+      data-active={isActive}
+      onClick={() => onClick(tab.key)}
+      className={`group shrink-0 flex items-center justify-center px-3 py-1.5 rounded-lg text-[11px] md:text-xs font-semibold transition-all duration-300 ease-out active:scale-95 border outline-none ${
+        isActive
+          ? 'bg-[#6B21A8] text-white border-[#6B21A8] shadow-[0_4px_12px_rgba(107,33,168,0.35)] hover:shadow-[0_6px_16px_rgba(107,33,168,0.45)] hover:-translate-y-px'
+          : 'bg-white text-(--color-text-secondary) border-(--color-border-default) hover:shadow-sm hover:-translate-y-px'
+      }`}
+    >
+      <span>{tab.label}</span>
+    </button>
+  )
+})
+
 const PodcastTabs = memo(function PodcastTabs({ active, onChange }: PodcastTabsProps) {
   const scrollRef = useRef<HTMLDivElement>(null)
   const [canScrollLeft, setCanScrollLeft] = useState(false)
@@ -42,82 +74,76 @@ const PodcastTabs = memo(function PodcastTabs({ active, onChange }: PodcastTabsP
 
   const scrollByAmount = (direction: 'left' | 'right') => {
     if (scrollRef.current) {
-      const scrollAmount = direction === 'left' ? -150 : 150
-      scrollRef.current.scrollBy({ left: scrollAmount, behavior: 'smooth' })
+      const scrollAmount = 150
+      scrollRef.current.scrollBy({ 
+        left: direction === 'left' ? -scrollAmount : scrollAmount, 
+        behavior: 'smooth' 
+      })
     }
   }
 
   return (
-    <div className="relative w-full bg-[var(--color-bg-surface)] group/container flex items-center">
-      <div 
-        className={`absolute left-0 top-0 bottom-0 w-12 bg-gradient-to-r from-[var(--color-bg-surface)] from-50% to-transparent pointer-events-none flex items-center justify-start pl-1 transition-opacity duration-300 z-20 ${
-          canScrollLeft ? 'opacity-100' : 'opacity-0'
-        }`}
-        aria-hidden="true"
-      >
-        <button
-          type="button"
-          onClick={() => scrollByAmount('left')}
-          className="pointer-events-auto w-7 h-7 rounded-full bg-[var(--color-bg-surface)] shadow-[0_2px_8px_rgba(0,0,0,0.15)] border border-[var(--color-border-default)] flex items-center justify-center text-[var(--color-text-secondary)] hover:text-[#6B21A8] hover:border-[#6B21A8]/30 hover:shadow-md hover:scale-110 transition-all duration-300 active:scale-95 cursor-pointer outline-none"
-        >
-          <ChevronLeftIcon sx={{ fontSize: 18 }} />
-        </button>
-      </div>
+    <div className="relative flex items-center w-full group/container bg-white">
+      {canScrollLeft && (
+        <div className="absolute left-0 z-20 flex items-center h-full pl-1 pr-2 bg-linear-to-r from-[#F3F4F6] from-60% to-transparent pointer-events-none transition-opacity duration-300">
+          <button
+            type="button"
+            onClick={() => scrollByAmount('left')}
+            className="flex items-center justify-center w-6 h-6 bg-white rounded-full shadow-[0_2px_8px_rgba(0,0,0,0.15)] text-(--color-text-secondary) hover:text-[#6B21A8] hover:scale-110 active:scale-95 transition-all pointer-events-auto cursor-pointer outline-none"
+            aria-label="Scroll left"
+          >
+            <ChevronLeftIcon className="text-[18px]" />
+          </button>
+        </div>
+      )}
 
       <div 
         ref={scrollRef}
         onScroll={handleScroll}
-        className="flex items-center gap-2 px-1 py-1 overflow-x-auto w-full scroll-smooth [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] relative z-10"
+        className="flex items-center gap-1 px-1 py-1 overflow-x-auto w-full scroll-smooth [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] scrollbar-width:none relative z-10"
       >
-        {FILTER_TABS.map((tab) => {
-          const isActive = active === tab.key;
-          return (
-            <button
-              key={tab.key}
-              type="button"
-              data-active={isActive}
-              onClick={() => onChange(tab.key)}
-              className={`shrink-0 px-4 py-1.5 rounded-[8px] text-[11px] md:text-xs font-semibold transition-all duration-300 ease-out active:scale-95 border border-solid cursor-pointer outline-none ${
-                isActive
-                  ? 'bg-[#6B21A8] text-white border-[#6B21A8] shadow-[0_4px_12px_rgba(107,33,168,0.25)] hover:shadow-[0_6px_16px_rgba(107,33,168,0.35)] -translate-y-[1px]'
-                  : 'bg-[var(--color-bg-muted)] text-[var(--color-text-secondary)] border-[var(--color-border-default)] hover:brightness-95 hover:text-[var(--color-text-primary)] hover:shadow-sm hover:-translate-y-[1px]'
-              }`}
-              style={!isActive && tab.color ? {
-                backgroundColor: `${tab.color}15`,
-                borderColor: `${tab.color}40`,
-                color: tab.color
-              } : undefined}
-            >
-              {tab.label}
-            </button>
-          )
-        })}
+        <div 
+          role="group" 
+          aria-label="Podcast category filters" 
+          className="flex items-center gap-1.5 shrink-0"
+        >
+          {FILTER_TABS.map((tab) => (
+            <TabButton 
+              key={tab.key} 
+              tab={tab} 
+              isActive={active === tab.key} 
+              onClick={onChange} 
+            />
+          ))}
+        </div>
 
-        <div className="w-px h-5 bg-[var(--color-border-default)] shrink-0 mx-1" aria-hidden="true" />
+        <div className="w-px h-4 bg-[#E5E7EB] shrink-0 mx-0.5" aria-hidden="true" />
 
         <button
           type="button"
-          className="group shrink-0 w-8 h-8 rounded-[8px] border border-solid border-[var(--color-border-default)] flex items-center justify-center bg-[var(--color-bg-surface)] text-[var(--color-text-secondary)] hover:bg-[var(--color-bg-muted)] hover:text-[#6B21A8] hover:border-[#6B21A8]/30 transition-all duration-300 active:scale-95 cursor-pointer outline-none hover:-translate-y-[1px] hover:shadow-sm"
+          className="group shrink-0 flex items-center gap-1 px-3 py-1.5 rounded-lg border border-(--color-border-default) bg-white text-(--color-text-primary) hover:bg-gray-50 transition-all duration-300 ease-out active:scale-95 hover:shadow-sm hover:-translate-y-px font-semibold text-[11px] md:text-xs outline-none cursor-pointer"
           aria-label="Filter options"
         >
-          <TuneIcon sx={{ fontSize: 16 }} className="transition-transform duration-300 ease-out group-hover:rotate-90" />
+          <TuneIcon 
+            className="text-[#6B21A8] transition-transform duration-300 ease-out group-hover:rotate-90 text-[16px]" 
+            aria-hidden="true"
+          />
+          Filter
         </button>
       </div>
 
-      <div 
-        className={`absolute right-0 top-0 bottom-0 w-12 bg-gradient-to-l from-[var(--color-bg-surface)] from-50% to-transparent pointer-events-none flex items-center justify-end pr-1 transition-opacity duration-300 z-20 ${
-          canScrollRight ? 'opacity-100' : 'opacity-0'
-        }`}
-        aria-hidden="true"
-      >
-        <button
-          type="button"
-          onClick={() => scrollByAmount('right')}
-          className="pointer-events-auto w-7 h-7 rounded-full bg-[var(--color-bg-surface)] shadow-[0_2px_8px_rgba(0,0,0,0.15)] border border-[var(--color-border-default)] flex items-center justify-center text-[var(--color-text-secondary)] hover:text-[#6B21A8] hover:border-[#6B21A8]/30 hover:shadow-md hover:scale-110 transition-all duration-300 active:scale-95 cursor-pointer outline-none"
-        >
-          <ChevronRightIcon sx={{ fontSize: 18 }} />
-        </button>
-      </div>
+      {canScrollRight && (
+        <div className="absolute right-0 z-20 flex items-center h-full pr-1 pl-4 bg-linear-to-l from-[#F3F4F6] from-60% to-transparent pointer-events-none transition-opacity duration-300">
+          <button
+            type="button"
+            onClick={() => scrollByAmount('right')}
+            className="flex items-center justify-center w-6 h-6 bg-white rounded-full shadow-[0_2px_8px_rgba(0,0,0,0.15)] text-(--color-text-secondary) hover:text-[#6B21A8] hover:scale-110 active:scale-95 transition-all pointer-events-auto cursor-pointer outline-none"
+            aria-label="Scroll right"
+          >
+            <ChevronRightIcon className="text-[18px]" />
+          </button>
+        </div>
+      )}
     </div>
   )
 })

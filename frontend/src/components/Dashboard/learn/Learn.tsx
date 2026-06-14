@@ -1,7 +1,8 @@
 import { useState } from 'react'
 import AccessTimeIcon from '@mui/icons-material/AccessTime'
 import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder'
-import { COURSES, LEARN_TABS } from './data'
+import { COURSES } from './data'
+import LearnTabs from './LearnTabs'
 
 const BADGE_COLORS = {
   Beginner: 'bg-[var(--color-accent-teal)]/10 text-[var(--color-accent-teal)] border-[var(--color-accent-teal)]/20',
@@ -16,29 +17,13 @@ export default function Learn() {
     : COURSES.filter(c => c.category === activeFilter)
 
   return (
-    <div className="flex-1 w-full h-full overflow-y-auto bg-white [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
-      <div className="w-full">
+    <div className="flex-1 w-full h-full overflow-y-auto bg-[#F3F4F6] [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+      <div className="sticky top-0 z-30 bg-[#F3F4F6]/95 backdrop-blur-md">
+        <LearnTabs active={activeFilter} onChange={setActiveFilter} />
+      </div>
+      <div className="w-full pt-1 pb-8">
         <section className="px-2 md:px-4 max-w-3xl mx-auto">
           
-          <div className="flex gap-1 overflow-x-auto pb-2 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] mb-2 mt-1">
-            {LEARN_TABS.map((tab) => {
-              const isActive = activeFilter === tab.key
-              return (
-                <button
-                  key={tab.key}
-                  onClick={() => setActiveFilter(tab.key)}
-                  className={`flex items-center justify-center px-2 py-1 rounded-[6px] text-[9px] font-bold whitespace-nowrap transition-colors shadow-sm ${
-                    isActive 
-                      ? 'bg-[var(--color-brand-purple)] text-white border border-transparent' 
-                      : 'bg-white border border-[var(--color-border-default)] text-[var(--color-text-secondary)] hover:bg-gray-50'
-                  }`}
-                >
-                  {tab.label}
-                </button>
-              )
-            })}
-          </div>
-
           <div className="flex flex-col gap-1.5">
             {filteredCourses.map((course) => (
               <div 

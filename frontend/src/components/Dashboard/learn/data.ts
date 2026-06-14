@@ -1,17 +1,18 @@
 export interface LearnTab {
   key: string
   label: string
+  color: string
 }
 
 export const LEARN_TABS: LearnTab[] = [
-  { key: 'all', label: 'All' },
-  { key: 'real-estate', label: 'Real Estate' },
-  { key: 'construction', label: 'Construction' },
-  { key: 'business', label: 'Business' },
-  { key: 'marketing', label: 'Marketing' },
-  { key: 'finance', label: 'Finance' },
-  { key: 'technology', label: 'Technology' },
-  { key: 'design', label: 'Design' },
+  { key: 'all', label: 'All', color: '#6B21A8' },
+  { key: 'real-estate', label: 'Real Estate', color: '#E91E8C' },
+  { key: 'construction', label: 'Construction', color: '#F59E0B' },
+  { key: 'business', label: 'Business', color: '#3B82F6' },
+  { key: 'marketing', label: 'Marketing', color: '#10B981' },
+  { key: 'finance', label: 'Finance', color: '#8B5CF6' },
+  { key: 'technology', label: 'Technology', color: '#06B6D4' },
+  { key: 'design', label: 'Design', color: '#EC4899' },
 ]
 
 export interface Course {

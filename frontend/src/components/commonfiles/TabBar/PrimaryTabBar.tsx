@@ -1,9 +1,9 @@
-import { useRef, useCallback, memo, type ElementType, type RefObject } from 'react'
+import { useRef, useCallback, memo, type RefObject } from 'react'
 
 export interface PrimaryTabItem {
   key: string
   label: string
-  Icon: ElementType
+  Icon: string
 }
 
 interface PrimaryTabBarProps {
@@ -64,7 +64,7 @@ const ActiveCurve = memo(function ActiveCurve() {
 interface TabCardProps {
   tabKey: string
   label: string
-  Icon: ElementType
+  Icon: string
   isActive: boolean
   onClick: (key: string, el: HTMLButtonElement) => void
 }
@@ -90,16 +90,16 @@ const TabCard = memo(function TabCard({ tabKey, label, Icon, isActive, onClick }
         {isActive && (
           <div aria-hidden="true" className="absolute inset-0 bg-[#22C55E] blur-[10px] opacity-35 rounded-full" />
         )}
-        <Icon
-          size={22}
-          strokeWidth={isActive ? 2 : 1.5}
+        <span
           aria-hidden="true"
-          className={`relative transition-colors duration-300 motion-reduce:transition-none ${
+          className={`relative block text-[22px] transition-all duration-300 motion-reduce:transition-none ${
             isActive
-              ? 'text-white drop-shadow-[0_2px_5px_rgba(0,0,0,0.4)]'
-              : 'text-[#E5E7EB]/50 group-hover:text-[#E5E7EB]/90'
+              ? 'drop-shadow-[0_2px_5px_rgba(0,0,0,0.4)] scale-110'
+              : 'opacity-60 group-hover:opacity-90 grayscale-[0.3]'
           }`}
-        />
+        >
+          {Icon}
+        </span>
       </div>
 
       <span

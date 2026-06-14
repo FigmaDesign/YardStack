@@ -9,6 +9,70 @@ export const CITY_INVENTORY_TABS: CityInventoryTab[] = [
   { key: 'stats', label: 'Stats' },
 ]
 
+export interface FilterOption {
+  value: string
+  label: string
+}
+
+export interface FilterConfig {
+  key: string
+  label: string
+  color: string
+  options: FilterOption[]
+}
+
+export const FILTERS: FilterConfig[] = [
+  {
+    key: 'propertyType',
+    label: 'Property Type',
+    color: '#6B21A8',
+    options: [
+      { value: 'apartment', label: 'Apartment' },
+      { value: 'villa', label: 'Villa' },
+      { value: 'plot', label: 'Plot' },
+      { value: 'commercial', label: 'Commercial' },
+      { value: 'penthouse', label: 'Penthouse' },
+      { value: 'farmhouse', label: 'Farmhouse' },
+    ],
+  },
+  {
+    key: 'bhk',
+    label: 'BHK',
+    color: '#E91E8C',
+    options: [
+      { value: '1bhk', label: '1 BHK' },
+      { value: '2bhk', label: '2 BHK' },
+      { value: '3bhk', label: '3 BHK' },
+      { value: '4bhk', label: '4 BHK' },
+      { value: '5bhk', label: '5+ BHK' },
+    ],
+  },
+  {
+    key: 'budget',
+    label: 'Budget',
+    color: '#10B981',
+    options: [
+      { value: 'under50l', label: 'Under ₹50 L' },
+      { value: '50l-1cr', label: '₹50 L – 1 Cr' },
+      { value: '1cr-2cr', label: '₹1 Cr – 2 Cr' },
+      { value: '2cr-5cr', label: '₹2 Cr – 5 Cr' },
+      { value: '5cr-plus', label: '₹5 Cr+' },
+    ],
+  },
+  {
+    key: 'area',
+    label: 'Area',
+    color: '#3B82F6',
+    options: [
+      { value: 'under1000', label: 'Under 1,000 sq.ft' },
+      { value: '1000-1500', label: '1,000 – 1,500 sq.ft' },
+      { value: '1500-2000', label: '1,500 – 2,000 sq.ft' },
+      { value: '2000-3000', label: '2,000 – 3,000 sq.ft' },
+      { value: '3000-plus', label: '3,000+ sq.ft' },
+    ],
+  },
+]
+
 export interface Property {
   id: string
   name: string
@@ -79,5 +143,3 @@ export const PROPERTIES: Property[] = [
     statusColor: 'brand'
   }
 ]
-
-export default {} as const

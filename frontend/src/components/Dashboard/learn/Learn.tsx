@@ -17,12 +17,12 @@ export default function Learn() {
     : COURSES.filter(c => c.category === activeFilter)
 
   return (
-    <div className="flex-1 w-full h-full overflow-y-auto bg-[#F3F4F6] [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
-      <div className="sticky top-0 z-30 bg-[#F3F4F6]/95 backdrop-blur-md">
+    <div className="flex-1 w-full h-full overflow-y-auto bg-white [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+      <div className="sticky top-0 z-30 bg-white backdrop-blur-md">
         <LearnTabs active={activeFilter} onChange={setActiveFilter} />
       </div>
-      <div className="w-full pt-1 pb-8">
-        <section className="px-2 md:px-4 max-w-3xl mx-auto">
+      <div className="w-full pt-1 pb-4">
+        <section className="px-2 md:px-2 max-w-3xl mx-auto bg-white">
           
           <div className="flex flex-col gap-1.5">
             {filteredCourses.map((course) => (

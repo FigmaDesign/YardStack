@@ -73,7 +73,7 @@ const ActiveVideoPlayer = memo(function ActiveVideoPlayer({ video, onClose }: { 
           </div>
           
           <div className="relative flex items-center gap-1.5" ref={menuRef}>
-            <div className="bg-black/40 backdrop-blur-md rounded-[8px] px-2 py-1 text-[11px] font-bold text-white">
+            <div className="bg-black/40 backdrop-blur-md rounded-lg px-2 py-1 text-[11px] font-bold text-white">
               {video.duration}
             </div>
             <button 
@@ -170,7 +170,7 @@ export default function Spotlight() {
           <ActiveVideoPlayer video={activeVideo} onClose={() => setActiveVideo(null)} />
         </div>
       ) : (
-        <div className="flex-1 overflow-y-auto p-2 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+        <div className="flex-1 overflow-y-auto p-2 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] scrollbar-none">
           <div className="grid grid-cols-2 lg:grid-cols-3 gap-2">
             {SPOTLIGHT_VIDEOS.map((video) => (
               <VideoCard 

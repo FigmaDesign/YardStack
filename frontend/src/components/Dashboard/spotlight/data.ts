@@ -1,20 +1,20 @@
-export interface SpotlightFilterTab {
-  key: string
-  label: string
-  color?: string
-  count?: number
-  emoji?: string
+export interface FilterTab {
+  key: string;
+  label: string;
+  color?: string;
+  count?: number;
 }
 
-export const FILTER_TABS: SpotlightFilterTab[] = [
-  { key: 'forYou', label: 'For You' },
-  { key: 'trending', label: 'Trending' },
-  { key: 'projects', label: 'Projects' },
-  { key: 'builders', label: 'Builders' },
-  { key: 'successStories', label: 'Success Stories' },
-  { key: 'marketUpdates', label: 'Market Updates' },
+export const FILTER_TABS: FilterTab[] = [
+  { key: 'all', label: 'All', color: '#6B21A8' },
+  { key: 'real-estate', label: 'Real Estate', color: '#E91E8C' },
+  { key: 'construction', label: 'Construction', color: '#F59E0B' },
+  { key: 'business', label: 'Business', color: '#3B82F6' },
+  { key: 'marketing', label: 'Marketing', color: '#10B981' },
+  { key: 'finance', label: 'Finance', color: '#8B5CF6' },
+  { key: 'technology', label: 'Technology', color: '#06B6D4' },
+  { key: 'design', label: 'Design', color: '#EC4899' },
 ]
-
 export interface SpotlightVideo {
   id: string
   title: string

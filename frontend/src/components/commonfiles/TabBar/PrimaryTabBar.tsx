@@ -1,9 +1,9 @@
-import { useRef, useCallback, memo } from 'react'
+import { useRef, useCallback, memo, type ReactNode } from 'react'
 
 export interface PrimaryTabItem {
   key: string
   label: string
-  Icon: string
+  Icon: ReactNode
   badge?: string
 }
 
@@ -27,14 +27,14 @@ const TabCard = memo(({ tabKey, label, Icon, badge, isActive, onClick }: TabCard
     id={`tab-${tabKey}`}
     aria-controls={`panel-${tabKey}`}
     onClick={(e) => onClick(tabKey, e.currentTarget)}
-    className={`relative shrink-0 flex flex-col items-center justify-center gap-[5px] transition-all duration-300 outline-none cursor-pointer min-w-[68px] px-2.5 py-2.5 min-h-[78px] rounded-[18px] ${
+    className={`relative shrink-0 flex flex-col items-center justify-center gap-[2px] transition-all duration-300 outline-none cursor-pointer w-[76px] h-[72px] px-1 py-2 rounded-[18px] ${
       isActive
         ? 'bg-gradient-to-b from-[#FAF7FF] to-[#F2EAFF] shadow-[0_4px_16px_rgba(124,58,237,0.18)] border border-[#C4B5FD]'
         : 'bg-transparent border border-gray-200'
     }`}
   >
     {badge && (
-      <span className="absolute -top-1 left-1/2 -translate-x-1/2 whitespace-nowrap text-[9px] font-semibold px-1.5 py-[2px] rounded-full bg-[#7C3AED] text-white leading-none">
+      <span className="absolute -top-1 left-1/2 -translate-x-1/2 whitespace-nowrap text-[9px] font-semibold px-1.5 py-[2px] rounded-full bg-[#7C3AED] text-white leading-none z-10">
         {badge}
       </span>
     )}
@@ -43,8 +43,10 @@ const TabCard = memo(({ tabKey, label, Icon, badge, isActive, onClick }: TabCard
       {Icon}
     </span>
 
+    {/* 2. Added w-full, line-clamp-2, and break-words for text wrapping */}
     <span
-      className={`text-[10px] leading-tight text-center transition-all duration-300 ${
+      title={label}
+      className={`w-full px-0.5 text-[10px] leading-[1.2] text-center line-clamp-2 break-words transition-all duration-300 ${
         isActive ? 'font-semibold text-[#7C3AED]' : 'font-medium text-[#374151]'
       }`}
     >
@@ -78,7 +80,7 @@ export const PrimaryTabBar = memo(function PrimaryTabBar({ tabs, active, onChang
         ref={scrollRef}
         role="tablist"
         aria-orientation="horizontal"
-        className="relative z-10 flex items-center gap-1 overflow-x-auto px-1 py-1 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
+        className="relative z-10 flex items-center gap-1.5 overflow-x-auto px-2 py-2 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
       >
         {tabs.map(({ key, label, Icon, badge }) => (
           <TabCard

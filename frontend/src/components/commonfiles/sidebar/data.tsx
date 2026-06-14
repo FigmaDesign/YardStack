@@ -10,11 +10,15 @@ export type NavKey =
   | 'analytics'
   | 'settings'
 
+import type { ReactNode } from 'react'
+import type { SubTabItem } from '../TabBar/SubTabBar'
+
 export interface NavItem {
   key: NavKey
   label: string
-  Icon: string
+  Icon: ReactNode
   hasArrow?: boolean
+  subTabs?: SubTabItem[]
 }
 
 export const NAV_ITEMS: NavItem[] = [

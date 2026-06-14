@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback, type MouseEvent, type FocusEvent, type CSSProperties } from 'react'
+import React, { useState, useEffect, useCallback, type MouseEvent, type FocusEvent, type CSSProperties, type ReactNode } from 'react'
 import { createPortal } from 'react-dom'
 import { ChevronLeft, Crown } from 'lucide-react'
 import { NAV_ITEMS, type NavKey } from './data'
@@ -85,7 +85,7 @@ export default function Sidebar({ active = 'activityBoard', onNavigate }: Sideba
         />
 
         <ul className="list-none p-0 px-1 m-0 flex flex-col gap-0.5 flex-1" role="list">
-          {NAV_ITEMS.map(({ key, label, Icon }) => {
+          {NAV_ITEMS.map(({ key, label, Icon }: { key: any; label: string; Icon: ReactNode }) => {
             const isActive = key === active
             return (
               <li key={key} className="relative group">
@@ -105,13 +105,31 @@ export default function Sidebar({ active = 'activityBoard', onNavigate }: Sideba
                       : 'text-white/75 hover:bg-white/5 hover:text-white'
                   }`}
                 >
-                  <Icon
-                    size={isCollapsed ? 20 : 18}
-                    aria-hidden="true"
-                    className={`shrink-0 transition-all duration-300 motion-reduce:transition-none ${
-                      isActive ? 'text-white stroke-2' : 'text-white/60 stroke-[1.6]'
-                    }`}
-                  />
+                  {typeof Icon === 'string' || typeof Icon === 'number' ? (
+                    <span
+                      aria-hidden="true"
+                      className={`shrink-0 transition-all duration-300 motion-reduce:transition-none ${
+                        isActive ? 'text-white text-[1.1rem]' : 'text-white/60 text-[1rem]'
+                      }`}
+                    >
+                      {Icon}
+                    </span>
+                  ) : React.isValidElement(Icon) ? (
+                    Icon
+                  ) : (
+                    (() => {
+                      const IconComp: any = Icon
+                      return (
+                        <IconComp
+                          size={isCollapsed ? 20 : 18}
+                          aria-hidden="true"
+                          className={`shrink-0 transition-all duration-300 motion-reduce:transition-none ${
+                            isActive ? 'text-white stroke-2' : 'text-white/60 stroke-[1.6]'
+                          }`}
+                        />
+                      )
+                    })()
+                  )}
                   <div
                     className={`flex items-start overflow-hidden transition-all duration-500 ease-in-out motion-reduce:transition-none ${
                       isCollapsed ? 'w-0 opacity-0 ml-0' : 'flex-1 opacity-100 ml-3.5'

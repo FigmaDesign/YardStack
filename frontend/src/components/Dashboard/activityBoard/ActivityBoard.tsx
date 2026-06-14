@@ -169,7 +169,7 @@ const ActivityCard = memo(function ActivityCard({ item, index }: ActivityCardPro
                 {item.verified && <VerifiedIcon sx={{ fontSize: 12 }} className="text-[#3B82F6] shrink-0" />}
               </div>
               
-              <h3 className="text-[13px] font-extrabold text-[var(--color-text-primary)] mt-0.5 leading-snug truncate">
+              <h3 className="text-[13px] font-semibold text-[var(--color-text-primary)] mt-0.5 leading-snug truncate">
                 {item.title}
               </h3>
               
